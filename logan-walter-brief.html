@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Logan Walter — Root Labs Creator Brief</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --blue:#4fa3e0;--blue-dark:#1a6fad;--blue-pale:rgba(79,163,224,.1);
+  --dark:#080c10;--dark2:#0d1219;--dark3:#121921;--dark4:#192030;
+  --text:#eef2f7;--soft:rgba(238,242,247,.6);--muted:rgba(238,242,247,.3);
+  --border:rgba(255,255,255,.07);--green:#7aad3a;--orange:#ff8c00;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);line-height:1.6;overflow-x:hidden;}
+
+/* PRINT */
+@media print{
+  .no-print{display:none!important;}
+  body{background:#fff;color:#111;}
+  .script-card{break-inside:avoid;border:1px solid #ddd!important;background:#fff!important;}
+  .hero{background:#0d1a2a!important;min-height:auto!important;padding:40px 24px!important;}
+  section{padding:32px 24px!important;}
+  .overlay-seq span{color:#0d1a2a!important;}
+  nav{display:none!important;}
+}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,12,16,.97);backdrop-filter:blur(14px);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:1px solid rgba(79,163,224,.15);}
+.nav-brand{font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--blue);}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.nav-tag{font-size:11px;font-weight:600;color:var(--muted);background:rgba(255,255,255,.05);border:1px solid var(--border);padding:4px 12px;border-radius:20px;}
+.print-btn{padding:6px 16px;border-radius:8px;background:var(--blue);color:#fff;font-size:11px;font-weight:700;border:none;cursor:pointer;transition:all .2s;}
+.print-btn:hover{background:#6ab8ed;}
+
+/* HERO */
+.hero{min-height:72vh;background:linear-gradient(145deg,#050810 0%,#0a1525 50%,#06101a 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 24px 60px;position:relative;overflow:hidden;}
+.hero-glow{position:absolute;width:800px;height:500px;background:radial-gradient(ellipse,rgba(79,163,224,.07) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(79,163,224,.1);border:1px solid rgba(79,163,224,.25);color:var(--blue);font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:7px 18px;border-radius:20px;margin-bottom:28px;animation:fadeUp .7s ease forwards;}
+.pulse{width:6px;height:6px;background:var(--blue);border-radius:50%;animation:pulse 1.5s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
+.hero-greeting{font-size:14px;color:var(--muted);font-weight:500;margin-bottom:10px;animation:fadeUp .7s ease .05s both;letter-spacing:1px;text-transform:uppercase;}
+.hero h1{font-size:clamp(42px,6vw,80px);font-weight:900;line-height:1.0;margin-bottom:20px;animation:fadeUp .7s ease .1s both;}
+.hero h1 .name{color:var(--blue);}
+.hero-sub{font-size:15px;color:var(--soft);max-width:520px;margin:0 auto 36px;line-height:1.8;animation:fadeUp .7s ease .2s both;}
+.hero-stats{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;animation:fadeUp .7s ease .3s both;}
+.hstat{text-align:center;}
+.hstat .n{font-size:28px;font-weight:900;color:var(--blue);display:block;}
+.hstat .l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-top:2px;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* PRODUCT STRIP */
+.product-strip{background:var(--dark2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:24px;display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap;}
+.ps-item{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--soft);}
+.ps-icon{font-size:20px;}
+.ps-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px;}
+.ps-val{font-size:13px;font-weight:700;color:var(--text);}
+.ps-divider{width:1px;height:36px;background:var(--border);}
+
+/* SECTIONS */
+section{padding:64px 24px;max-width:900px;margin:0 auto;}
+.sec-label{font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--blue);margin-bottom:6px;}
+.sec-title{font-size:clamp(22px,3vw,34px);font-weight:900;line-height:1.1;margin-bottom:10px;}
+.sec-sub{font-size:14px;color:var(--soft);margin-bottom:36px;line-height:1.7;max-width:600px;}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* SCRIPT CARDS */
+.scripts-list{display:flex;flex-direction:column;gap:28px;}
+.script-card{background:var(--dark3);border:1px solid var(--border);border-radius:18px;overflow:hidden;transition:border-color .2s;}
+.script-card:hover{border-color:rgba(79,163,224,.25);}
+.sc-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px 0;gap:16px;flex-wrap:wrap;}
+.sc-num{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(79,163,224,.5);}
+.sc-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.sc-tag{font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;letter-spacing:.5px;}
+.sc-tag.gender{background:rgba(79,163,224,.1);border:1px solid rgba(79,163,224,.2);color:var(--blue);}
+.sc-tag.pattern{background:rgba(255,140,0,.1);border:1px solid rgba(255,140,0,.2);color:#ffaa40;}
+.sc-hook{padding:20px 24px 18px;}
+.sc-hook-label{font-size:9.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.sc-hook-text{font-size:17px;font-weight:700;line-height:1.6;color:#fff;font-style:italic;border-left:3px solid var(--blue);padding-left:16px;}
+.copy-hook-btn{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:6px 14px;border-radius:7px;background:rgba(79,163,224,.1);border:1px solid rgba(79,163,224,.2);color:var(--blue);font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;}
+.copy-hook-btn:hover{background:rgba(79,163,224,.2);}
+
+/* OVERLAY SEQUENCE */
+.sc-overlay{padding:0 24px 18px;}
+.sc-overlay-label{font-size:9.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.overlay-seq{display:flex;align-items:center;flex-wrap:wrap;gap:8px;}
+.overlay-seq .ov{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;color:#fff;}
+.overlay-seq .arr{color:var(--muted);font-size:14px;font-weight:700;}
+
+/* VISUAL SETTING */
+.sc-visual{border-top:1px solid var(--border);}
+.sc-visual-toggle{width:100%;padding:14px 24px;background:none;border:none;display:flex;align-items:center;justify-content:space-between;cursor:pointer;color:var(--soft);font-size:12px;font-weight:600;font-family:'Inter',sans-serif;transition:all .2s;text-align:left;}
+.sc-visual-toggle:hover{color:#fff;background:rgba(255,255,255,.03);}
+.sc-visual-toggle .toggle-label{display:flex;align-items:center;gap:8px;}
+.sc-visual-toggle .arrow{font-size:10px;transition:transform .2s;color:var(--muted);}
+.sc-visual-toggle.open .arrow{transform:rotate(180deg);}
+.sc-visual-body{display:none;padding:0 24px 20px;}
+.sc-visual-body.open{display:block;}
+.visual-text{font-size:13px;color:var(--soft);line-height:1.75;background:rgba(255,255,255,.03);border-radius:10px;padding:14px 16px;border:1px solid var(--border);}
+
+/* REFERENCE */
+.sc-ref{padding:0 24px 20px;display:flex;align-items:center;gap:10px;}
+.ref-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
+.ref-link{font-size:11px;font-weight:600;color:var(--blue);text-decoration:none;display:flex;align-items:center;gap:4px;transition:color .2s;}
+.ref-link:hover{color:#7fc4f0;}
+.ref-link::before{content:'▶';font-size:9px;}
+
+/* COMPLIANCE */
+.compliance-bg{background:var(--dark2);}
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:900px;margin:0 auto;}
+.comp-box{background:var(--dark3);border:1px solid var(--border);border-radius:12px;padding:18px 20px;}
+.comp-box-label{font-size:9.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
+.comp-box.safe .comp-box-label{color:rgba(122,173,58,.8);}
+.comp-box.ban .comp-box-label{color:rgba(255,80,80,.8);}
+.comp-box ul{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.comp-box ul li{font-size:12px;color:var(--soft);display:flex;gap:8px;align-items:flex-start;line-height:1.5;}
+.comp-box.safe ul li::before{content:'✓';color:rgba(122,173,58,.7);flex-shrink:0;}
+.comp-box.ban ul li::before{content:'✗';color:rgba(255,80,80,.7);flex-shrink:0;}
+
+/* PRODUCT REMINDER */
+.product-reminder{background:linear-gradient(135deg,rgba(79,163,224,.06),rgba(26,111,173,.08));border:1px solid rgba(79,163,224,.15);border-radius:16px;padding:28px 32px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;max-width:900px;margin:0 auto;}
+.pr-item .pr-label{font-size:9.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(79,163,224,.6);margin-bottom:5px;}
+.pr-item .pr-val{font-size:13.5px;font-weight:700;color:#fff;line-height:1.5;}
+
+/* FOOTER */
+footer{text-align:center;padding:40px 24px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);}
+
+/* TOAST */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:#4fa3e0;color:#fff;font-size:12px;font-weight:700;padding:10px 22px;border-radius:20px;opacity:0;transition:all .3s;pointer-events:none;z-index:999;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+@media(max-width:768px){
+  .hero h1{font-size:38px;}
+  .product-strip{gap:20px;}.ps-divider{display:none;}
+  .comp-grid{grid-template-columns:1fr;}
+  .product-reminder{grid-template-columns:1fr;}
+  section{padding:48px 16px;}
+}
+</style>
+</head>
+<body>
+
+<nav class="no-print">
+  <div class="nav-brand">Root Labs × Logan Walter</div>
+  <div class="nav-right">
+    <span class="nav-tag">Muscle Recovery · Male</span>
+    <button class="print-btn" onclick="window.print()">⬇ Save as PDF</button>
+  </div>
+</nav>
+
+<div class="toast" id="toast">Copied!</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-badge"><span class="pulse"></span>Root Labs — Creator Brief</div>
+  <p class="hero-greeting">Prepared for</p>
+  <h1>Hey, <span class="name">Logan.</span><br/>Here's your brief.</h1>
+  <p class="hero-sub">5 battle-tested TikTok scripts built around your niche — muscle recovery, real pain, real relatability. Each one is ready to film. Click to expand the shot direction for each.</p>
+  <div class="hero-stats">
+    <div class="hstat"><span class="n">5</span><span class="l">Scripts ready</span></div>
+    <div class="hstat"><span class="n">Male</span><span class="l">Audience</span></div>
+    <div class="hstat"><span class="n">Recovery</span><span class="l">Content angle</span></div>
+    <div class="hstat"><span class="n">✓</span><span class="l">TikTok safe</span></div>
+  </div>
+</div>
+
+<!-- PRODUCT STRIP -->
+<div class="product-strip">
+  <div class="ps-item">
+    <span class="ps-icon">🌿</span>
+    <div><span class="ps-label">Product</span><span class="ps-val">Root Labs Ashwagandha + Magnesium Gummies</span></div>
+  </div>
+  <div class="ps-divider"></div>
+  <div class="ps-item">
+    <span class="ps-icon">🔬</span>
+    <div><span class="ps-label">Key Ingredients</span><span class="ps-val">KSM-66 Ashwagandha · Liposomal Magnesium</span></div>
+  </div>
+  <div class="ps-divider"></div>
+  <div class="ps-item">
+    <span class="ps-icon">🛒</span>
+    <div><span class="ps-label">Where to buy</span><span class="ps-val">TikTok Shop — link in bio</span></div>
+  </div>
+</div>
+
+<!-- SCRIPTS -->
+<section>
+  <div class="sec-label reveal">Your Scripts</div>
+  <div class="sec-title reveal">5 Scripts. Pick One. Film Today.</div>
+  <div class="sec-sub reveal">Each script is a proven hook format backed by top-performing recovery content. The overlay text is exactly what goes on screen. Expand "Shot Direction" for exactly what to film.</div>
+
+  <div class="scripts-list">
+
+    <!-- SCRIPT 1 -->
+    <div class="script-card reveal d1">
+      <div class="sc-header">
+        <span class="sc-num">Script 01 / 05</span>
+        <div class="sc-meta">
+          <span class="sc-tag gender">👤 Male</span>
+          <span class="sc-tag pattern">Morning Pain Hook</span>
+        </div>
+      </div>
+      <div class="sc-hook">
+        <div class="sc-hook-label">🎙 Spoken Hook — say this in the first 5 seconds</div>
+        <div class="sc-hook-text">"If you wake up and it takes 10 minutes for your back to unlock, your shoulders crack just turning your head, and stairs feel like Mount Everest — your muscles aren't recovering anymore."</div>
+        <button class="copy-hook-btn" onclick="copyHook(this)">📋 Copy Hook</button>
+      </div>
+      <div class="sc-overlay">
+        <div class="sc-overlay-label">📱 Text on Screen — in order</div>
+        <div class="overlay-seq">
+          <span class="ov">"WAKING UP AFTER 35"</span>
+          <span class="arr">→</span>
+          <span class="ov">"BACK LOCKED. SHOULDERS CRACKING."</span>
+          <span class="arr">→</span>
+          <span class="ov">"STAIRS = MOUNT EVEREST"</span>
+        </div>
+      </div>
+      <div class="sc-visual">
+        <button class="sc-visual-toggle no-print" onclick="toggleVisual(this)">
+          <span class="toggle-label">🎬 Shot Direction — tap to expand</span>
+          <span class="arrow">▼</span>
+        </button>
+        <div class="sc-visual-body">
+          <div class="visual-text">Cold open: bolt-upright in bed mid-grimace, both hands clamped on your lower back, audible spine-crack as you twist. Hard cut to you hunched at the bottom of an indoor staircase psyching yourself up to climb the first step. Hard cut to bathroom mirror tilting your neck side to side, wincing at every crack. One continuous morning-routine montage. Phone selfie + tripod at the bottom of the stairs.</div>
+        </div>
+      </div>
+      <div class="sc-ref">
+        <span class="ref-label">Reference</span>
+        <a class="ref-link no-print" href="https://www.tiktok.com/@growwithdrixx/video/7480204680891616542" target="_blank">Watch reference video</a>
+        <span class="print-only" style="font-size:11px;color:#666;">tiktok.com/@growwithdrixx/video/7480204680891616542</span>
+      </div>
+    </div>
+
+    <!-- SCRIPT 2 -->
+    <div class="script-card reveal d2">
+      <div class="sc-header">
+        <span class="sc-num">Script 02 / 05</span>
+        <div class="sc-meta">
+          <span class="sc-tag gender">👤 Male</span>
+          <span class="sc-tag pattern">Leg Day Body Humor</span>
+        </div>
+      </div>
+      <div class="sc-hook">
+        <div class="sc-hook-label">🎙 Spoken Hook — say this in the first 5 seconds</div>
+        <div class="sc-hook-text">"Day 2 after leg day. Just walked down 4 stairs sideways like a 90-year-old man. If you've squatted heavy, you already know exactly what I mean."</div>
+        <button class="copy-hook-btn" onclick="copyHook(this)">📋 Copy Hook</button>
+      </div>
+      <div class="sc-overlay">
+        <div class="sc-overlay-label">📱 Text on Screen — in order</div>
+        <div class="overlay-seq">
+          <span class="ov">"DAY 2 AFTER LEG DAY"</span>
+          <span class="arr">→</span>
+          <span class="ov">"STAIRS. SIDEWAYS."</span>
+          <span class="arr">→</span>
+          <span class="ov">"90-YEAR-OLD MAN ENERGY"</span>
+        </div>
+      </div>
+      <div class="sc-visual">
+        <button class="sc-visual-toggle no-print" onclick="toggleVisual(this)">
+          <span class="toggle-label">🎬 Shot Direction — tap to expand</span>
+          <span class="arrow">▼</span>
+        </button>
+        <div class="sc-visual-body">
+          <div class="visual-text">Top of an indoor stairwell. In shorts + tank top, white-knuckle gripping the rail with both hands, slowly turning your body sideways to descend one tread at a time, full-body wince every step. Phone prop static at the bottom of the stairs framing all 4 steps. Slow fall-down dramatic energy. Audibly hiss through your teeth on step 2.</div>
+        </div>
+      </div>
+      <div class="sc-ref">
+        <span class="ref-label">Reference</span>
+        <a class="ref-link no-print" href="https://www.tiktok.com/@growwithdrixx/video/7480204680891616542" target="_blank">Watch reference video</a>
+      </div>
+    </div>
+
+    <!-- SCRIPT 3 -->
+    <div class="script-card reveal d1">
+      <div class="sc-header">
+        <span class="sc-num">Script 03 / 05</span>
+        <div class="sc-meta">
+          <span class="sc-tag gender">👤 Male</span>
+          <span class="sc-tag pattern">Evidence Prop Reveal</span>
+        </div>
+      </div>
+      <div class="sc-hook">
+        <div class="sc-hook-label">🎙 Spoken Hook — say this in the first 5 seconds</div>
+        <div class="sc-hook-text">"This is healthy muscle on Monday. This is your muscle on Wednesday if you skip recovery. One of these is making you feel 60 at 35."</div>
+        <button class="copy-hook-btn" onclick="copyHook(this)">📋 Copy Hook</button>
+      </div>
+      <div class="sc-overlay">
+        <div class="sc-overlay-label">📱 Text on Screen — in order</div>
+        <div class="overlay-seq">
+          <span class="ov">"HEALTHY MUSCLE — MONDAY"</span>
+          <span class="arr">→</span>
+          <span class="ov">"YOUR MUSCLE — WEDNESDAY"</span>
+          <span class="arr">→</span>
+          <span class="ov">"THIS IS WHY YOU FEEL 60 AT 35"</span>
+        </div>
+      </div>
+      <div class="sc-visual">
+        <button class="sc-visual-toggle no-print" onclick="toggleVisual(this)">
+          <span class="toggle-label">🎬 Shot Direction — tap to expand</span>
+          <span class="arrow">▼</span>
+        </button>
+        <div class="sc-visual-body">
+          <div class="visual-text">Two props on a kitchen counter side-by-side. LEFT: a fresh raw chicken breast, glossy and pink. RIGHT: the same type of chicken dried out, grey, leathery. Wear a black t-shirt and blue lab gloves. Pick up the dried one and shake it audibly toward the camera. Hard top-down overhead lighting. Slow zoom on the dried specimen as you say "60 at 35." High-concept, stops the scroll instantly.</div>
+        </div>
+      </div>
+      <div class="sc-ref">
+        <span class="ref-label">Reference</span>
+        <a class="ref-link no-print" href="https://www.tiktok.com/t/ZTk5Jrg8T/" target="_blank">Watch reference video</a>
+      </div>
+    </div>
+
+    <!-- SCRIPT 4 -->
+    <div class="script-card reveal d2">
+      <div class="sc-header">
+        <span class="sc-num">Script 04 / 05</span>
+        <div class="sc-meta">
+          <span class="sc-tag gender">👤 Male</span>
+          <span class="sc-tag pattern">Credibility Evidence Hook</span>
+        </div>
+      </div>
+      <div class="sc-hook">
+        <div class="sc-hook-label">🎙 Spoken Hook — say this in the first 5 seconds</div>
+        <div class="sc-hook-text">"8 years lifting. Just rolled my traps with a lacrosse ball for 10 minutes — didn't feel a damn thing. That's not normal. That's locked-up muscle."</div>
+        <button class="copy-hook-btn" onclick="copyHook(this)">📋 Copy Hook</button>
+      </div>
+      <div class="sc-overlay">
+        <div class="sc-overlay-label">📱 Text on Screen — in order</div>
+        <div class="overlay-seq">
+          <span class="ov">"8 YEARS LIFTING"</span>
+          <span class="arr">→</span>
+          <span class="ov">"10 MIN ON A LACROSSE BALL"</span>
+          <span class="arr">→</span>
+          <span class="ov">"DIDN'T FEEL A THING"</span>
+        </div>
+      </div>
+      <div class="sc-visual">
+        <button class="sc-visual-toggle no-print" onclick="toggleVisual(this)">
+          <span class="toggle-label">🎬 Shot Direction — tap to expand</span>
+          <span class="arrow">▼</span>
+        </button>
+        <div class="sc-visual-body">
+          <div class="visual-text">Garage gym. Lying flat on your back on a black rubber mat, jaw set, rolling your entire bodyweight onto a green lacrosse ball under your upper trap. GoPro or phone angled from above showing the ball not moving your muscle tissue at all. Pause, sit up slowly, stare down at the ball expressionless. Black plates and barbell visible in the frame. The "didn't feel it" reaction is the hook — hold it for 2 full seconds.</div>
+        </div>
+      </div>
+      <div class="sc-ref">
+        <span class="ref-label">Reference</span>
+        <a class="ref-link no-print" href="https://www.tiktok.com/@growwithdrixx/video/7480204680891616542" target="_blank">Watch reference video</a>
+      </div>
+    </div>
+
+    <!-- SCRIPT 5 -->
+    <div class="script-card reveal d1">
+      <div class="sc-header">
+        <span class="sc-num">Script 05 / 05</span>
+        <div class="sc-meta">
+          <span class="sc-tag gender">👤 Male</span>
+          <span class="sc-tag pattern">3am Confessional</span>
+        </div>
+      </div>
+      <div class="sc-hook">
+        <div class="sc-hook-label">🎙 Spoken Hook — say this in the first 5 seconds</div>
+        <div class="sc-hook-text">"3:14am. Calf cramp so bad I thought I tore something. If you're a lifter over 30, this isn't random — there's a reason it keeps happening to you."</div>
+        <button class="copy-hook-btn" onclick="copyHook(this)">📋 Copy Hook</button>
+      </div>
+      <div class="sc-overlay">
+        <div class="sc-overlay-label">📱 Text on Screen — in order</div>
+        <div class="overlay-seq">
+          <span class="ov">"3:14AM"</span>
+          <span class="arr">→</span>
+          <span class="ov">"CALF CRAMP. I THOUGHT I TORE SOMETHING."</span>
+          <span class="arr">→</span>
+          <span class="ov">"OVER 30? IT'S NOT RANDOM."</span>
+        </div>
+      </div>
+      <div class="sc-visual">
+        <button class="sc-visual-toggle no-print" onclick="toggleVisual(this)">
+          <span class="toggle-label">🎬 Shot Direction — tap to expand</span>
+          <span class="arrow">▼</span>
+        </button>
+        <div class="sc-visual-body">
+          <div class="visual-text">Pitch-dark bedroom. Bolt-upright in bed mid-grimace, both hands clamped on your right calf, sheets thrown across the room from kicking. Phone screen illuminating your face from below. Ceiling fan visible above you. Hold the wince for 4 full seconds without cutting — do not blink it away. The sustained pain reaction is what makes people stop scrolling at 3am.</div>
+        </div>
+      </div>
+      <div class="sc-ref">
+        <span class="ref-label">Reference</span>
+        <a class="ref-link no-print" href="https://www.tiktok.com/@growwithdrixx/video/7480204680891616542" target="_blank">Watch reference video</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PRODUCT REMINDER -->
+<section>
+  <div class="sec-label reveal">The Product</div>
+  <div class="sec-title reveal">What You're Promoting</div>
+  <div class="sec-sub reveal">Keep this in mind when you film. The product reveal should feel natural — not forced.</div>
+  <div class="product-reminder reveal">
+    <div class="pr-item">
+      <div class="pr-label">Product name</div>
+      <div class="pr-val">Root Labs Ashwagandha + Magnesium Gummies</div>
+    </div>
+    <div class="pr-item">
+      <div class="pr-label">Key selling point</div>
+      <div class="pr-val">KSM-66 Ashwagandha (clinically studied) + Liposomal Magnesium (better absorption). Gummy form — no pills.</div>
+    </div>
+    <div class="pr-item">
+      <div class="pr-label">Your angle</div>
+      <div class="pr-val">Magnesium depletes when you sweat. Lifters over 30 are almost always deficient. This is your daily recovery foundation.</div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLIANCE -->
+<div class="compliance-bg">
+  <section>
+    <div class="sec-label reveal">Stay Safe</div>
+    <div class="sec-title reveal">TikTok Compliance — Quick Reference</div>
+    <div class="sec-sub reveal">Always use compliant language. One wrong word can get your video taken down.</div>
+    <div class="comp-grid">
+      <div class="comp-box safe reveal d1">
+        <div class="comp-box-label">✅ Say This</div>
+        <ul>
+          <li>"supports muscle recovery"</li>
+          <li>"may help with soreness"</li>
+          <li>"I personally noticed a difference"</li>
+          <li>"magnesium supports 300+ body functions"</li>
+          <li>"Not medical advice — results may vary"</li>
+          <li>"Ashwagandha is an adaptogen"</li>
+        </ul>
+      </div>
+      <div class="comp-box ban reveal d2">
+        <div class="comp-box-label">✗ Never Say This</div>
+        <ul>
+          <li>"cures / treats / heals soreness"</li>
+          <li>"testosterone booster"</li>
+          <li>"guaranteed results"</li>
+          <li>"fat burner"</li>
+          <li>"No before/after comparisons on camera"</li>
+          <li>"No showing product going into mouth"</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <strong style="color:var(--blue);">Root Labs</strong> — Confidential Creator Brief for Logan Walter — April 2026<br/>
+  <span style="margin-top:6px;display:block;">Questions? Contact your partnerships manager.</span>
+</footer>
+
+<script>
+// Reveal on scroll
+document.querySelectorAll('.reveal').forEach(el=>{
+  new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+  },{threshold:.08}).observe(el);
+});
+
+// Toggle visual direction
+function toggleVisual(btn){
+  btn.classList.toggle('open');
+  const body = btn.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+// Copy hook
+const toast = document.getElementById('toast');
+let toastT;
+function copyHook(btn){
+  const hookText = btn.closest('.sc-hook').querySelector('.sc-hook-text').textContent.trim().replace(/^"|"$/g,'');
+  navigator.clipboard.writeText(hookText).then(()=>{
+    btn.textContent = '✓ Copied!';
+    clearTimeout(toastT);
+    toast.classList.add('show');
+    toastT = setTimeout(()=>{
+      btn.innerHTML = '📋 Copy Hook';
+      toast.classList.remove('show');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>
