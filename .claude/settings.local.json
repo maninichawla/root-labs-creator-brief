@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c ':*)",
+      "Read(//tmp/**)",
+      "Read(//private/tmp/**)",
+      "Bash(npm list:*)",
+      "Bash(brew install:*)",
+      "Bash(curl -fsSL https://railway.app/install.sh)",
+      "Bash(sh)",
+      "Bash(npm install:*)",
+      "Bash(curl -s \"https://api.github.com/repos/railwayapp/cli/releases/latest\")",
+      "Bash(python3 -c \"import sys,json; r=json.load\\(sys.stdin\\); print\\([a['name'] for a in r['assets']]\\)\")",
+      "Bash(ls /tmp/railway*)",
+      "Bash(tar -tzf /tmp/railway.tar.gz)",
+      "Bash(curl -s -X POST https://backboard.railway.app/graphql/v2 -H 'Authorization: Bearer ffe7ed81-8c92-4ec9-88b5-fe8c01494db8' -H 'Content-Type: application/json' -d '{\"query\":\"{ me { id name email } }\"}')",
+      "Bash(curl -s -X POST https://backboard.railway.app/graphql/v2 -H 'Authorization: Bearer b567fead-98a1-49de-8f13-a31885ddcd27' -H 'Content-Type: application/json' -d '{ *)"
+    ]
+  }
+}
