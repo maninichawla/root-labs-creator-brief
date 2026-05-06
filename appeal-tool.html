@@ -485,7 +485,7 @@ section{padding:80px 24px;max-width:1100px;margin:0 auto;}
     </div>
   </div>
 
-  <div id="evHealth" class="ev-section show reveal">
+  <div id="evHealth" class="ev-section show">
     <div class="ev-header">
       <h4>Evidence for: Health / Medical Claims Violation</h4>
       <div class="ev-strength">
@@ -499,7 +499,7 @@ section{padding:80px 24px;max-width:1100px;margin:0 auto;}
       <span>TikTok's AI moderation flags both written and spoken content. Even if your caption is clean, a spoken claim in the video ("this fixed my anxiety") will override it. Your appeal must address what was actually said in the video, not just what was written.</span>
     </div>
   </div>
-  <div id="evRegulated" class="ev-section reveal">
+  <div id="evRegulated" class="ev-section">
     <div class="ev-header">
       <h4>Evidence for: Regulated Goods Policy Violation</h4>
       <div class="ev-strength">
@@ -509,7 +509,7 @@ section{padding:80px 24px;max-width:1100px;margin:0 auto;}
     </div>
     <div class="ev-list" id="evListRegulated"></div>
   </div>
-  <div id="evMisleading" class="ev-section reveal">
+  <div id="evMisleading" class="ev-section">
     <div class="ev-header">
       <h4>Evidence for: Misleading Claims Violation</h4>
       <div class="ev-strength">
@@ -519,7 +519,7 @@ section{padding:80px 24px;max-width:1100px;margin:0 auto;}
     </div>
     <div class="ev-list" id="evListMisleading"></div>
   </div>
-  <div id="evCommunity" class="ev-section reveal">
+  <div id="evCommunity" class="ev-section">
     <div class="ev-header">
       <h4>Evidence for: Community Guidelines Violation</h4>
       <div class="ev-strength">
@@ -529,7 +529,7 @@ section{padding:80px 24px;max-width:1100px;margin:0 auto;}
     </div>
     <div class="ev-list" id="evListCommunity"></div>
   </div>
-  <div id="evBranded" class="ev-section reveal">
+  <div id="evBranded" class="ev-section">
     <div class="ev-header">
       <h4>Evidence for: Branded Content Violation</h4>
       <div class="ev-strength">
@@ -539,7 +539,7 @@ section{padding:80px 24px;max-width:1100px;margin:0 auto;}
     </div>
     <div class="ev-list" id="evListBranded"></div>
   </div>
-  <div id="evShadowban" class="ev-section reveal">
+  <div id="evShadowban" class="ev-section">
     <div class="ev-header">
       <h4>Evidence for: Shadowban / Reach Suppression</h4>
       <div class="ev-strength">
@@ -581,6 +581,7 @@ section{padding:80px 24px;max-width:1100px;margin:0 auto;}
       <div class="wz-form-box">
         <div class="wz-row">
           <div class="wz-label">What type of violation did you receive?</div>
+          <div id="vzTypeErr" style="display:none;color:#e08080;font-size:12px;font-weight:600;margin-bottom:8px;">Please select a violation type to continue.</div>
           <div class="wz-pills" id="vzTypePills">
             <button class="wz-pill" onclick="selectVzType(this,'health_claims')">🏥 Health / Medical Claims</button>
             <button class="wz-pill" onclick="selectVzType(this,'regulated_goods')">⚗️ Regulated Goods Policy</button>
@@ -1078,7 +1079,7 @@ function setEvType(btn, type) {
 function renderEvidenceList(type) {
   const items = evidenceData[type] || [];
   const map = { health_claims:'evListHealth', regulated_goods:'evListRegulated', misleading:'evListMisleading', community:'evListCommunity', branded:'evListBranded', shadowban:'evListShadowban' };
-  const barMap = { health_claims:'evBarHealth', regulated_goods:'evBarRegulated', misleading:'evBarMisleading', community:'evListCommunity', branded:'evListBranded', shadowban:'evListShadowban' };
+  const barMap = { health_claims:'evBarHealth', regulated_goods:'evBarRegulated', misleading:'evBarMisleading', community:'evBarCommunity', branded:'evBarBranded', shadowban:'evBarShadowban' };
   const pctMap = { health_claims:'evPctHealth', regulated_goods:'evPctRegulated', misleading:'evPctMisleading', community:'evPctCommunity', branded:'evPctBranded', shadowban:'evPctShadowban' };
   const el = document.getElementById(map[type]);
   if (!el) return;
@@ -1161,8 +1162,12 @@ function toggleCheck(el, key) {
 
 let currentStep = 0;
 function wzNext(from) {
-  if (from === 0 && !state.vzType) { alert('Please select a violation type.'); return; }
-  if (from === 0 && state.firstViolation === null) { alert('Please indicate if this is your first violation.'); return; }
+  if (from === 0 && !state.vzType) {
+    document.getElementById('vzTypeErr').style.display = 'block';
+    return;
+  }
+  document.getElementById('vzTypeErr').style.display = 'none';
+  if (from === 0 && state.firstViolation === null) state.firstViolation = true;
   setStep(from + 1);
 }
 function wzBack(current) { setStep(current - 1); }
