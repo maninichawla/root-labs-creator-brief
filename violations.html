@@ -769,16 +769,24 @@
           <button class="ag-pill sel" data-val="removed">Video Removed</button>
           <button class="ag-pill" data-val="strike">Strike Added</button>
           <button class="ag-pill" data-val="fyp">FYP Ineligible</button>
+          <button class="ag-pill" data-val="shop_revoked">Shop Products Removed</button>
         </div>
       </div>
       <div class="ag-form-row">
         <label class="ag-label">Violation Category</label>
         <div class="ag-pills-row" id="ag-vcat">
-          <button class="ag-pill sel" data-val="health">Health / Medical Claims</button>
+          <button class="ag-pill sel" data-val="expired">Expired Price / Discount</button>
+          <button class="ag-pill" data-val="lowquality">Low-Quality / Repetitive</button>
+          <button class="ag-pill" data-val="health">Exaggerated / Medical Claims</button>
           <button class="ag-pill" data-val="regulated">Regulated Goods</button>
           <button class="ag-pill" data-val="misleading">Misleading Information</button>
-          <button class="ag-pill" data-val="visual">Visual Violation</button>
+          <button class="ag-pill" data-val="ip">Intellectual Property</button>
+          <button class="ag-pill" data-val="counterfeit">Counterfeit / Fake Product</button>
+          <button class="ag-pill" data-val="prohibited">Prohibited Product</button>
+          <button class="ag-pill" data-val="disclosure">Missing Disclosure / #ad</button>
+          <button class="ag-pill" data-val="visual">Visual / Edited Imagery</button>
           <button class="ag-pill" data-val="spam">Spam / Inauthentic</button>
+          <button class="ag-pill" data-val="safety">Safety / Harmful Content</button>
           <button class="ag-pill" data-val="other">Other / Not Specified</button>
         </div>
       </div>
@@ -847,9 +855,11 @@
         <label class="ag-label">Ban Type</label>
         <div class="ag-pills-row" id="ag-bantype">
           <button class="ag-pill sel" data-val="temp">Temporary Suspension</button>
+          <button class="ag-pill" data-val="posting">Posting Restricted (3 videos/7 days)</button>
           <button class="ag-pill" data-val="perm">Permanent Ban</button>
           <button class="ag-pill" data-val="creator">Creator Program Removed</button>
           <button class="ag-pill" data-val="shop">TikTok Shop Revoked</button>
+          <button class="ag-pill" data-val="visibility">Visibility Reduced</button>
         </div>
       </div>
       <div class="ag-form-row">
@@ -905,6 +915,7 @@
     <div class="ag-out-header">
       <div class="ag-out-badges" id="agOutBadges"></div>
       <div class="ag-out-wc" id="agOutWC"></div>
+    <div id="agCharCount" style="font-size:11px;font-weight:800;padding:4px 12px;border-radius:8px;background:rgba(42,122,42,0.15);border:1px solid rgba(42,122,42,0.3);color:#6aaa6a;">0 / 500 chars</div>
     </div>
     <div class="ag-letter-wrap">
       <div class="ag-letter-subject" id="agLetterSubject"></div>
@@ -1101,8 +1112,7 @@
     agSetStep(3);
     document.getElementById('agLetterSubject').textContent='SUBJECT: '+subject;
     document.getElementById('agLetterBody').innerHTML=body;
-    const wc=document.getElementById('agLetterBody').innerText.trim().split(/\s+/).length;
-    document.getElementById('agOutWC').textContent=wc+' words · ~'+Math.ceil(wc/130)+(Math.ceil(wc/130)===1?' min read':' min read');
+    agUpdateCharCount();
     document.getElementById('agOutBadges').innerHTML=agGetBadges(type);
     document.getElementById('agSubmitGuide').innerHTML=agBuildSubmitGuide(type);
     out.scrollIntoView({behavior:'smooth',block:'start'});
@@ -1114,18 +1124,17 @@
     document.getElementById('agLetterBody').innerHTML=body;
     document.getElementById('agLetterBody').style.opacity='0';
     setTimeout(()=>{document.getElementById('agLetterBody').style.transition='opacity .3s';document.getElementById('agLetterBody').style.opacity='1';},30);
-    const wc=document.getElementById('agLetterBody').innerText.trim().split(/\s+/).length;
-    document.getElementById('agOutWC').textContent=wc+' words · ~'+Math.ceil(wc/130)+' min read';
+    agUpdateCharCount();
   }
 
   function agBuildSubject(type){
     if(type==='video'){
       const handle=document.getElementById('ag-handle').value||'@yourhandle';
-      const map={health:'Appeal — Dietary Supplement Content Review',regulated:'Appeal — Regulated Goods Classification Review',misleading:'Appeal — Misleading Information Flag — Personal Experience Content',visual:'Appeal — Visual Content Review',spam:'Appeal — Authenticity Review',other:'Appeal — Community Guidelines Review'};
+      const map={expired:'Appeal — Expired Price or Discount Violation',lowquality:'Appeal — Content Quality Violation',health:'Appeal — Content Review Request',regulated:'Appeal — Regulated Goods Classification Review',misleading:'Appeal — Content Review Request',visual:'Appeal — Visual Content Review',spam:'Appeal — Authenticity Review',other:'Appeal — Community Guidelines Review'};
       return (map[agViolCat]||map.other)+' — '+handle;
     } else {
       const handle=document.getElementById('ag-acc-handle').value||'@yourhandle';
-      const map={temp:'Account Suspension Appeal',perm:'Permanent Ban Appeal — Request for Human Review',creator:'Creator Program Reinstatement Request',shop:'TikTok Shop Access Reinstatement'};
+      const map={temp:'Account Suspension Appeal',posting:'Posting Restriction Appeal',perm:'Permanent Ban Appeal — Request for Human Review',creator:'Creator Program Reinstatement Request',shop:'TikTok Shop Access Reinstatement Appeal',visibility:'Account Visibility Restriction Appeal'};
       return (map[agBanType]||map.temp)+' — '+handle;
     }
   }
@@ -1158,78 +1167,121 @@
     'acc-noingest':'No ingestion footage, before/after body comparisons, or misleading visual claims were used on any content.',
   };
 
+  var agTemplates={
+    expired:[
+      'I respectfully request a review of this violation. At the time this video was posted, all pricing and promotional information was accurate and consistent with the active listing. I was not aware the promotion had since changed and did not intend to mislead viewers. I have since updated my content accordingly. I request this violation be reconsidered and my products restored to the video.',
+      'I am requesting a review of this expired price violation. The promotional details shown were current and accurate when the video was published. I had no intent to mislead — I was unaware the offer had lapsed. I have corrected the content. I respectfully ask that this violation be reviewed and my product listing reinstated in the video.',
+      'I respectfully appeal this violation. The pricing information in my video was valid at time of posting. I did not knowingly reference an expired promotion. Upon learning of the change I updated my content immediately. I request this enforcement be reconsidered and products restored.',
+    ],
+    lowquality:[
+      'I respectfully request a review of this account violation. The flagged videos were not intended as repetitive or low-quality content — each was created with unique framing and genuine viewer value. I have reviewed my content strategy and am committed to creating more diverse, original videos going forward. I request the posting restriction on my account be lifted.',
+      'I am requesting reconsideration of this posting restriction. The content flagged was not repetitive by design — each video served a distinct purpose and featured different commentary. I take content quality seriously and have already revised my posting approach. I respectfully ask that full posting access be restored.',
+      'I respectfully appeal this violation. The videos in question were created with unique intent and individual value for viewers. I understand TikTok\'s quality standards and am committed to greater content diversity going forward. I request this restriction be lifted.',
+    ],
+    health:[
+      'I respectfully request a review of this violation decision. The content in question does not make false, guaranteed, or exaggerated claims about the product\'s performance. The video presents general wellness information and discusses product use in a non-diagnostic and non-medical manner. At no point do I promise specific results, instant outcomes, or guaranteed health benefits. My intention is to educate viewers based on commonly known product purposes while encouraging responsible use.',
+      'I am requesting a review of this violation. My video does not contain exaggerated or deceptive claims. All statements use personal experience framing and general wellness language — not medical diagnoses or guaranteed outcomes. The product featured is a legal dietary supplement. I request this decision be reviewed and the violation removed.',
+      'I respectfully appeal this violation. The content presents a legal supplement using first-person experience language with no disease claims, guaranteed results, or medical advice. A disclaimer was included. I request manual review of the full video in context and reconsideration of this enforcement action.',
+    ],
+    regulated:[
+      'I respectfully request a review of this violation. The product featured is a legal, over-the-counter dietary supplement that complies with TikTok\'s seller requirements. It is not a prohibited item. All content uses compliant wellness language without medical claims. I request this violation be reviewed and the product listing reinstated.',
+      'I am requesting reconsideration of this regulated goods violation. The supplement shown is legally sold OTC and meets TikTok\'s seller requirements. No prohibited claims were made. Content used personal experience framing and did not reference any medical condition. I request this action be reversed.',
+      'I respectfully appeal this decision. The featured product is a compliant dietary supplement — not a restricted drug. Content did not make disease claims and used approved wellness language throughout. I request a manual review and reinstatement.',
+    ],
+    misleading:[
+      'I respectfully request a review of this violation. The content does not contain misleading claims — all statements are accurate, qualified, and based on general wellness education. No specific results were guaranteed and no false product attributes were stated. I request this decision be reconsidered.',
+      'I am requesting reconsideration of this misleading content violation. The video presents factual, qualified information about a legal supplement. No deceptive claims, false results, or unsubstantiated guarantees were made. I request manual review and removal of this violation.',
+      'I respectfully appeal this violation. All claims in my video are truthful and presented with appropriate qualifications ("may support," "in my experience"). No guaranteed outcomes or false attributes were claimed. I request this enforcement be reviewed and reversed.',
+    ],
+    visual:[
+      'I respectfully request a review of this visual violation. My video does not contain before/after comparisons, digitally altered imagery, or simulated health outcomes. All visuals show the product as-is without deceptive editing or misleading representations. I request this violation be reviewed and removed.',
+      'I am requesting reconsideration of this violation. The video does not use deceptive visual techniques — no body comparisons, filters implying results, or manipulated imagery were used. Content shows the product naturally. I request manual review and reinstatement.',
+    ],
+    spam:[
+      'I respectfully request a review of this inauthenticity violation. The content is original, personally created, and reflects my genuine experience with the product. It is not recycled, bot-generated, or duplicated from other sources. I request this violation be reviewed and removed from my record.',
+      'I am requesting reconsideration of this spam violation. My video is authentic, original content based on my real experience. It was not artificially amplified or duplicated. I request a manual review and removal of this enforcement action.',
+    ],
+    ip:[
+      'I respectfully request a review of this intellectual property violation. The content in question features original footage, commentary, and creative elements produced entirely by me. No third-party copyrighted material was knowingly used without authorization. If a specific element was flagged, I request clarification so I can address it. I request this violation be reviewed and removed.',
+      'I am requesting reconsideration of this IP violation. All visual and audio content in my video is original and self-created. I did not use copyrighted music, footage, or images belonging to another party without permission. I respectfully request manual review and removal of this enforcement action.',
+    ],
+    counterfeit:[
+      'I respectfully request a review of this counterfeit product violation. The product featured in my video is authentic, sourced directly from the manufacturer, and sold through legitimate channels. It is not a replica or imitation of any other product. I can provide purchase invoices and COA documentation confirming authenticity. I request this violation be reconsidered.',
+      'I am requesting reconsideration of this violation. The product I promote is genuine and sourced legitimately. I have supporting documentation confirming product authenticity including lab reports and invoices. I request manual review and reinstatement of my content.',
+    ],
+    prohibited:[
+      'I respectfully request a review of this prohibited product violation. The item featured in my content is a legal, over-the-counter dietary supplement — not a prohibited, controlled, or restricted substance. It is legally available for purchase and does not fall under TikTok\'s list of banned product categories. I request manual review and removal of this violation.',
+      'I am requesting reconsideration of this violation. The product is a legal OTC supplement — not a drug, weapon, controlled substance, or otherwise prohibited item. It is sold legally and complies with applicable regulations. I respectfully request this violation be reviewed and reversed.',
+    ],
+    disclosure:[
+      'I respectfully request a review of this disclosure violation. I was not aware that the branded content disclosure toggle and #ad tag were required for this post. I have since added the required disclosure to the content. I am committed to meeting TikTok\'s branded content requirements on all future posts and request this violation be removed from my record.',
+      'I am requesting reconsideration of this disclosure violation. This was an unintentional oversight — I was not aware the post required a formal paid partnership disclosure at time of posting. I have corrected the content. I request the violation be removed given the correction has been made.',
+    ],
+    safety:[
+      'I respectfully request a review of this safety violation. My video does not demonstrate, encourage, or reference any harmful, dangerous, or unsafe behavior. The content presents a legal dietary supplement in a general wellness context. No unsafe practices were shown or implied. I request this violation be reviewed in full context and removed.',
+      'I am requesting reconsideration of this safety violation. The content is educational wellness commentary — it does not depict or promote any activity that endangers the health or safety of the creator or viewers. No medical advice was given. I respectfully request manual review and removal of this enforcement action.',
+    ],
+    other:[
+      'I respectfully request a review of this violation decision. I believe the flagged content complies with TikTok\'s Community Guidelines. The video was created in good faith with the intent to provide genuine value to viewers. I request a manual review of the content in its full context and reconsideration of this enforcement action.',
+      'I am requesting reconsideration of this violation. My content was created in full compliance with TikTok\'s guidelines. I do not believe it violates the cited policy when reviewed in complete context. I respectfully request a manual review.',
+    ],
+  };
+
+  var agAccTemplates={
+    temp:[
+      'I respectfully request a review of the temporary suspension applied to my account. My content is created in good faith following TikTok\'s guidelines. All supplement content uses personal experience framing and explicit disclaimers without medical claims. I believe this may have resulted from automated review without full context. I request reinstatement of my account.',
+      'I am requesting reconsideration of this account suspension. All content on my account uses compliant wellness language, personal experience framing, and appropriate disclaimers. I have reviewed my library and am committed to full policy compliance. I respectfully request my account be restored.',
+    ],
+    perm:[
+      'I respectfully request a manual review of the permanent ban applied to my account. I believe this resulted from automated enforcement that did not capture full compliance context. All content used personal experience framing, explicit disclaimers, and compliant language. I am prepared to remove any flagged content. I request human review and reconsideration.',
+      'I am requesting human review of this permanent ban. My content was created in compliance with TikTok\'s wellness creator guidelines throughout. I have never made medical claims or used prohibited language. I respectfully ask that a human reviewer assess my account and reconsider this decision.',
+    ],
+    creator:[
+      'I respectfully request reinstatement to the TikTok Creator Program. My content consistently follows community guidelines — using personal experience language, wellness framing, and appropriate disclaimers. I believe the removal may have resulted from automated review without full context. I am committed to continued compliance and request reinstatement.',
+      'I am requesting reconsideration of my Creator Program removal. All content meets TikTok\'s standards for wellness creators. I use compliant language, include disclaimers, and avoid medical claims. I respectfully request my Creator Program access be restored.',
+    ],
+    shop:[
+      'I respectfully request reinstatement of my TikTok Shop access. My content does not violate seller policies — all videos use compliant language, accurate product descriptions, and current pricing. I have reviewed my content library and removed any videos with outdated promotions. I request a manual review and restoration of Shop access.',
+      'I am requesting reconsideration of my TikTok Shop access revocation. All product content on my account uses accurate information and compliant wellness language. I have audited and updated any outdated promotional content. I respectfully request Shop access be reinstated.',
+    ],
+    posting:[
+      'I respectfully request a review of the posting restriction applied to my account. The flagged videos were not intended as repetitive or low-quality content — each was created with distinct purpose and genuine viewer value. I have reviewed my content strategy and am committed to posting more diverse, original content. I request the restriction be lifted.',
+      'I am requesting reconsideration of this posting restriction. My content was not deliberately repetitive — each video featured unique framing, different commentary, and original delivery. I understand TikTok\'s quality expectations and am actively improving my content approach. I request full posting access be restored.',
+    ],
+    visibility:[
+      'I respectfully request a review of the visibility restriction applied to my account. My content is created in compliance with TikTok\'s community guidelines and does not engage in deceptive, harmful, or policy-violating behavior. I believe this restriction may have resulted from automated review without full context. I request reinstatement of normal account visibility.',
+      'I am requesting reconsideration of this visibility reduction. All content on my account follows TikTok\'s guidelines — using compliant language, genuine commentary, and no misleading claims. I respectfully request a manual review and restoration of normal account reach.',
+    ],
+  };
+
   function agBuildBody(type,seed){
     if(type==='video'){
-      const handle=document.getElementById('ag-handle').value||'@yourhandle';
-      const name=document.getElementById('ag-name').value||'[Your Name]';
-      const url=document.getElementById('ag-video-url').value||'';
-      const context=document.getElementById('ag-context').value||'';
-      const checked=agGetChecked('agp2v');
-      const urlRef=url?'\nContent reference: '+url+'\n':'';
-      const severityMap={removed:'removal of',strike:'strike issued for',fyp:'FYP restriction placed on'};
-      const severityText=severityMap[agSeverity]||severityMap.removed;
-      const catMap={health:'health or medical claims',regulated:'regulated goods',misleading:'misleading information',visual:'a visual content violation',spam:'spam or inauthentic behavior',other:'a community guidelines issue'};
-      const catText=catMap[agViolCat]||catMap.other;
-      let bullets='';
-      if(checked.length){
-        bullets='\n\nTo support this appeal, I would like to document the specific compliance measures taken in this content:\n\n';
-        checked.forEach(k=>{
-          const key=k.includes('personal experience')?'exp':k.includes('disclaimer')?'disc':k.includes('may support')?'study':k.includes('cure')?'nocure':k.includes('OTC')||k.includes('legal')?'otc':k.includes('before/after')?'novisual':'';
-          if(key&&agComplianceMap[key]) bullets+='• '+agComplianceMap[key]+'\n';
-        });
-      }
-      const contextPara=context?'\n\nFor additional context: '+context:'';
-      const priorPara=agPrior==='none'?'\n\nPrior to this notice, my account maintained a clean record with no community guidelines violations. I take compliance seriously and have built my content strategy around TikTok\'s wellness creator guidelines.':agPrior==='three'?'\n\nI acknowledge the history on this account and want to emphasize that I have since reviewed my content practices. Going forward, I commit to applying the full compliance checklist to every video before posting.':'';
-      const closingAsk=agSeverity==='fyp'?'I acknowledge that FYP restrictions cannot be formally appealed, but I am submitting this context in the hope that your team will consider it if this account comes up for manual review.':'I respectfully request that your team conduct a manual review of this content in its complete context and consider '+{removed:'restoring the video',strike:'removing the strike from my account',fyp:'lifting the restriction'}[agSeverity]+'.';
-      return `${agV(0,seed)} the <strong>${severityText}</strong> a video from my account <strong>${handle}</strong> regarding <strong>${catText}</strong>.${urlRef}
-
-My content features Root Labs Ashwagandha + Magnesium Gummies — a legal, over-the-counter dietary supplement. This video was created as personal lifestyle commentary, not as medical advice or a therapeutic claim.${bullets}${contextPara}
-
-The content in question does not make any diagnosis, cure, treatment, or prevention claims for any medical condition. It presents a legal dietary supplement using personal experience framing and compliant language, consistent with TikTok's Community Guidelines for wellness lifestyle creators.
-
-${closingAsk}${priorPara}
-
-I am committed to creating content that fully meets TikTok's standards and appreciate the time your team takes to review this appeal.
-
-${agV(3,seed)}.
-
-<strong>${name}</strong>
-<strong>${handle}</strong>`;
+      const handle=document.getElementById('ag-handle').value.trim()||'@yourhandle';
+      const name=document.getElementById('ag-name').value.trim()||'[Your Name]';
+      const templates=agTemplates[agViolCat]||agTemplates.other;
+      const letter=templates[seed%templates.length];
+      return letter+'<br/><br/><strong>'+name+'<br/>'+handle+'</strong>';
     } else {
-      const handle=document.getElementById('ag-acc-handle').value||'@yourhandle';
-      const name=document.getElementById('ag-acc-name').value||'[Your Name]';
-      const context=document.getElementById('ag-acc-context').value||'';
-      const checked=agGetChecked('agp2a');
-      const banMap={temp:'temporary suspension',perm:'permanent ban',creator:'removal from the Creator Program',shop:'revocation of TikTok Shop access'};
-      const banText=banMap[agBanType]||banMap.temp;
-      const sizeMap={new:'I have been building my presence on TikTok and am in the early stage of my creator journey.',mid:'I have maintained an active creator presence on TikTok for over six months and have consistently worked to create compliant, community-positive content.',vet:'I have maintained an active presence on TikTok for over two years, building my content strategy around full compliance with community guidelines.'};
-      const sizePara=sizeMap[agAccSize]||'';
-      let bullets='';
-      if(checked.length){
-        bullets='\n\nRegarding my content practices across this account:\n\n';
-        checked.forEach(el=>{
-          const text=typeof el==='string'?el:'';
-          const key=text.includes('personal experience')?'acc-comp':text.includes('mixed')?'acc-life':text.includes('banned')?'acc-noban':text.includes('ingestion')?'acc-noingest':'';
-          if(key&&agComplianceMap[key]) bullets+='• '+agComplianceMap[key]+'\n';
-        });
-      }
-      const contextPara=context?'\n\n'+context:'';
-      const histPara=agAccHist==='clean'?'\n\nPrior to this action, my account had a clean record with no community guidelines violations.':agAccHist==='three'?'\n\nI acknowledge the history on this account. I have reviewed my content and identified areas where I can improve compliance. I commit to applying TikTok\'s full guidelines to all future content before posting.':'';
-      const permExtra=agBanType==='perm'?'\n\nI understand the serious nature of a permanent ban decision. I am specifically requesting a manual review by a member of your human review team, and I am prepared to review and if necessary remove any content that may have contributed to this action before resuming activity.':'';
-      const closeAsk={temp:'reinstatement of full account access',perm:'manual review and reconsideration of this permanent ban decision',creator:'reinstatement to the Creator Program',shop:'reinstatement of TikTok Shop access'};
-      return `${agV(0,seed)} the <strong>${banText}</strong> applied to my account <strong>${handle}</strong>.
-
-${sizePara}${bullets}${contextPara}${histPara}${permExtra}
-
-I believe this action may have resulted from an automated content review that did not fully capture the compliance context of my content. All supplement-related content on my account is created using personal experience framing, explicit disclaimers, and language that does not make medical claims — consistent with TikTok's Community Guidelines for wellness creators.
-
-I respectfully request ${closeAsk[agBanType]||closeAsk.temp}. I value my presence on TikTok and am fully committed to continuing to create content that meets your community standards.
-
-${agV(3,seed)}.
-
-<strong>${name}</strong>
-<strong>${handle}</strong>`;
+      const handle=document.getElementById('ag-acc-handle').value.trim()||'@yourhandle';
+      const name=document.getElementById('ag-acc-name').value.trim()||'[Your Name]';
+      const templates=agAccTemplates[agBanType]||agAccTemplates.temp;
+      const letter=templates[seed%templates.length];
+      return letter+'<br/><br/><strong>'+name+'<br/>'+handle+'</strong>';
     }
+  }
+
+  function agUpdateCharCount(){
+    const text=document.getElementById('agLetterBody').innerText.trim();
+    const len=text.length;
+    const el=document.getElementById('agCharCount');
+    const wc=document.getElementById('agOutWC');
+    wc.textContent='';
+    if(len<=500){
+      el.style.background='rgba(42,122,42,0.15)';el.style.borderColor='rgba(42,122,42,0.3)';el.style.color='#6aaa6a';
+    } else {
+      el.style.background='rgba(255,64,64,0.15)';el.style.borderColor='rgba(255,64,64,0.3)';el.style.color='#ff8080';
+    }
+    el.textContent=len+' / 500 chars'+(len>500?' ⚠️ over limit':'');
   }
 
   function agBuildSubmitGuide(type){
