@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BeBodywise Hair Density Roll-On — Creator Guide 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --blue:#1D5FD4; --blue2:#2B7DE9; --blue3:#60AFFF; --blue4:#93C5FD;
+      --navy:#060D1B; --navy2:#091828; --navy3:#0F2040;
+      --sky:#EFF8FF; --white:#fff;
+      --red:#ff4040; --orange:#ff8c00; --green:#1E7E34; --green2:#4aaa4a;
+      --text:#0F172A; --text-mid:#374151; --text-soft:#6B7280;
+      --border:#E5EDF8;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;background:#fff;color:var(--text);overflow-x:hidden;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+    @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease;}
+    .reveal.visible{opacity:1;transform:translateY(0);}
+    .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(255,255,255,0.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:60px;}
+    .nav-logo{display:flex;align-items:center;gap:10px;}
+    .nav-logo-dot{width:32px;height:32px;background:linear-gradient(135deg,var(--blue),var(--blue2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;}
+    .nav-logo-text{font-size:14px;font-weight:800;color:var(--blue);letter-spacing:-.3px;}
+    .nav-logo-sub{font-size:11px;color:var(--text-soft);font-weight:500;margin-left:2px;}
+    .nav-links{display:flex;gap:2px;list-style:none;}
+    .nav-links a{color:var(--text-soft);text-decoration:none;font-size:12px;font-weight:600;padding:6px 11px;border-radius:8px;transition:all .2s;}
+    .nav-links a:hover{color:var(--blue);background:var(--sky);}
+    .nav-cta{background:var(--blue);color:#fff;padding:8px 18px;border-radius:24px;font-size:12px;font-weight:700;text-decoration:none;transition:all .2s;box-shadow:0 2px 12px rgba(29,95,212,0.3);}
+    .nav-cta:hover{background:var(--blue2);transform:translateY(-1px);box-shadow:0 4px 20px rgba(29,95,212,0.4);}
+
+    /* HERO */
+    .hero{min-height:92vh;background:linear-gradient(150deg,#0A1628 0%,#0F2855 35%,#1D5FD4 70%,#2B7DE9 100%);position:relative;overflow:hidden;display:flex;align-items:center;padding-top:60px;}
+    .hero-orb1{position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(147,197,253,0.15) 0%,transparent 70%);top:-100px;right:5%;pointer-events:none;}
+    .hero-orb2{position:absolute;width:300px;height:300px;background:radial-gradient(circle,rgba(29,95,212,0.3) 0%,transparent 70%);bottom:10%;left:5%;pointer-events:none;}
+    .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1200px;margin:0 auto;padding:60px 40px;width:100%;}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);color:#fff;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:8px 18px;border-radius:20px;margin-bottom:24px;animation:fadeUp .7s ease forwards;}
+    .hero-dot{width:7px;height:7px;background:#60AFFF;border-radius:50%;animation:pulse 1.5s infinite;}
+    .hero h1{font-size:clamp(38px,5vw,64px);font-weight:900;color:#fff;line-height:1.05;margin-bottom:20px;animation:fadeUp .7s ease .1s forwards;opacity:0;}
+    .hero h1 .accent{background:linear-gradient(135deg,#93C5FD,#60AFFF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .hero-sub{font-size:16px;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:36px;animation:fadeUp .7s ease .2s forwards;opacity:0;max-width:480px;}
+    .hero-btns{display:flex;gap:12px;flex-wrap:wrap;animation:fadeUp .7s ease .3s forwards;opacity:0;}
+    .btn-primary{padding:14px 28px;border-radius:30px;background:#fff;color:var(--blue);font-size:13px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .2s;box-shadow:0 4px 20px rgba(0,0,0,0.2);}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.25);}
+    .btn-outline{padding:14px 28px;border-radius:30px;background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.3);color:#fff;font-size:13px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .2s;}
+    .btn-outline:hover{background:rgba(255,255,255,0.18);}
+    .hero-stats{display:flex;gap:32px;margin-top:40px;animation:fadeUp .7s ease .4s forwards;opacity:0;}
+    .hstat{border-left:2px solid rgba(255,255,255,0.2);padding-left:20px;}
+    .hstat .num{font-size:26px;font-weight:900;color:#fff;display:block;}
+    .hstat .lbl{font-size:11px;color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:1.5px;}
+
+    /* PRODUCT VISUAL (right side of hero) */
+    .hero-visual{position:relative;display:flex;align-items:center;justify-content:center;animation:fadeUp .7s ease .15s forwards;opacity:0;}
+    .product-bottle{width:200px;height:340px;background:linear-gradient(180deg,#FFFFFF 0%,#E8F4FF 30%,#BFDBFE 60%,#93C5FD 100%);border-radius:30px 30px 20px 20px;position:relative;box-shadow:0 30px 80px rgba(0,0,0,0.35),0 0 0 1px rgba(255,255,255,0.2);animation:float 4s ease-in-out infinite;margin:0 auto;}
+    .bottle-cap{width:60px;height:40px;background:linear-gradient(180deg,#1D5FD4,#0F3A80);border-radius:10px 10px 0 0;position:absolute;top:-38px;left:50%;transform:translateX(-50%);box-shadow:0 -4px 12px rgba(29,95,212,0.4);}
+    .bottle-cap::after{content:'';position:absolute;bottom:-4px;left:-6px;right:-6px;height:8px;background:#1D5FD4;border-radius:3px;}
+    .bottle-roller{width:28px;height:28px;background:radial-gradient(circle at 35% 35%,#fff 0%,#BFDBFE 60%,#93C5FD 100%);border-radius:50%;position:absolute;top:-12px;left:50%;transform:translateX(-50%);box-shadow:0 2px 8px rgba(0,0,0,0.2);}
+    .bottle-label{position:absolute;top:40px;left:12px;right:12px;bottom:30px;background:linear-gradient(160deg,rgba(255,255,255,0.9),rgba(239,248,255,0.85));border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:16px 12px;}
+    .bl-brand{font-size:9px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--blue);opacity:.7;}
+    .bl-name{font-size:15px;font-weight:900;color:#0F172A;text-align:center;line-height:1.2;}
+    .bl-sub{font-size:8.5px;font-weight:600;color:var(--text-soft);text-align:center;letter-spacing:.5px;text-transform:uppercase;}
+    .bl-ings{display:flex;flex-direction:column;gap:3px;margin-top:4px;}
+    .bl-ing{font-size:8px;font-weight:700;color:var(--blue);text-align:center;background:rgba(29,95,212,0.08);padding:3px 10px;border-radius:8px;}
+    .product-glow{position:absolute;width:280px;height:280px;background:radial-gradient(circle,rgba(147,197,253,0.3) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);z-index:-1;}
+    .product-tags{position:absolute;right:-80px;top:20%;display:flex;flex-direction:column;gap:10px;}
+    .ptag{background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:6px 14px;font-size:11px;font-weight:700;color:#fff;white-space:nowrap;}
+    .product-tags2{position:absolute;left:-90px;bottom:25%;display:flex;flex-direction:column;gap:10px;}
+
+    /* SECTION COMMONS */
+    section{padding:90px 24px;max-width:1100px;margin:0 auto;}
+    .sec-label{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--blue2);margin-bottom:8px;}
+    .sec-title{font-size:clamp(26px,4vw,44px);font-weight:900;color:#0F172A;line-height:1.1;margin-bottom:14px;}
+    .sec-sub{font-size:15px;color:var(--text-soft);max-width:580px;line-height:1.7;margin-bottom:48px;}
+    .bg-sky{background:linear-gradient(180deg,var(--sky) 0%,#fff 100%);}
+    .bg-navy{background:linear-gradient(160deg,var(--navy) 0%,var(--navy2) 100%);}
+    .bg-white{background:#fff;}
+    .full-sec{padding:90px 24px;}
+    .inner{max-width:1100px;margin:0 auto;}
+
+    /* INGREDIENT CARDS */
+    .ing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+    .ing-card{background:#fff;border:1.5px solid var(--border);border-radius:20px;padding:28px 22px;position:relative;overflow:hidden;transition:all .25s;cursor:default;}
+    .ing-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--blue),var(--blue3));}
+    .ing-card:hover{border-color:var(--blue4);box-shadow:0 12px 40px rgba(29,95,212,0.12);transform:translateY(-4px);}
+    .ing-icon{font-size:36px;margin-bottom:14px;display:block;}
+    .ing-name{font-size:16px;font-weight:800;color:#0F172A;margin-bottom:4px;}
+    .ing-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue2);background:var(--sky);padding:3px 10px;border-radius:8px;margin-bottom:10px;}
+    .ing-desc{font-size:13px;color:var(--text-soft);line-height:1.65;}
+    .ing-safe{margin-top:12px;background:rgba(30,126,52,0.06);border:1px solid rgba(30,126,52,0.2);border-radius:8px;padding:8px 12px;font-size:12px;color:#1E7E34;font-weight:600;}
+
+    /* JOURNEY SECTION */
+    .journey-hero{background:linear-gradient(135deg,#0A1628,#1D5FD4);border-radius:28px;padding:50px 48px;margin-bottom:40px;position:relative;overflow:hidden;}
+    .journey-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(147,197,253,0.15),transparent 70%);}
+    .journey-hero-text .jh-label{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#93C5FD;margin-bottom:10px;}
+    .journey-hero-text h3{font-size:32px;font-weight:900;color:#fff;margin-bottom:14px;line-height:1.15;}
+    .journey-hero-text p{font-size:15px;color:rgba(255,255,255,0.72);line-height:1.75;max-width:620px;}
+    .journey-compare{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:36px;}
+    .jc-box{border-radius:16px;padding:22px 24px;}
+    .jc-box.bad{background:rgba(255,64,64,0.12);border:1.5px solid rgba(255,64,64,0.3);}
+    .jc-box.good{background:rgba(30,126,52,0.12);border:1.5px solid rgba(30,126,52,0.35);}
+    .jc-head{font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+    .jc-box.bad .jc-head{color:#ff8080;}
+    .jc-box.good .jc-head{color:#4aaa4a;}
+    .jc-item{font-size:13px;color:rgba(255,255,255,0.7);padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;gap:8px;align-items:flex-start;}
+    .jc-item:last-child{border:none;}
+    .journey-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;position:relative;}
+    .journey-steps::before{content:'';position:absolute;top:32px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,var(--blue),var(--blue3));z-index:0;}
+    .js-card{background:#fff;border:1.5px solid var(--border);border-radius:20px;padding:24px 20px;text-align:center;position:relative;z-index:1;transition:all .25s;}
+    .js-card:hover{border-color:var(--blue4);box-shadow:0 10px 32px rgba(29,95,212,0.1);}
+    .js-num{width:40px;height:40px;background:linear-gradient(135deg,var(--blue),var(--blue2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;margin:0 auto 14px;box-shadow:0 4px 14px rgba(29,95,212,0.3);}
+    .js-when{font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--blue2);margin-bottom:8px;}
+    .js-title{font-size:15px;font-weight:800;color:#0F172A;margin-bottom:8px;}
+    .js-desc{font-size:13px;color:var(--text-soft);line-height:1.6;}
+    .js-tip{margin-top:12px;font-size:12px;font-style:italic;color:var(--blue2);background:var(--sky);border-radius:8px;padding:6px 10px;}
+    .thumbnail-guide{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px;}
+    .tg-box{border-radius:20px;padding:28px 24px;}
+    .tg-box.bad{background:#FFF5F5;border:1.5px solid rgba(255,64,64,0.2);}
+    .tg-box.good{background:#F0FFF4;border:1.5px solid rgba(30,126,52,0.2);}
+    .tg-head{font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+    .tg-box.bad .tg-head{color:#ff4040;}
+    .tg-box.good .tg-head{color:#1E7E34;}
+    .tg-item{font-size:13.5px;color:var(--text-mid);padding:9px 0;border-bottom:1px solid rgba(0,0,0,0.05);display:flex;gap:10px;align-items:flex-start;line-height:1.5;}
+    .tg-item:last-child{border:none;}
+    .tg-item b{color:#0F172A;}
+
+    /* VIOLATIONS TABLE */
+    .viol-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+    .viol-box{border-radius:18px;padding:28px 24px;}
+    .viol-box.banned{background:#FFF5F5;border:1.5px solid rgba(255,64,64,0.2);}
+    .viol-box.safe{background:#F0FFF4;border:1.5px solid rgba(30,126,52,0.2);}
+    .viol-box h4{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:2px;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+    .viol-box.banned h4{color:#ff4040;}
+    .viol-box.safe h4{color:#1E7E34;}
+    .viol-list{list-style:none;}
+    .viol-list li{padding:9px 0;border-bottom:1px solid rgba(0,0,0,0.05);font-size:13.5px;display:flex;align-items:flex-start;gap:10px;color:var(--text-mid);line-height:1.55;}
+    .viol-list li:last-child{border:none;}
+    .risk-tag{font-size:10px;font-weight:700;padding:2px 9px;border-radius:10px;flex-shrink:0;margin-top:2px;}
+    .rt-instant{background:rgba(255,64,64,0.15);color:#ff4040;}
+    .rt-shadow{background:rgba(255,140,0,0.15);color:#ff8c00;}
+    .rt-ok{background:rgba(30,126,52,0.12);color:#1E7E34;}
+
+    /* SWAP TABLE */
+    .swap-tbl{width:100%;border-collapse:collapse;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,0.06);}
+    .swap-tbl th{text-align:left;padding:14px 20px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:var(--sky);}
+    .swap-tbl th.red-h{color:#ff4040;}
+    .swap-tbl th.green-h{color:#1E7E34;}
+    .swap-tbl th.risk-h{color:var(--text-soft);}
+    .swap-tbl td{padding:13px 20px;border-bottom:1px solid var(--border);font-size:13.5px;vertical-align:top;}
+    .swap-tbl tr:last-child td{border:none;}
+    .swap-tbl tr:hover td{background:var(--sky);}
+    .ban-w{color:#ff4040;font-weight:600;}
+    .safe-w{color:#1E7E34;font-weight:600;}
+    .r-instant{display:inline-block;font-size:10px;font-weight:700;padding:2px 9px;border-radius:10px;background:rgba(255,64,64,0.12);color:#ff4040;}
+    .r-shadow{display:inline-block;font-size:10px;font-weight:700;padding:2px 9px;border-radius:10px;background:rgba(255,140,0,0.12);color:#ff8c00;}
+
+    /* TOP VIDEOS */
+    .video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+    .video-card{background:#fff;border:1.5px solid var(--border);border-radius:20px;overflow:hidden;transition:all .25s;}
+    .video-card:hover{border-color:var(--blue4);box-shadow:0 16px 48px rgba(29,95,212,0.12);transform:translateY(-4px);}
+    .vc-thumb{height:180px;position:relative;overflow:hidden;display:flex;align-items:flex-end;}
+    .vc-thumb-bg{position:absolute;inset:0;background-size:cover;background-position:center;}
+    .vc-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 60%);}
+    .vc-views{position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.6);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:10px;}
+    .vc-label{position:relative;z-index:1;padding:14px 16px;font-size:12px;font-weight:700;color:#fff;}
+    .vc-body{padding:20px 20px 22px;}
+    .vc-format{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue2);margin-bottom:6px;}
+    .vc-title{font-size:15px;font-weight:800;color:#0F172A;margin-bottom:8px;line-height:1.3;}
+    .vc-why{font-size:13px;color:var(--text-soft);line-height:1.6;margin-bottom:14px;}
+    .vc-hooks{display:flex;flex-direction:column;gap:5px;}
+    .vc-hook{font-size:12px;font-weight:600;color:var(--blue);background:var(--sky);border-radius:8px;padding:5px 10px;}
+    .vc-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px;}
+    .vc-tag{font-size:11px;color:var(--text-soft);background:#F3F4F6;border-radius:8px;padding:3px 9px;}
+
+    /* CHECKLIST */
+    .checklist-wrap{background:#fff;border:1.5px solid var(--border);border-radius:24px;padding:40px;box-shadow:0 4px 30px rgba(0,0,0,0.06);}
+    .cl-list{list-style:none;margin-top:28px;}
+    .cl-item{display:flex;align-items:flex-start;gap:16px;padding:14px 0;border-bottom:1px solid var(--border);}
+    .cl-item:last-child{border:none;}
+    .cl-box{width:24px;height:24px;border:2px solid #D1D5DB;border-radius:6px;flex-shrink:0;margin-top:1px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+    .cl-box.done{background:var(--green);border-color:var(--green);}
+    .cl-box.done::after{content:'✓';color:#fff;font-size:13px;font-weight:800;}
+    .cl-text strong{display:block;font-size:14px;font-weight:700;color:#0F172A;margin-bottom:3px;}
+    .cl-text span{font-size:13px;color:var(--text-soft);}
+
+    /* APPEAL SECTION */
+    .appeal-section{background:linear-gradient(160deg,var(--navy) 0%,#0F2855 100%);padding:90px 24px;}
+    .ag-panel-wrap{max-width:860px;margin:0 auto;}
+    .ag-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:32px;}
+    .ag-lbl{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#60AFFF;margin-bottom:10px;display:block;}
+    .ag-input{width:100%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:13px 16px;font-size:14px;color:#fff;outline:none;font-family:'Inter',sans-serif;transition:border-color .2s;}
+    .ag-input::placeholder{color:rgba(255,255,255,0.3);}
+    .ag-input:focus{border-color:rgba(96,175,255,0.5);}
+    .ag-textarea{width:100%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:13px 16px;font-size:14px;color:#fff;outline:none;font-family:'Inter',sans-serif;resize:vertical;min-height:80px;transition:border-color .2s;line-height:1.65;}
+    .ag-textarea::placeholder{color:rgba(255,255,255,0.3);}
+    .ag-textarea:focus{border-color:rgba(96,175,255,0.5);}
+    .ag-pills{display:flex;flex-wrap:wrap;gap:8px;}
+    .ag-pill{padding:8px 16px;border-radius:50px;font-size:12.5px;font-weight:600;cursor:pointer;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.55);transition:all .2s;font-family:'Inter',sans-serif;}
+    .ag-pill:hover{border-color:rgba(96,175,255,0.4);color:#fff;}
+    .ag-pill.sel{background:rgba(43,125,233,0.25);border-color:var(--blue2);color:#90C8FF;}
+    .ag-btn{width:100%;margin-top:24px;padding:16px;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;font-size:14px;font-weight:800;cursor:pointer;border:none;transition:all .2s;font-family:'Inter',sans-serif;box-shadow:0 4px 20px rgba(29,95,212,0.4);}
+    .ag-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(29,95,212,0.5);}
+    .ag-output{background:rgba(255,255,255,0.05);border:1px solid rgba(96,175,255,0.25);border-radius:16px;padding:28px;margin-top:24px;display:none;}
+    .ag-output.show{display:block;animation:fadeUp .4s ease;}
+    .ag-subject{font-size:12px;font-weight:700;color:#60AFFF;letter-spacing:1px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.08);}
+    .ag-body{font-size:14px;color:rgba(255,255,255,0.85);line-height:2;white-space:pre-wrap;}
+    .ag-char{font-size:11px;font-weight:800;padding:5px 12px;border-radius:8px;margin-top:16px;display:inline-block;}
+    .ag-actions{display:flex;gap:10px;margin-top:20px;}
+    .ag-copy{flex:1;padding:13px;border-radius:10px;background:rgba(43,125,233,0.2);border:1px solid rgba(43,125,233,0.35);color:#90C8FF;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s;}
+    .ag-copy:hover{background:rgba(43,125,233,0.32);}
+    .ag-regen{padding:13px 18px;border-radius:10px;background:rgba(255,140,0,0.1);border:1px solid rgba(255,140,0,0.25);color:#ffaa40;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s;}
+    .ag-regen:hover{background:rgba(255,140,0,0.18);}
+    .ag-form-row{margin-bottom:22px;}
+
+    /* HACKS */
+    .hacks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+    .hack{background:#fff;border:1.5px solid var(--border);border-radius:18px;padding:26px;position:relative;overflow:hidden;transition:all .25s;}
+    .hack::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--blue3));}
+    .hack:hover{border-color:var(--blue4);box-shadow:0 10px 32px rgba(29,95,212,0.1);transform:translateY(-3px);}
+    .hack-n{font-size:11px;font-weight:800;color:rgba(29,95,212,0.45);letter-spacing:2px;margin-bottom:10px;display:block;}
+    .hack h4{font-size:15px;font-weight:800;color:#0F172A;margin-bottom:8px;}
+    .hack p{font-size:13px;color:var(--text-soft);line-height:1.7;}
+    .hack-tip{margin-top:10px;font-size:12px;font-style:italic;color:var(--blue2);background:var(--sky);border-radius:8px;padding:6px 12px;}
+
+    /* FOOTER */
+    footer{background:var(--navy);padding:40px 24px;text-align:center;}
+    footer p{font-size:13px;color:rgba(255,255,255,0.35);}
+    footer strong{color:#60AFFF;}
+
+    .copy-toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(100px);background:#0F172A;color:#4aaa4a;padding:12px 24px;border-radius:30px;font-size:13px;font-weight:600;border:1px solid rgba(74,170,74,0.3);transition:transform .3s;z-index:999;pointer-events:none;}
+    .copy-toast.show{transform:translateX(-50%) translateY(0);}
+
+    @media(max-width:768px){
+      .hero-grid{grid-template-columns:1fr;gap:40px;}
+      .hero-visual{display:none;}
+      .product-tags,.product-tags2{display:none;}
+      .ing-grid{grid-template-columns:1fr 1fr;}
+      .journey-steps{grid-template-columns:1fr 1fr;}
+      .journey-steps::before{display:none;}
+      .journey-compare,.thumbnail-guide,.viol-grid{grid-template-columns:1fr;}
+      .video-grid{grid-template-columns:1fr;}
+      .hacks-grid{grid-template-columns:1fr 1fr;}
+      section{padding:60px 16px;}
+      .full-sec{padding:60px 16px;}
+      .journey-hero{padding:32px 24px;}
+      .hero-grid{padding:40px 20px;}
+      .hero-stats{flex-direction:column;gap:16px;}
+    }
+    @media(max-width:520px){
+      .ing-grid,.hacks-grid{grid-template-columns:1fr;}
+      .journey-steps{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="copy-toast" id="copyToast">Copied to clipboard!</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-dot">💧</div>
+    <div>
+      <div class="nav-logo-text">BeBodywise</div>
+      <div class="nav-logo-sub" style="font-size:10px;color:#6B7280;">Hair Density Roll-On — Creator Guide</div>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#product">Product</a></li>
+    <li><a href="#journey">The Journey Method</a></li>
+    <li><a href="#triggers">Triggers</a></li>
+    <li><a href="#swaps">Safe Swaps</a></li>
+    <li><a href="#topvideos">Top Videos</a></li>
+    <li><a href="#checklist">Checklist</a></li>
+  </ul>
+  <a href="#appeal-gen" class="nav-cta">⚡ Build Appeal</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="hero">
+  <div class="hero-orb1"></div>
+  <div class="hero-orb2"></div>
+  <div class="hero-grid">
+    <div>
+      <div class="hero-badge"><span class="hero-dot"></span>BeBodywise Creator Compliance 2026</div>
+      <h1>Create Boldly.<br/><span class="accent">Stay Protected.</span></h1>
+      <p class="hero-sub">Your complete guide to promoting the Hair Density Roll-On on TikTok — what to say, how to show results, which hooks convert, and how to appeal if you get hit.</p>
+      <div class="hero-btns">
+        <a href="#topvideos" class="btn-primary">🎬 Top Video Formats →</a>
+        <a href="#journey" class="btn-outline">The Journey Method</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><span class="num">4</span><span class="lbl">Active ingredients</span></div>
+        <div class="hstat"><span class="num">30</span><span class="lbl">Days appeal window</span></div>
+        <div class="hstat"><span class="num">500</span><span class="lbl">Char appeal limit</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="product-glow"></div>
+      <div class="product-tags">
+        <div class="ptag">🔬 Redensyl</div>
+        <div class="ptag">🌱 Anagain</div>
+        <div class="ptag">⚡ Caffeine</div>
+      </div>
+      <div class="product-bottle">
+        <div class="bottle-cap"><div class="bottle-roller"></div></div>
+        <div class="bottle-label">
+          <div class="bl-brand">BeBodywise</div>
+          <div class="bl-name">Hair Density Roll-On</div>
+          <div class="bl-sub">Topical Scalp Serum</div>
+          <div class="bl-ings">
+            <div class="bl-ing">Redensyl</div>
+            <div class="bl-ing">Anagain</div>
+            <div class="bl-ing">Caffeine + Biotin</div>
+          </div>
+        </div>
+      </div>
+      <div class="product-tags2">
+        <div class="ptag">💊 Biotin</div>
+        <div class="ptag">✅ OTC Legal</div>
+        <div class="ptag">🩺 No prescription</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT OVERVIEW -->
+<div class="full-sec bg-sky" id="product">
+  <div class="inner">
+    <div class="reveal">
+      <div class="sec-label">What You're Promoting</div>
+      <div class="sec-title">Know Your Product Cold</div>
+      <div class="sec-sub">Every creator who promotes BeBodywise Hair Density Roll-On needs to understand exactly what it is, what it does, and — critically — what it's NOT allowed to claim.</div>
+    </div>
+    <div class="ing-grid">
+      <div class="ing-card reveal d1">
+        <span class="ing-icon">🔬</span>
+        <div class="ing-name">Redensyl</div>
+        <div class="ing-tag">Primary Active</div>
+        <div class="ing-desc">A patented compound targeting hair follicle stem cells (ORSm cells). It works at the growth phase level to support follicle activation. Clinical ingredient, not a drug claim.</div>
+        <div class="ing-safe">✅ Say: "Formulated with Redensyl, which targets hair follicle stem cells"</div>
+      </div>
+      <div class="ing-card reveal d2">
+        <span class="ing-icon">🌱</span>
+        <div class="ing-name">Anagain</div>
+        <div class="ing-tag">Growth Cycle Support</div>
+        <div class="ing-desc">Derived from organic pea sprouts. Studies suggest it may support a healthier anagen-to-telogen ratio — meaning more follicles in the growth phase vs. shedding phase.</div>
+        <div class="ing-safe">✅ Say: "Anagain supports the hair growth cycle"</div>
+      </div>
+      <div class="ing-card reveal d3">
+        <span class="ing-icon">⚡</span>
+        <div class="ing-name">Caffeine</div>
+        <div class="ing-tag">Scalp Stimulant</div>
+        <div class="ing-desc">Topical caffeine is widely studied for scalp microcirculation. It reaches follicles directly when applied to the scalp, creating a stimulating environment for hair health.</div>
+        <div class="ing-safe">✅ Say: "Topical caffeine stimulates the scalp"</div>
+      </div>
+      <div class="ing-card reveal d4">
+        <span class="ing-icon">💊</span>
+        <div class="ing-name">Biotin</div>
+        <div class="ing-tag">Hair Strengthening</div>
+        <div class="ing-desc">Supports keratin production — the structural protein in hair. Works synergistically with the other actives to support overall hair shaft strength and resilience.</div>
+        <div class="ing-safe">✅ Say: "Biotin nourishes hair from root to tip"</div>
+      </div>
+    </div>
+
+    <!-- Key facts banner -->
+    <div style="margin-top:32px;background:linear-gradient(135deg,var(--navy),#1D5FD4);border-radius:20px;padding:32px 36px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;" class="reveal">
+      <div style="text-align:center;border-right:1px solid rgba(255,255,255,0.1);padding-right:16px;">
+        <div style="font-size:28px;margin-bottom:8px;">💧</div>
+        <div style="font-size:12px;font-weight:800;color:#93C5FD;margin-bottom:4px;">FORMAT</div>
+        <div style="font-size:14px;font-weight:700;color:#fff;">Topical Roll-On Serum</div>
+      </div>
+      <div style="text-align:center;border-right:1px solid rgba(255,255,255,0.1);padding-right:16px;">
+        <div style="font-size:28px;margin-bottom:8px;">📋</div>
+        <div style="font-size:12px;font-weight:800;color:#93C5FD;margin-bottom:4px;">SAFE CLAIM</div>
+        <div style="font-size:14px;font-weight:700;color:#fff;">"Supports hair density"</div>
+      </div>
+      <div style="text-align:center;border-right:1px solid rgba(255,255,255,0.1);padding-right:16px;">
+        <div style="font-size:28px;margin-bottom:8px;">🚫</div>
+        <div style="font-size:12px;font-weight:800;color:#ff8080;margin-bottom:4px;">BANNED CLAIM</div>
+        <div style="font-size:14px;font-weight:700;color:#fff;">"Regrows hair"</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:28px;margin-bottom:8px;">✅</div>
+        <div style="font-size:12px;font-weight:800;color:#93C5FD;margin-bottom:4px;">STATUS</div>
+        <div style="font-size:14px;font-weight:700;color:#fff;">Legal OTC, No Prescription</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- THE JOURNEY METHOD -->
+<div class="full-sec bg-white" id="journey">
+  <div class="inner">
+    <div class="reveal">
+      <div class="sec-label">Showing Results the Right Way</div>
+      <div class="sec-title">The Journey Method</div>
+      <div class="sec-sub">Creators who show their hair results DO convert better. The key is HOW you show them — as a personal journey, not a product-caused transformation.</div>
+    </div>
+
+    <div class="journey-hero reveal">
+      <div class="journey-hero-text">
+        <div class="jh-label">Core Principle</div>
+        <h3>Before/after is fine.<br/>The FRAMING is what matters.</h3>
+        <p>TikTok doesn't flag you for showing your hair over time — it flags you for presenting the PRODUCT as the direct cause of a dramatic transformation. Show a journey. Document your experience. Let viewers draw their own conclusions. That is both compliant and more persuasive.</p>
+      </div>
+      <div class="journey-compare">
+        <div class="jc-box bad">
+          <div class="jc-head">❌ Flagged Approach</div>
+          <div class="jc-item">Bald head vs. full hair comparison in thumbnail</div>
+          <div class="jc-item">"Before: my hair was falling out. After: LOOK AT THIS"</div>
+          <div class="jc-item">Side-by-side dramatic scalp comparison</div>
+          <div class="jc-item">Urgency hook + transformation visual together</div>
+          <div class="jc-item">"This product made my hair grow back"</div>
+        </div>
+        <div class="jc-box good">
+          <div class="jc-head">✅ Compliant Approach</div>
+          <div class="jc-item">Day 1 / Week 2 / Week 4 timeline videos</div>
+          <div class="jc-item">"Documenting my 30-day hair journey starting today"</div>
+          <div class="jc-item">Show product + routine, let results be implied</div>
+          <div class="jc-item">Voice-over results, no dramatic visual side-by-side</div>
+          <div class="jc-item">"I personally noticed my hair felt stronger"</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:28px;" class="reveal">
+      <div class="sec-label" style="margin-bottom:6px;">How to Structure It</div>
+      <div style="font-size:22px;font-weight:800;color:#0F172A;margin-bottom:6px;">The 30-Day Journey Template</div>
+      <div style="font-size:14px;color:var(--text-soft);">Post these four videos and you have a complete, compliant before/after arc that converts.</div>
+    </div>
+    <div class="journey-steps">
+      <div class="js-card reveal d1">
+        <div class="js-num">1</div>
+        <div class="js-when">Day 1</div>
+        <div class="js-title">The Commitment Video</div>
+        <div class="js-desc">Talk about your hair concern in YOUR words. Introduce the roll-on. Commit to 30 days. Show the bottle. No result claims — just intention.</div>
+        <div class="js-tip">💡 Hook: "Starting a 30-day hair journey — day 1"</div>
+      </div>
+      <div class="js-card reveal d2">
+        <div class="js-num">2</div>
+        <div class="js-when">Week 2</div>
+        <div class="js-title">The Routine Check-In</div>
+        <div class="js-desc">Show your daily application routine. Talk about consistency, how it feels on the scalp, the texture. No results claimed — just documenting the habit.</div>
+        <div class="js-tip">💡 Hook: "Week 2 check-in — still being consistent"</div>
+      </div>
+      <div class="js-card reveal d3">
+        <div class="js-num">3</div>
+        <div class="js-when">Week 4</div>
+        <div class="js-title">The Personal Experience Share</div>
+        <div class="js-desc">Share what YOU personally noticed. Use "I" language throughout. "My hair felt different." "I noticed less hair in my brush." Never absolute claims — just your experience.</div>
+        <div class="js-tip">💡 Hook: "My honest week 4 update..."</div>
+      </div>
+      <div class="js-card reveal d4">
+        <div class="js-num">4</div>
+        <div class="js-when">60+ Days</div>
+        <div class="js-title">The Full Journey Recap</div>
+        <div class="js-desc">Compile clips from Day 1, Week 2, and Week 4. Show the journey visually. Voice-over with your personal experience. Add disclaimer. Let the viewer see the progression — not a comparison.</div>
+        <div class="js-tip">💡 Hook: "I documented my hair for 60 days..."</div>
+      </div>
+    </div>
+
+    <div style="margin-top:52px;" class="reveal">
+      <div style="font-size:22px;font-weight:800;color:#0F172A;margin-bottom:6px;">Thumbnail Rules</div>
+      <div style="font-size:14px;color:var(--text-soft);margin-bottom:28px;">Your thumbnail is scanned independently by TikTok's AI — a bad thumbnail can cause a strike even if your video script is 100% compliant.</div>
+    </div>
+    <div class="thumbnail-guide">
+      <div class="tg-box bad reveal d1">
+        <div class="tg-head">❌ Thumbnail Don'ts</div>
+        <div class="tg-item"><span>🚫</span><span>Bald / significantly thinning scalp vs. full hair comparison</span></div>
+        <div class="tg-item"><span>🚫</span><span>Any side-by-side before/after visual — even subtle</span></div>
+        <div class="tg-item"><span>🚫</span><span>Dramatic scalp close-ups showing severe hair loss</span></div>
+        <div class="tg-item"><span>🚫</span><span>Text saying "BEFORE" and "AFTER" in the same frame</span></div>
+        <div class="tg-item"><span>🚫</span><span>Red circle or arrow pointing to thinning spots</span></div>
+        <div class="tg-item"><span>🚫</span><span>Urgency text ("Save your hair before it's too late") + any hair comparison</span></div>
+      </div>
+      <div class="tg-box good reveal d2">
+        <div class="tg-head">✅ Thumbnail Do's</div>
+        <div class="tg-item"><span>✅</span><span>You holding the BeBodywise roll-on product — clean lifestyle shot</span></div>
+        <div class="tg-item"><span>✅</span><span>Your hair looking healthy in a natural, unmanipulated photo</span></div>
+        <div class="tg-item"><span>✅</span><span>Text overlay with your week number: "Week 4 update 📋"</span></div>
+        <div class="tg-item"><span>✅</span><span>The product flat lay or lifestyle setup shot</span></div>
+        <div class="tg-item"><span>✅</span><span>You in frame with confident expression — no scalp reveal</span></div>
+        <div class="tg-item"><span>✅</span><span>Text: "60 days of consistency — my honest review"</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VIOLATION TRIGGERS -->
+<div class="full-sec" style="background:linear-gradient(180deg,#fff 0%,var(--sky) 100%);" id="triggers">
+  <div class="inner">
+    <div class="reveal">
+      <div class="sec-label">What Gets You Flagged</div>
+      <div class="sec-title">Violation Triggers — Hair Products</div>
+      <div class="sec-sub">These specific words, phrases, and content types will trigger TikTok's automated filters for hair and beauty products. Instant bans mean video removed + strike with no warning.</div>
+    </div>
+    <div class="viol-grid">
+      <div class="viol-box banned reveal d1">
+        <h4>🚫 Never Say / Never Show</h4>
+        <ul class="viol-list">
+          <li><span class="risk-tag rt-instant">INSTANT</span>"Regrows hair" / "hair regrowth" / "grow hair back"</li>
+          <li><span class="risk-tag rt-instant">INSTANT</span>"Treats alopecia" / "treats hair loss" / "cures thinning"</li>
+          <li><span class="risk-tag rt-instant">INSTANT</span>"Like minoxidil" / "better than minoxidil" / "alternative to Rogaine"</li>
+          <li><span class="risk-tag rt-instant">INSTANT</span>"Clinically proven to regrow" / "guaranteed results in X days"</li>
+          <li><span class="risk-tag rt-instant">INSTANT</span>"Reverses baldness" / "reverses hair loss" / "treats DHT hair loss"</li>
+          <li><span class="risk-tag rt-instant">INSTANT</span>Bald head before/after comparison in thumbnail</li>
+          <li><span class="risk-tag rt-shadow">SHADOW</span>"Stops hair fall" (without "may" or "I noticed")</li>
+          <li><span class="risk-tag rt-shadow">SHADOW</span>"DHT blocker" / "blocks DHT" / "anti-DHT"</li>
+          <li><span class="risk-tag rt-shadow">SHADOW</span>"Hair loss treatment" / "hair loss solution"</li>
+          <li><span class="risk-tag rt-shadow">SHADOW</span>Dramatic scalp close-ups at video start showing visible hair loss</li>
+          <li><span class="risk-tag rt-shadow">SHADOW</span>"Hormonal hair loss" / "postpartum hair loss cure" (disease framing)</li>
+        </ul>
+      </div>
+      <div class="viol-box safe reveal d2">
+        <h4>✅ Safe Language — Use These</h4>
+        <ul class="viol-list">
+          <li><span class="risk-tag rt-ok">SAFE</span>"Supports hair density and fullness"</li>
+          <li><span class="risk-tag rt-ok">SAFE</span>"I noticed my hair looks thicker and fuller"</li>
+          <li><span class="risk-tag rt-ok">SAFE</span>"Nourishes the scalp and hair follicles"</li>
+          <li><span class="risk-tag rt-ok">SAFE</span>"Supports healthy hair growth"</li>
+          <li><span class="risk-tag rt-ok">SAFE</span>"I noticed less hair in my brush" (experiential)</li>
+          <li><span class="risk-tag rt-ok">SAFE</span>"Designed to support hair density"</li>
+          <li><span class="risk-tag rt-ok">SAFE</span>"Formulated with Redensyl — targets follicle stem cells"</li>
+          <li><span class="risk-tag rt-ok">SAFE</span>"Supports the appearance of thicker-looking hair"</li>
+          <li><span class="risk-tag rt-ok">SAFE</span>"May help maintain healthy hair strength"</li>
+          <li><span class="risk-tag rt-ok">SAFE</span>"Not a medical treatment — part of my hair care routine"</li>
+          <li><span class="risk-tag rt-ok">SAFE</span>"Results may vary — this is my personal experience"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SAFE WORD SWAPS -->
+<div class="full-sec bg-white" id="swaps">
+  <div class="inner">
+    <div class="reveal">
+      <div class="sec-label">Language Upgrade</div>
+      <div class="sec-title">Banned → Safe Swaps</div>
+      <div class="sec-sub">Every banned phrase has a compliant alternative that still converts. Memorise these. Copy them into your script drafts.</div>
+    </div>
+    <div class="reveal">
+    <table class="swap-tbl">
+      <thead>
+        <tr><th class="red-h">❌ Banned Phrase</th><th class="green-h">✅ Safe Alternative</th><th class="risk-h">Risk</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="ban-w">Regrows hair / hair regrowth</td><td class="safe-w">Supports hair density and fullness</td><td><span class="r-instant">Instant ban</span></td></tr>
+        <tr><td class="ban-w">Treats / cures alopecia</td><td class="safe-w">Nourishes the scalp to support healthy hair</td><td><span class="r-instant">Instant ban</span></td></tr>
+        <tr><td class="ban-w">Like minoxidil / better than minoxidil</td><td class="safe-w">A topical serum formulated with clinically-studied actives</td><td><span class="r-instant">Instant ban</span></td></tr>
+        <tr><td class="ban-w">Permanently stops hair fall</td><td class="safe-w">I noticed less shedding since using this consistently</td><td><span class="r-instant">Instant ban</span></td></tr>
+        <tr><td class="ban-w">Clinically proven to regrow</td><td class="safe-w">Formulated with Redensyl &amp; Anagain — ingredients with published research</td><td><span class="r-instant">Instant ban</span></td></tr>
+        <tr><td class="ban-w">Reverses baldness / reverses hair loss</td><td class="safe-w">Supports the appearance of fuller, denser-looking hair</td><td><span class="r-instant">Instant ban</span></td></tr>
+        <tr><td class="ban-w">DHT blocker / anti-DHT formula</td><td class="safe-w">Supports a healthy scalp environment for optimal hair</td><td><span class="r-shadow">Shadowban</span></td></tr>
+        <tr><td class="ban-w">Stops hair fall</td><td class="safe-w">I noticed less hair in my brush (personal experience)</td><td><span class="r-shadow">Shadowban</span></td></tr>
+        <tr><td class="ban-w">Hair loss treatment</td><td class="safe-w">Part of my daily hair care and scalp health routine</td><td><span class="r-shadow">Shadowban</span></td></tr>
+        <tr><td class="ban-w">My hair was falling out — AFTER this</td><td class="safe-w">Starting my 30-day consistency journey — week X update</td><td><span class="r-shadow">Shadowban</span></td></tr>
+        <tr><td class="ban-w">Hormonal hair loss cure</td><td class="safe-w">Supporting my scalp health during a phase of change</td><td><span class="r-shadow">Shadowban</span></td></tr>
+        <tr><td class="ban-w">Guaranteed results / 100% effective</td><td class="safe-w">Results may vary — this is my personal experience</td><td><span class="r-shadow">Shadowban</span></td></tr>
+        <tr><td class="ban-w">Postpartum hair loss solution</td><td class="safe-w">Supporting my hair care during postpartum recovery</td><td><span class="r-shadow">Shadowban</span></td></tr>
+        <tr><td class="ban-w">Save your hair before it's too late</td><td class="safe-w">If you've been thinking about starting a hair care routine...</td><td><span class="r-instant">Instant ban</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- TOP PERFORMING VIDEO FORMATS -->
+<div class="full-sec bg-sky" id="topvideos">
+  <div class="inner">
+    <div class="reveal">
+      <div class="sec-label">Creator Inspiration</div>
+      <div class="sec-title">Top Performing Content Formats</div>
+      <div class="sec-sub">These are the content formats that consistently perform best for hair density products on TikTok Shop — based on what creators and brands in this category have seen work. Take the format, adapt it to your voice.</div>
+    </div>
+    <div class="video-grid">
+
+      <div class="video-card reveal d1">
+        <div class="vc-thumb" style="background:linear-gradient(135deg,#1D5FD4,#0A2855);">
+          <div class="vc-views">🔬 Science Hook</div>
+          <div class="vc-label">Ingredient Education</div>
+        </div>
+        <div class="vc-body">
+          <div class="vc-format">Format #1 — Education</div>
+          <div class="vc-title">The Ingredient Breakdown</div>
+          <div class="vc-why">Viewers trust ingredients more than promises. Teaching what Redensyl actually does builds instant credibility — and the product becomes the natural conclusion, not the pitch.</div>
+          <div class="vc-hooks">
+            <div class="vc-hook">"This ingredient is why your hair serum either works or doesn't"</div>
+            <div class="vc-hook">"What Redensyl actually does to your scalp (it's not what you think)"</div>
+            <div class="vc-hook">"The 4 ingredients in my hair routine — what each one does"</div>
+          </div>
+          <div class="vc-tags">
+            <span class="vc-tag">#redensyl</span><span class="vc-tag">#hairdensity</span><span class="vc-tag">#scalphealthtips</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="video-card reveal d2">
+        <div class="vc-thumb" style="background:linear-gradient(135deg,#0F2855,#1D5FD4);">
+          <div class="vc-views">📅 30-Day</div>
+          <div class="vc-label">Consistency Journey</div>
+        </div>
+        <div class="vc-body">
+          <div class="vc-format">Format #2 — Journey</div>
+          <div class="vc-title">30-Day Consistency Challenge</div>
+          <div class="vc-why">Commitment content drives follows and return viewers. You build an audience waiting for your next update — they become invested. Day 1 vs Day 30 framing is compliant when narrated as personal experience.</div>
+          <div class="vc-hooks">
+            <div class="vc-hook">"I'm committing to 30 days of this hair routine — follow for updates"</div>
+            <div class="vc-hook">"Day 1 of my hair care challenge — starting today"</div>
+            <div class="vc-hook">"30 days, documenting everything — let's go"</div>
+          </div>
+          <div class="vc-tags">
+            <span class="vc-tag">#hairjourney</span><span class="vc-tag">#30daychallenge</span><span class="vc-tag">#haircareroutine</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="video-card reveal d3">
+        <div class="vc-thumb" style="background:linear-gradient(135deg,#1E7E34,#0F2855);">
+          <div class="vc-views">🌿 Routine</div>
+          <div class="vc-label">Morning Hair Ritual</div>
+        </div>
+        <div class="vc-body">
+          <div class="vc-format">Format #3 — Lifestyle</div>
+          <div class="vc-title">My Morning Hair Care Ritual</div>
+          <div class="vc-why">Lifestyle content performs because it's aspirational, not promotional. You're not selling a product — you're showing a ritual. The roll-on is featured naturally, no claims needed.</div>
+          <div class="vc-hooks">
+            <div class="vc-hook">"POV: my 3-minute morning hair care routine"</div>
+            <div class="vc-hook">"The 5 things I do every morning for my hair"</div>
+            <div class="vc-hook">"My entire hair care routine (the only one that stuck)"</div>
+          </div>
+          <div class="vc-tags">
+            <span class="vc-tag">#morningroutine</span><span class="vc-tag">#selfcare</span><span class="vc-tag">#haircaretips</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="video-card reveal d1">
+        <div class="vc-thumb" style="background:linear-gradient(135deg,#6D28D9,#1D5FD4);">
+          <div class="vc-views">🎙️ Honest</div>
+          <div class="vc-label">Real Review</div>
+        </div>
+        <div class="vc-body">
+          <div class="vc-format">Format #4 — Trust Builder</div>
+          <div class="vc-title">The Honest, Unfiltered Review</div>
+          <div class="vc-why">Audiences are skeptical of perfect reviews. Share what you like AND what it won't do. This counter-intuitive honesty builds more trust — and converts better than glowing reviews.</div>
+          <div class="vc-hooks">
+            <div class="vc-hook">"My honest review of BeBodywise after 6 weeks (no filter)"</div>
+            <div class="vc-hook">"What it does and what it doesn't do — real talk"</div>
+            <div class="vc-hook">"I've tried 7 hair serums. Here's where this one actually landed"</div>
+          </div>
+          <div class="vc-tags">
+            <span class="vc-tag">#honestreviews</span><span class="vc-tag">#hairserum</span><span class="vc-tag">#realresults</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="video-card reveal d2">
+        <div class="vc-thumb" style="background:linear-gradient(135deg,#B45309,#1D5FD4);">
+          <div class="vc-views">💭 Pain Point</div>
+          <div class="vc-label">Problem First</div>
+        </div>
+        <div class="vc-body">
+          <div class="vc-format">Format #5 — Problem Reframe</div>
+          <div class="vc-title">The Problem-First Hook</div>
+          <div class="vc-why">Start with the problem your viewer is living — not the product. Make them feel seen in the first 2 seconds. Then introduce the roll-on as what you personally started using. Retention skyrockets.</div>
+          <div class="vc-hooks">
+            <div class="vc-hook">"If you're seeing more hair in your brush lately, watch this"</div>
+            <div class="vc-hook">"No one tells you what happens to your hair in your 30s"</div>
+            <div class="vc-hook">"I kept ignoring my thinning hair until I couldn't anymore"</div>
+          </div>
+          <div class="vc-tags">
+            <span class="vc-tag">#hairthinning</span><span class="vc-tag">#hairfall</span><span class="vc-tag">#tiktokshop</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="video-card reveal d3">
+        <div class="vc-thumb" style="background:linear-gradient(135deg,#0F2855,#4A9EF0);">
+          <div class="vc-views">❓ Q&amp;A</div>
+          <div class="vc-label">Answer Format</div>
+        </div>
+        <div class="vc-body">
+          <div class="vc-format">Format #6 — Authority</div>
+          <div class="vc-title">Hair Q&amp;A — Answering Comments</div>
+          <div class="vc-why">Reply to comments with a new video — TikTok's algorithm boosts stitch and reply content. You answer hair questions naturally, and the roll-on appears as your personal solution. Zero push sales energy.</div>
+          <div class="vc-hooks">
+            <div class="vc-hook">"Someone asked what I do for scalp health — here's my answer"</div>
+            <div class="vc-hook">"Replying to: what actually helped your hair?" [stitch response]</div>
+            <div class="vc-hook">"Answering your top 3 hair questions this week"</div>
+          </div>
+          <div class="vc-tags">
+            <span class="vc-tag">#hairadvice</span><span class="vc-tag">#scalphealth</span><span class="vc-tag">#replyvideo</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- COMPLIANCE HACKS -->
+<div class="full-sec bg-white" id="hacks">
+  <div class="inner">
+    <div class="reveal">
+      <div class="sec-label">Creator Tactics</div>
+      <div class="sec-title">10 Hacks That Keep You Safe</div>
+      <div class="sec-sub">Specific techniques that let you make powerful, converting content while staying fully within TikTok's guidelines.</div>
+    </div>
+    <div class="hacks-grid">
+      <div class="hack reveal d1">
+        <span class="hack-n">HACK 01</span>
+        <h4>Lead With the Ingredient, Not the Product</h4>
+        <p>"Redensyl has been studied for its effect on hair follicle stem cells" is a science claim, not a product claim. Lead with the ingredient — let the product be the vehicle.</p>
+        <div class="hack-tip">💡 "The ingredient in this changed how I think about hair care."</div>
+      </div>
+      <div class="hack reveal d2">
+        <span class="hack-n">HACK 02</span>
+        <h4>Lock In "I Personally Noticed" Language</h4>
+        <p>Make this your default setting. Replace every claim with your personal observation. "My hair feels stronger" never gets flagged. "This makes hair stronger" does.</p>
+        <div class="hack-tip">💡 Every sentence: "I noticed," "I felt," "In my experience."</div>
+      </div>
+      <div class="hack reveal d3">
+        <span class="hack-n">HACK 03</span>
+        <h4>Triple Disclaimer Stack</h4>
+        <p>Spoken during the video + text overlay at 15 seconds + in the caption. "Not medical advice. Results may vary." Three disclaimers signal compliance to TikTok's system and reduce review flags significantly.</p>
+        <div class="hack-tip">💡 Three disclaimers = much harder to flag.</div>
+      </div>
+      <div class="hack reveal d1">
+        <span class="hack-n">HACK 04</span>
+        <h4>Name-Drop the Week, Not the Result</h4>
+        <p>Instead of "look at my results," say "here's my week 4 check-in." The viewer sees whatever they see. You never claimed anything — you just showed up consistently.</p>
+        <div class="hack-tip">💡 The timeline does the work. You just document.</div>
+      </div>
+      <div class="hack reveal d2">
+        <span class="hack-n">HACK 05</span>
+        <h4>Text Overlay Over Visual Comparison</h4>
+        <p>Instead of a side-by-side photo, use text overlay on your current video: "Week 1 → Week 4." The progression is implied without showing two hair states simultaneously.</p>
+        <div class="hack-tip">💡 "Week 1..." → cut → "Week 4..." — no comparison shot needed.</div>
+      </div>
+      <div class="hack reveal d3">
+        <span class="hack-n">HACK 06</span>
+        <h4>The "Research Shows" Frame</h4>
+        <p>Cite published research on the ingredient without making it a product claim. "A 2018 study on Redensyl found..." is factual context. It builds credibility without entering regulated territory.</p>
+        <div class="hack-tip">💡 Link the study in your bio or comments for legitimacy.</div>
+      </div>
+      <div class="hack reveal d1">
+        <span class="hack-n">HACK 07</span>
+        <h4>Clean Thumbnails Only</h4>
+        <p>Your thumbnail is scanned independently by TikTok's AI. Show yourself confident, show the product, or show a text headline. Never a scalp comparison or dramatic hair loss visual.</p>
+        <div class="hack-tip">💡 "Week 4 update 📋" with a confident selfie = perfect thumbnail.</div>
+      </div>
+      <div class="hack reveal d2">
+        <span class="hack-n">HACK 08</span>
+        <h4>Application Footage is Fine — Claims Aren't</h4>
+        <p>Showing yourself rolling the product on your scalp is 100% fine. What triggers flags is saying "this is regrowing my hair" while you do it. Show the ritual. Voice-over the experience.</p>
+        <div class="hack-tip">💡 Film the application. Voice your experience. Never both simultaneously.</div>
+      </div>
+      <div class="hack reveal d3">
+        <span class="hack-n">HACK 09</span>
+        <h4>Max 5 Hashtags, Rotate Sets</h4>
+        <p>TikTok penalises over-hashtagging. Use exactly 3–5. One niche (#redensyl or #hairdensity), one lifestyle (#haircareroutine), one broad (#healthyhair). Rotate — don't use identical sets every video.</p>
+        <div class="hack-tip">💡 #redensyl #hairdensity #haircareroutine = solid base set.</div>
+      </div>
+      <div class="hack reveal d1">
+        <span class="hack-n">HACK 10</span>
+        <h4>Pre-Post 2-Minute Audit</h4>
+        <p>Before every upload: read script aloud replacing all claims with "supports" or "I noticed." Check thumbnail for any comparison. Check hashtags. Check caption for disclaimer. This takes 2 minutes and prevents bans.</p>
+        <div class="hack-tip">💡 Use the checklist below — every single time.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKLIST -->
+<div class="full-sec bg-sky" id="checklist">
+  <div class="inner">
+    <div class="reveal">
+      <div class="sec-label">Pre-Post Audit</div>
+      <div class="sec-title">Run This Before Every Upload</div>
+      <div class="sec-sub">Click each item as you check it. Every single video, every time — it takes 2 minutes.</div>
+    </div>
+    <div class="checklist-wrap reveal">
+      <ul class="cl-list" id="checklistItems">
+        <li class="cl-item"><div class="cl-box" onclick="this.classList.toggle('done')"></div><div class="cl-text"><strong>No banned words in script, caption, or voiceover</strong><span>Searched for: regrows hair, treats alopecia, like minoxidil, DHT blocker, clinically proven to grow, stops hair fall permanently</span></div></li>
+        <li class="cl-item"><div class="cl-box" onclick="this.classList.toggle('done')"></div><div class="cl-text"><strong>All benefit claims use "supports" / "may help" / "I noticed" language</strong><span>Not "this grows hair" but "supports hair density" or "I noticed my hair looks thicker"</span></div></li>
+        <li class="cl-item"><div class="cl-box" onclick="this.classList.toggle('done')"></div><div class="cl-text"><strong>Thumbnail has no before/after hair comparison or bald head imagery</strong><span>Product shot, lifestyle selfie, or week-number text overlay only</span></div></li>
+        <li class="cl-item"><div class="cl-box" onclick="this.classList.toggle('done')"></div><div class="cl-text"><strong>No side-by-side scalp comparison in the video itself</strong><span>Journey timeline is fine — direct "before vs after" split screen is not</span></div></li>
+        <li class="cl-item"><div class="cl-box" onclick="this.classList.toggle('done')"></div><div class="cl-text"><strong>Disclaimer spoken in video: "Not medical advice. Results may vary."</strong><span>Spoken out loud during the first 30 seconds</span></div></li>
+        <li class="cl-item"><div class="cl-box" onclick="this.classList.toggle('done')"></div><div class="cl-text"><strong>Disclaimer as text overlay in video</strong><span>On screen for at least 3 seconds, readable size</span></div></li>
+        <li class="cl-item"><div class="cl-box" onclick="this.classList.toggle('done')"></div><div class="cl-text"><strong>Disclaimer in caption text</strong><span>"Not medical advice. Results may vary." included in your post caption</span></div></li>
+        <li class="cl-item"><div class="cl-box" onclick="this.classList.toggle('done')"></div><div class="cl-text"><strong>Hashtags: maximum 5, no banned tags</strong><span>Avoid: #hairtransformation, #hairregrowth, #alopecia, #DHT</span></div></li>
+        <li class="cl-item"><div class="cl-box" onclick="this.classList.toggle('done')"></div><div class="cl-text"><strong>No comparison to minoxidil, Rogaine, or any prescription drug</strong><span>"Works like minoxidil" or "better than Rogaine" = instant strike</span></div></li>
+        <li class="cl-item"><div class="cl-box" onclick="this.classList.toggle('done')"></div><div class="cl-text"><strong>Personal experience framing used throughout</strong><span>"I felt," "I noticed," "In my experience" — not absolute product claims</span></div></li>
+        <li class="cl-item"><div class="cl-box" onclick="this.classList.toggle('done')"></div><div class="cl-text"><strong>Ingredient cited separately from the product outcome</strong><span>"Redensyl has been studied for follicle activation" not "this product regrows hair"</span></div></li>
+        <li class="cl-item"><div class="cl-box" onclick="this.classList.toggle('done')"></div><div class="cl-text"><strong>No urgency / fear language around hair loss</strong><span>Avoid: "Save your hair before it's too late," "Don't lose more hair," "Stop hair fall NOW"</span></div></li>
+      </ul>
+      <div style="margin-top:24px;display:flex;gap:10px;">
+        <button onclick="document.querySelectorAll('.cl-box').forEach(b=>b.classList.add('done'))" style="padding:12px 22px;border-radius:24px;background:var(--green);color:#fff;font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:'Inter',sans-serif;">✓ Mark All Done</button>
+        <button onclick="document.querySelectorAll('.cl-box').forEach(b=>b.classList.remove('done'))" style="padding:12px 22px;border-radius:24px;background:transparent;color:var(--text-soft);font-size:13px;font-weight:700;cursor:pointer;border:1.5px solid var(--border);font-family:'Inter',sans-serif;">Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- APPEAL GENERATOR -->
+<div class="appeal-section" id="appeal-gen">
+  <div class="inner">
+    <div class="reveal" style="text-align:center;margin-bottom:48px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#93C5FD;margin-bottom:8px;">If You Get a Strike</div>
+      <div style="font-size:clamp(26px,4vw,42px);font-weight:900;color:#fff;margin-bottom:14px;">Build Your Appeal Letter</div>
+      <div style="font-size:15px;color:rgba(255,255,255,0.6);max-width:520px;margin:0 auto;">Fill in the form — get a TikTok-ready appeal letter under 500 characters. You have 30 days from the violation to submit.</div>
+    </div>
+    <div class="ag-panel-wrap">
+      <div class="ag-card reveal">
+        <div class="ag-form-row">
+          <label class="ag-lbl">Your TikTok Handle</label>
+          <input class="ag-input" id="h-handle" type="text" placeholder="@yourhandle" autocomplete="off"/>
+        </div>
+        <div class="ag-form-row">
+          <label class="ag-lbl">Your Name</label>
+          <input class="ag-input" id="h-name" type="text" placeholder="First name or full name" autocomplete="off"/>
+        </div>
+        <div class="ag-form-row">
+          <label class="ag-lbl">Violation Type</label>
+          <div class="ag-pills" id="ag-vtype">
+            <button class="ag-pill sel" data-val="functionality">Misleading — Product Functionality &amp; Effect</button>
+            <button class="ag-pill" data-val="health">Exaggerated / Medical Claims</button>
+            <button class="ag-pill" data-val="thumbnail">Before/After Thumbnail</button>
+            <button class="ag-pill" data-val="regulated">Regulated Goods</button>
+            <button class="ag-pill" data-val="prohibited">Prohibited Product</button>
+            <button class="ag-pill" data-val="disclosure">Missing Disclosure / #ad</button>
+            <button class="ag-pill" data-val="expired">Expired Price / Discount</button>
+            <button class="ag-pill" data-val="other">Other</button>
+          </div>
+        </div>
+        <div class="ag-form-row">
+          <label class="ag-lbl">What was true about your video <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;color:rgba(255,255,255,0.35);">(select all that apply)</span></label>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;" id="ag-checks">
+            <div class="ag-pill" id="ck-exp" onclick="toggleCheck(this)" style="border-radius:10px;padding:10px 14px;font-size:12px;">✓ Used personal experience language</div>
+            <div class="ag-pill" id="ck-disc" onclick="toggleCheck(this)" style="border-radius:10px;padding:10px 14px;font-size:12px;"> ✓ Included disclaimer ("not medical advice")</div>
+            <div class="ag-pill" id="ck-nocompare" onclick="toggleCheck(this)" style="border-radius:10px;padding:10px 14px;font-size:12px;"> ✓ No before/after comparison shown</div>
+            <div class="ag-pill" id="ck-ing" onclick="toggleCheck(this)" style="border-radius:10px;padding:10px 14px;font-size:12px;"> ✓ Cited ingredient separately from outcome</div>
+          </div>
+        </div>
+        <div class="ag-form-row">
+          <label class="ag-lbl">Optional context <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;color:rgba(255,255,255,0.35);">— helps personalise the letter</span></label>
+          <textarea class="ag-textarea" id="h-context" placeholder="e.g. This video was my Week 4 hair journey check-in. I used personal experience language only and included a disclaimer..." rows="3"></textarea>
+        </div>
+        <button class="ag-btn" onclick="hairGenerate()">Generate My Appeal Letter →</button>
+
+        <div class="ag-output" id="hairOutput">
+          <div class="ag-subject">SUBJECT: Appeal — Video Content Policy Violation</div>
+          <div class="ag-body" id="hairBody"></div>
+          <div id="hairCharCount" class="ag-char"></div>
+          <div class="ag-actions">
+            <button class="ag-copy" onclick="hairCopy()">Copy Letter</button>
+            <button class="ag-regen" onclick="hairRegen()">↺ Regenerate</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:28px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px 28px;" class="reveal">
+        <div style="font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#93C5FD;margin-bottom:16px;">How to Submit Your Appeal</div>
+        <ol style="padding-left:18px;color:rgba(255,255,255,0.6);font-size:13.5px;line-height:2.4;">
+          <li>Go to <strong style="color:#fff;">TikTok → Profile → Inbox</strong> → find the violation notification</li>
+          <li>Tap <strong style="color:#fff;">"Submit an appeal"</strong> at the bottom of the violation message</li>
+          <li>Paste the copied letter into the text field (check it fits under <strong style="color:#fff;">500 characters</strong>)</li>
+          <li>Submit — TikTok safety team reviews in <strong style="color:#fff;">2–7 business days</strong></li>
+          <li>You have <strong style="color:#fff;">30 days from the violation date</strong> to file. Do not wait.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>BeBodywise</strong> Hair Density Roll-On — Creator Compliance Guide 2026</p>
+  <p style="margin-top:8px;">Questions? Contact your partnerships manager.</p>
+</footer>
+
+<script>
+  // ── SCROLL REVEAL ──
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+  // ── NAV SCROLL PROGRESS ──
+  // (not used in this page — clean nav)
+
+  // ── PILL TOGGLE ──
+  document.querySelectorAll('[id^="ag-"]').forEach(group=>{
+    group.querySelectorAll('.ag-pill').forEach(pill=>{
+      pill.addEventListener('click',()=>{
+        group.querySelectorAll('.ag-pill').forEach(p=>p.classList.remove('sel'));
+        pill.classList.add('sel');
+      });
+    });
+  });
+
+  function toggleCheck(el){el.classList.toggle('sel');}
+
+  // ── APPEAL GENERATOR ──
+  var hairSeed=0;
+  var hairVtype='functionality';
+
+  document.querySelectorAll('#ag-vtype .ag-pill').forEach(p=>{
+    p.addEventListener('click',()=>{hairVtype=p.dataset.val;});
+  });
+
+  var hairTemplates={
+    functionality:[
+      'I respectfully request a review of this violation. The content does not make exaggerated claims about the product\'s functionality or effect. All statements use personal experience framing ("I personally noticed," "in my experience") with no guaranteed outcomes or transformation promises. I have updated the thumbnail to remove any imagery that could imply a before/after comparison. A disclaimer was included. I request manual review and reversal of this decision.',
+      'I am requesting reconsideration of this Product Functionality and Effect violation. My video used first-person experience language only — no side-by-side comparisons, no claims of hair regrowth, and no disease references. The product was presented as a legal topical hair care product. I have corrected the thumbnail. I request this violation be reviewed in full context and removed from my record.',
+      'I respectfully appeal this violation. The content presented BeBodywise Hair Density Roll-On using only compliant language — "supports hair density" and personal experience framing. No transformation claims or manipulated visuals appeared in the video. Thumbnail has been updated. Disclaimer was included. I request this enforcement be reconsidered.',
+    ],
+    health:[
+      'I respectfully request a review of this violation. The content does not make false, guaranteed, or exaggerated health claims. All statements use personal experience framing and general wellness language — no medical diagnoses or guaranteed outcomes. The product is a legal, over-the-counter topical hair care product. A disclaimer was included. I request this decision be reviewed and the violation removed.',
+      'I am requesting reconsideration of this violation. My video presents general wellness information using qualified language ("may support," "I noticed") and explicit disclaimers. No disease claims, cure language, or guaranteed results were stated. I request manual review and removal of this enforcement action.',
+      'I respectfully appeal this violation. The content used first-person experience language with no absolute claims, no medical diagnosis framing, and no prohibited drug comparisons. A "Not medical advice — results may vary" disclaimer was clearly included. I request this decision be reviewed in full context and reversed.',
+    ],
+    thumbnail:[
+      'I respectfully request a review of this violation. I understand the thumbnail was flagged for containing imagery that may have implied a before/after comparison. I have immediately updated the thumbnail to show only the product and a lifestyle image with no hair comparison. All video content uses compliant personal experience language. I request this violation be reviewed and removed.',
+      'I am requesting reconsideration of this violation. The thumbnail has been updated to remove any visual that could be perceived as a before/after transformation comparison. The video itself uses compliant, first-person experience language with a disclaimer. I commit to ensuring all future thumbnails meet TikTok\'s guidelines. I request this action be reversed.',
+    ],
+    regulated:[
+      'I respectfully request a review of this violation. The product featured is a legal, over-the-counter topical hair care product that complies with TikTok\'s seller requirements. It is not a prohibited or restricted substance. All content uses compliant wellness language without medical claims. I request this violation be reviewed and the product listing reinstated.',
+      'I am requesting reconsideration of this regulated goods violation. The product shown is a legally sold OTC topical hair care product meeting TikTok\'s seller requirements. No prohibited claims were made. Content used personal experience framing only. I request this action be reversed.',
+    ],
+    prohibited:[
+      'I respectfully request a review of this prohibited product violation. The item featured is a legal, over-the-counter topical hair care product — not a prohibited, controlled, or restricted substance. It is legally sold and does not fall under TikTok\'s banned product categories. I request manual review and removal of this violation.',
+      'I am requesting reconsideration of this violation. The product is a legal OTC topical hair care product — not a drug, controlled substance, or otherwise prohibited item. I respectfully request this violation be reviewed and reversed.',
+    ],
+    disclosure:[
+      'I respectfully request a review of this disclosure violation. I was not aware that a branded content disclosure toggle and #ad tag were required for this post. I have since added the required disclosure. I am committed to meeting TikTok\'s branded content requirements on all future posts and request this violation be removed.',
+      'I am requesting reconsideration of this disclosure violation. This was an unintentional oversight. I have corrected the content and added the required paid partnership disclosure. I request the violation be removed given the correction has been made.',
+    ],
+    expired:[
+      'I respectfully request a review of this violation. At the time this video was posted, all pricing and promotional information shown was accurate and current. Any price or discount reference has since been verified. I request this decision be reconsidered and the violation removed from my record.',
+      'I am requesting reconsideration of this expired price violation. The promotional content shown was accurate at time of posting. I have reviewed and updated any outdated pricing references. I request this violation be reviewed and removed.',
+    ],
+    other:[
+      'I respectfully request a review of this violation decision. I believe the flagged content complies with TikTok\'s Community Guidelines. The video was created in good faith using personal experience language, explicit disclaimers, and compliant wellness framing. I request a manual review of the content in full context and reconsideration of this enforcement action.',
+      'I am requesting reconsideration of this violation. My content was created in full compliance with TikTok\'s guidelines and did not make exaggerated, false, or prohibited claims. I respectfully request a manual review.',
+    ],
+  };
+
+  function hairGenerate(){
+    hairSeed=0;
+    renderHairOutput();
+    document.getElementById('hairOutput').classList.add('show');
+    document.getElementById('hairOutput').scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+
+  function hairRegen(){hairSeed++;renderHairOutput();}
+
+  function renderHairOutput(){
+    const handle=document.getElementById('h-handle').value.trim()||'@yourhandle';
+    const name=document.getElementById('h-name').value.trim()||'[Your Name]';
+    const templates=hairTemplates[hairVtype]||hairTemplates.other;
+    const letter=templates[hairSeed%templates.length];
+    const full=letter+'\n\n'+name+'\n'+handle;
+    document.getElementById('hairBody').innerText=full;
+    updateHairChar();
+  }
+
+  function updateHairChar(){
+    const text=document.getElementById('hairBody').innerText.trim();
+    const len=text.length;
+    const el=document.getElementById('hairCharCount');
+    if(len<=500){
+      el.style.background='rgba(30,126,52,0.15)';el.style.border='1px solid rgba(30,126,52,0.3)';el.style.color='#4aaa4a';
+    }else{
+      el.style.background='rgba(255,64,64,0.15)';el.style.border='1px solid rgba(255,64,64,0.3)';el.style.color='#ff8080';
+    }
+    el.textContent=len+' / 500 chars'+(len>500?' ⚠️ over limit':'');
+  }
+
+  function hairCopy(){
+    const text=document.getElementById('hairBody').innerText;
+    navigator.clipboard.writeText(text).then(()=>{
+      const t=document.getElementById('copyToast');
+      t.classList.add('show');
+      setTimeout(()=>t.classList.remove('show'),2200);
+    });
+  }
+</script>
+</body>
+</html>
