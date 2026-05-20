@@ -190,34 +190,58 @@
     .cl-text strong{display:block;font-size:14px;font-weight:700;color:#0F172A;margin-bottom:3px;}
     .cl-text span{font-size:13px;color:var(--text-soft);}
 
-    /* APPEAL SECTION */
-    .appeal-section{background:linear-gradient(160deg,var(--navy) 0%,#0F2855 100%);padding:90px 24px;}
-    .ag-panel-wrap{max-width:860px;margin:0 auto;}
-    .ag-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:32px;}
-    .ag-lbl{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#60AFFF;margin-bottom:10px;display:block;}
-    .ag-input{width:100%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:13px 16px;font-size:14px;color:#fff;outline:none;font-family:'Inter',sans-serif;transition:border-color .2s;}
-    .ag-input::placeholder{color:rgba(255,255,255,0.3);}
-    .ag-input:focus{border-color:rgba(96,175,255,0.5);}
-    .ag-textarea{width:100%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:13px 16px;font-size:14px;color:#fff;outline:none;font-family:'Inter',sans-serif;resize:vertical;min-height:80px;transition:border-color .2s;line-height:1.65;}
-    .ag-textarea::placeholder{color:rgba(255,255,255,0.3);}
-    .ag-textarea:focus{border-color:rgba(96,175,255,0.5);}
-    .ag-pills{display:flex;flex-wrap:wrap;gap:8px;}
-    .ag-pill{padding:8px 16px;border-radius:50px;font-size:12.5px;font-weight:600;cursor:pointer;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.55);transition:all .2s;font-family:'Inter',sans-serif;}
-    .ag-pill:hover{border-color:rgba(96,175,255,0.4);color:#fff;}
-    .ag-pill.sel{background:rgba(43,125,233,0.25);border-color:var(--blue2);color:#90C8FF;}
-    .ag-btn{width:100%;margin-top:24px;padding:16px;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;font-size:14px;font-weight:800;cursor:pointer;border:none;transition:all .2s;font-family:'Inter',sans-serif;box-shadow:0 4px 20px rgba(29,95,212,0.4);}
-    .ag-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(29,95,212,0.5);}
-    .ag-output{background:rgba(255,255,255,0.05);border:1px solid rgba(96,175,255,0.25);border-radius:16px;padding:28px;margin-top:24px;display:none;}
-    .ag-output.show{display:block;animation:fadeUp .4s ease;}
-    .ag-subject{font-size:12px;font-weight:700;color:#60AFFF;letter-spacing:1px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.08);}
-    .ag-body{font-size:14px;color:rgba(255,255,255,0.85);line-height:2;white-space:pre-wrap;}
-    .ag-char{font-size:11px;font-weight:800;padding:5px 12px;border-radius:8px;margin-top:16px;display:inline-block;}
-    .ag-actions{display:flex;gap:10px;margin-top:20px;}
-    .ag-copy{flex:1;padding:13px;border-radius:10px;background:rgba(43,125,233,0.2);border:1px solid rgba(43,125,233,0.35);color:#90C8FF;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s;}
-    .ag-copy:hover{background:rgba(43,125,233,0.32);}
-    .ag-regen{padding:13px 18px;border-radius:10px;background:rgba(255,140,0,0.1);border:1px solid rgba(255,140,0,0.25);color:#ffaa40;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s;}
-    .ag-regen:hover{background:rgba(255,140,0,0.18);}
-    .ag-form-row{margin-bottom:22px;}
+    /* ADVANCED APPEAL BUILDER */
+    .appeal-section{background:linear-gradient(180deg,#EFF8FF 0%,#DBEAFE 100%);padding:90px 24px;}
+    .apb-wrap{max-width:900px;margin:0 auto;}
+    .apb-step{background:#fff;border:1.5px solid var(--border);border-radius:22px;padding:32px 36px;margin-bottom:18px;box-shadow:0 2px 20px rgba(29,95,212,0.06);}
+    .apb-head{display:flex;align-items:center;gap:16px;margin-bottom:26px;padding-bottom:18px;border-bottom:1.5px solid var(--border);}
+    .apb-num{width:38px;height:38px;background:linear-gradient(135deg,var(--blue),#0F3A80);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:#fff;flex-shrink:0;}
+    .apb-titl{font-size:17px;font-weight:800;color:#0F172A;}
+    .apb-sub{font-size:12.5px;color:var(--text-soft);margin-top:2px;}
+    .apb-row{margin-bottom:22px;}
+    .apb-row:last-child{margin-bottom:0;}
+    .apb-lbl{font-size:10.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue);margin-bottom:10px;display:block;}
+    .apb-inp{width:100%;background:#F8FAFF;border:1.5px solid var(--border);border-radius:10px;padding:13px 16px;font-size:14px;color:#0F172A;outline:none;font-family:'Inter',sans-serif;transition:border-color .2s;}
+    .apb-inp:focus{border-color:var(--blue2);background:#fff;box-shadow:0 0 0 3px rgba(29,95,212,0.08);}
+    .apb-inp-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    .apb-pills{display:flex;flex-wrap:wrap;gap:8px;}
+    .apb-pill{padding:9px 17px;border-radius:50px;font-size:12.5px;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:#F8FAFF;color:var(--text-mid);transition:all .2s;font-family:'Inter',sans-serif;line-height:1.3;}
+    .apb-pill:hover{border-color:var(--blue4);color:var(--blue);}
+    .apb-pill.sel{background:rgba(29,95,212,0.09);border-color:var(--blue);color:var(--blue);font-weight:700;}
+    .apb-checks{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+    .apb-ck{display:flex;align-items:flex-start;gap:10px;background:#F8FAFF;border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;cursor:pointer;transition:all .2s;user-select:none;}
+    .apb-ck.sel{background:rgba(29,95,212,0.07);border-color:var(--blue2);}
+    .apb-ck-box{width:20px;height:20px;border:2px solid #CBD5E1;border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;margin-top:1px;}
+    .apb-ck.sel .apb-ck-box{background:var(--blue);border-color:var(--blue);}
+    .apb-ck.sel .apb-ck-box::after{content:'✓';color:#fff;font-size:11px;font-weight:800;}
+    .apb-ck-txt{font-size:13px;color:var(--text-mid);line-height:1.45;}
+    .apb-ck.sel .apb-ck-txt{color:var(--blue);font-weight:600;}
+    .apb-gen-btn{width:100%;padding:18px;border-radius:14px;background:linear-gradient(135deg,var(--blue),#0F3A80);color:#fff;font-size:15px;font-weight:800;cursor:pointer;border:none;transition:all .2s;font-family:'Inter',sans-serif;box-shadow:0 4px 20px rgba(29,95,212,0.25);letter-spacing:.3px;margin-top:4px;}
+    .apb-gen-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(29,95,212,0.38);}
+    /* OUTPUT */
+    .apb-out{background:#fff;border:2px solid var(--blue4);border-radius:22px;overflow:hidden;margin-top:24px;display:none;box-shadow:0 12px 48px rgba(29,95,212,0.12);}
+    .apb-out.show{display:block;animation:fadeUp .45s ease;}
+    .apb-out-hdr{background:linear-gradient(135deg,var(--blue),#0F3A80);padding:20px 30px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+    .apb-out-hdr-lft{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.8);}
+    .apb-out-char{font-size:13px;font-weight:800;color:#fff;background:rgba(255,255,255,0.18);padding:5px 14px;border-radius:20px;transition:background .3s;}
+    .apb-letter-wrap{padding:28px 32px;border-bottom:1.5px solid var(--border);}
+    .apb-subject{font-size:11px;font-weight:700;color:var(--blue2);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+    .apb-body{font-size:14.5px;color:#1E293B;line-height:2.1;white-space:pre-wrap;font-weight:500;}
+    .apb-ev-section{padding:22px 32px;background:#FFFBF0;border-bottom:1.5px solid var(--border);}
+    .apb-ev-title{font-size:10.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#B45309;margin-bottom:14px;}
+    .apb-ev-intro{font-size:13px;color:#78350F;margin-bottom:14px;line-height:1.6;}
+    .apb-ev-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#92400E;padding:7px 0;border-bottom:1px solid rgba(180,83,9,0.08);line-height:1.5;}
+    .apb-ev-item:last-child{border:none;}
+    .apb-submit-guide{padding:20px 32px;background:#F0FFF4;border-bottom:1.5px solid var(--border);}
+    .apb-sg-title{font-size:10.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#1E7E34;margin-bottom:12px;}
+    .apb-sg-steps{padding-left:18px;font-size:13px;color:#14532D;line-height:2.4;}
+    .apb-sg-steps li strong{color:#0F172A;}
+    .apb-actions{padding:18px 28px;display:flex;gap:10px;}
+    .apb-copy-btn{flex:1;padding:14px;border-radius:10px;background:var(--blue);color:#fff;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .2s;font-family:'Inter',sans-serif;}
+    .apb-copy-btn:hover{background:var(--blue2);}
+    .apb-regen-btn{padding:14px 18px;border-radius:10px;background:#F1F5F9;border:1.5px solid var(--border);color:var(--text-mid);font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s;}
+    .apb-regen-btn:hover{border-color:var(--blue4);color:var(--blue);}
+    @media(max-width:640px){.apb-checks,.apb-inp-row{grid-template-columns:1fr;}}
 
     /* HACKS */
     .hacks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
@@ -814,70 +838,185 @@
 <!-- APPEAL GENERATOR -->
 <div class="appeal-section" id="appeal-gen">
   <div class="inner">
-    <div class="reveal" style="text-align:center;margin-bottom:48px;">
-      <div style="font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#93C5FD;margin-bottom:8px;">If You Get a Strike</div>
-      <div style="font-size:clamp(26px,4vw,42px);font-weight:900;color:#fff;margin-bottom:14px;">Build Your Appeal Letter</div>
-      <div style="font-size:15px;color:rgba(255,255,255,0.6);max-width:520px;margin:0 auto;">Fill in the form — get a TikTok-ready appeal letter under 500 characters. You have 30 days from the violation to submit.</div>
+    <div class="reveal" style="text-align:center;margin-bottom:40px;">
+      <div class="sec-label">If You Get a Strike</div>
+      <div class="sec-title" style="color:#0F172A;">Advanced Appeal Builder</div>
+      <div style="font-size:15px;color:var(--text-soft);max-width:580px;margin:0 auto;">Answer the objective questions below — no typing required. Your letter is engineered to hit 480–500 characters and include the evidence TikTok reviewers look for.</div>
     </div>
-    <div class="ag-panel-wrap">
-      <div class="ag-card reveal">
-        <div class="ag-form-row">
-          <label class="ag-lbl">Your TikTok Handle</label>
-          <input class="ag-input" id="h-handle" type="text" placeholder="@yourhandle" autocomplete="off"/>
-        </div>
-        <div class="ag-form-row">
-          <label class="ag-lbl">Your Name</label>
-          <input class="ag-input" id="h-name" type="text" placeholder="First name or full name" autocomplete="off"/>
-        </div>
-        <div class="ag-form-row">
-          <label class="ag-lbl">Violation Type</label>
-          <div class="ag-pills" id="ag-vtype">
-            <button class="ag-pill sel" data-val="functionality">Misleading — Product Functionality &amp; Effect</button>
-            <button class="ag-pill" data-val="health">Exaggerated / Medical Claims</button>
-            <button class="ag-pill" data-val="thumbnail">Before/After Thumbnail</button>
-            <button class="ag-pill" data-val="regulated">Regulated Goods</button>
-            <button class="ag-pill" data-val="prohibited">Prohibited Product</button>
-            <button class="ag-pill" data-val="disclosure">Missing Disclosure / #ad</button>
-            <button class="ag-pill" data-val="expired">Expired Price / Discount</button>
-            <button class="ag-pill" data-val="other">Other</button>
-          </div>
-        </div>
-        <div class="ag-form-row">
-          <label class="ag-lbl">What was true about your video <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;color:rgba(255,255,255,0.35);">(select all that apply)</span></label>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;" id="ag-checks">
-            <div class="ag-pill" id="ck-exp" onclick="toggleCheck(this)" style="border-radius:10px;padding:10px 14px;font-size:12px;">✓ Used personal experience language</div>
-            <div class="ag-pill" id="ck-disc" onclick="toggleCheck(this)" style="border-radius:10px;padding:10px 14px;font-size:12px;"> ✓ Included disclaimer ("not medical advice")</div>
-            <div class="ag-pill" id="ck-nocompare" onclick="toggleCheck(this)" style="border-radius:10px;padding:10px 14px;font-size:12px;"> ✓ No before/after comparison shown</div>
-            <div class="ag-pill" id="ck-ing" onclick="toggleCheck(this)" style="border-radius:10px;padding:10px 14px;font-size:12px;"> ✓ Cited ingredient separately from outcome</div>
-          </div>
-        </div>
-        <div class="ag-form-row">
-          <label class="ag-lbl">Optional context <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;color:rgba(255,255,255,0.35);">— helps personalise the letter</span></label>
-          <textarea class="ag-textarea" id="h-context" placeholder="e.g. This video was my Week 4 hair journey check-in. I used personal experience language only and included a disclaimer..." rows="3"></textarea>
-        </div>
-        <button class="ag-btn" onclick="hairGenerate()">Generate My Appeal Letter →</button>
 
-        <div class="ag-output" id="hairOutput">
-          <div class="ag-subject">SUBJECT: Appeal — Video Content Policy Violation</div>
-          <div class="ag-body" id="hairBody"></div>
-          <div id="hairCharCount" class="ag-char"></div>
-          <div class="ag-actions">
-            <button class="ag-copy" onclick="hairCopy()">Copy Letter</button>
-            <button class="ag-regen" onclick="hairRegen()">↺ Regenerate</button>
+    <div class="apb-wrap">
+
+      <!-- STEP 1: Your Details -->
+      <div class="apb-step reveal">
+        <div class="apb-head">
+          <div class="apb-num">1</div>
+          <div><div class="apb-titl">Your Details</div><div class="apb-sub">Creator info + which video was flagged</div></div>
+        </div>
+        <div class="apb-inp-row apb-row">
+          <div>
+            <label class="apb-lbl">TikTok Handle</label>
+            <input class="apb-inp" id="apb-handle" type="text" placeholder="@yourhandle" autocomplete="off"/>
+          </div>
+          <div>
+            <label class="apb-lbl">Your Name</label>
+            <input class="apb-inp" id="apb-name" type="text" placeholder="First name or full name" autocomplete="off"/>
+          </div>
+        </div>
+        <div class="apb-inp-row apb-row">
+          <div>
+            <label class="apb-lbl">Video URL or Title</label>
+            <input class="apb-inp" id="apb-video" type="text" placeholder="Paste TikTok URL or video title" autocomplete="off"/>
+          </div>
+          <div>
+            <label class="apb-lbl">Date of Violation</label>
+            <input class="apb-inp" id="apb-date" type="date"/>
+          </div>
+        </div>
+        <div class="apb-row">
+          <label class="apb-lbl">Which Appeal Is This?</label>
+          <div class="apb-pills" id="apb-appealnum">
+            <button class="apb-pill sel" data-val="first">First Appeal (30-day window)</button>
+            <button class="apb-pill" data-val="second">Second Appeal (15-day window from first decision)</button>
           </div>
         </div>
       </div>
 
-      <div style="margin-top:28px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px 28px;" class="reveal">
-        <div style="font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#93C5FD;margin-bottom:16px;">How to Submit Your Appeal</div>
-        <ol style="padding-left:18px;color:rgba(255,255,255,0.6);font-size:13.5px;line-height:2.4;">
-          <li>Go to <strong style="color:#fff;">TikTok → Profile → Inbox</strong> → find the violation notification</li>
-          <li>Tap <strong style="color:#fff;">"Submit an appeal"</strong> at the bottom of the violation message</li>
-          <li>Paste the copied letter into the text field (check it fits under <strong style="color:#fff;">500 characters</strong>)</li>
-          <li>Submit — TikTok safety team reviews in <strong style="color:#fff;">2–7 business days</strong></li>
-          <li>You have <strong style="color:#fff;">30 days from the violation date</strong> to file. Do not wait.</li>
-        </ol>
+      <!-- STEP 2: Violation Type -->
+      <div class="apb-step reveal">
+        <div class="apb-head">
+          <div class="apb-num">2</div>
+          <div><div class="apb-titl">Violation Type</div><div class="apb-sub">Select the exact violation shown in your notification</div></div>
+        </div>
+        <div class="apb-row">
+          <div class="apb-pills" id="apb-vtype">
+            <button class="apb-pill sel" data-val="functionality">Misleading — Product Functionality &amp; Effect</button>
+            <button class="apb-pill" data-val="health">Exaggerated / Health Claims</button>
+            <button class="apb-pill" data-val="thumbnail">Before/After Thumbnail Flagged</button>
+            <button class="apb-pill" data-val="expired">Expired Price / Discount</button>
+            <button class="apb-pill" data-val="lowquality">Low Quality / Repetitive Content</button>
+            <button class="apb-pill" data-val="regulated">Regulated Goods</button>
+            <button class="apb-pill" data-val="prohibited">Prohibited Product</button>
+            <button class="apb-pill" data-val="disclosure">Missing Disclosure / #ad</button>
+            <button class="apb-pill" data-val="ip">Copyright / IP Violation</button>
+            <button class="apb-pill" data-val="safety">Safety / Harmful Content</button>
+            <button class="apb-pill" data-val="shop">TikTok Shop Access Revoked</button>
+            <button class="apb-pill" data-val="other">Other / Not Specified</button>
+          </div>
+        </div>
       </div>
+
+      <!-- STEP 3: About Your Video -->
+      <div class="apb-step reveal">
+        <div class="apb-head">
+          <div class="apb-num">3</div>
+          <div><div class="apb-titl">About Your Video</div><div class="apb-sub">All objective — just click what applies</div></div>
+        </div>
+
+        <div class="apb-row">
+          <label class="apb-lbl">What type of content was the video?</label>
+          <div class="apb-pills" id="apb-ctype">
+            <button class="apb-pill sel" data-val="routine">Hair care routine showcase</button>
+            <button class="apb-pill" data-val="journey">Journey update (Day / Week X check-in)</button>
+            <button class="apb-pill" data-val="education">Ingredient education</button>
+            <button class="apb-pill" data-val="review">Honest review / personal opinion</button>
+            <button class="apb-pill" data-val="qa">Q&amp;A or comment reply</button>
+            <button class="apb-pill" data-val="problem">Problem/pain point hook</button>
+          </div>
+        </div>
+
+        <div class="apb-row">
+          <label class="apb-lbl">Compliance steps you took <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;color:var(--text-soft);">— select ALL that apply</span></label>
+          <div class="apb-checks" id="apb-compliance">
+            <div class="apb-ck sel" data-val="personal_exp" onclick="apbToggle(this)"><div class="apb-ck-box"></div><div class="apb-ck-txt">Used personal experience language ("I noticed," "in my experience")</div></div>
+            <div class="apb-ck sel" data-val="disc_spoken" onclick="apbToggle(this)"><div class="apb-ck-box"></div><div class="apb-ck-txt">Spoken disclaimer — "Not medical advice, results may vary"</div></div>
+            <div class="apb-ck" data-val="disc_overlay" onclick="apbToggle(this)"><div class="apb-ck-box"></div><div class="apb-ck-txt">Text overlay disclaimer visible in the video</div></div>
+            <div class="apb-ck" data-val="disc_caption" onclick="apbToggle(this)"><div class="apb-ck-box"></div><div class="apb-ck-txt">Written disclaimer included in the caption</div></div>
+            <div class="apb-ck" data-val="no_compare" onclick="apbToggle(this)"><div class="apb-ck-box"></div><div class="apb-ck-txt">No before/after comparison shown in the video</div></div>
+            <div class="apb-ck" data-val="clean_thumb" onclick="apbToggle(this)"><div class="apb-ck-box"></div><div class="apb-ck-txt">Thumbnail showed product / lifestyle only — no scalp comparison</div></div>
+            <div class="apb-ck" data-val="no_banned_kw" onclick="apbToggle(this)"><div class="apb-ck-box"></div><div class="apb-ck-txt">Avoided all banned keywords (regrow, treats, cures, DHT)</div></div>
+            <div class="apb-ck" data-val="ingredient_sep" onclick="apbToggle(this)"><div class="apb-ck-box"></div><div class="apb-ck-txt">Ingredient cited separately — "Redensyl supports follicle health"</div></div>
+            <div class="apb-ck" data-val="no_drug" onclick="apbToggle(this)"><div class="apb-ck-box"></div><div class="apb-ck-txt">No pharmaceutical drug compared (minoxidil, Rogaine)</div></div>
+            <div class="apb-ck" data-val="no_disease" onclick="apbToggle(this)"><div class="apb-ck-box"></div><div class="apb-ck-txt">No medical condition or disease named</div></div>
+            <div class="apb-ck" data-val="ad_disclosure" onclick="apbToggle(this)"><div class="apb-ck-box"></div><div class="apb-ck-txt">Paid partnership / #ad disclosure was included</div></div>
+            <div class="apb-ck" data-val="price_accurate" onclick="apbToggle(this)"><div class="apb-ck-box"></div><div class="apb-ck-txt">Pricing/discount shown was accurate at time of posting</div></div>
+          </div>
+        </div>
+
+        <div class="apb-row">
+          <label class="apb-lbl">What was specifically flagged?</label>
+          <div class="apb-pills" id="apb-flagged">
+            <button class="apb-pill" data-val="script">Video script / voiceover</button>
+            <button class="apb-pill" data-val="overlay">Text overlay in the video</button>
+            <button class="apb-pill sel" data-val="thumbnail">Thumbnail / cover image</button>
+            <button class="apb-pill" data-val="caption">Video caption or hashtags</button>
+            <button class="apb-pill" data-val="product">Product shown in the video</button>
+            <button class="apb-pill" data-val="unsure">Not sure what was flagged</button>
+          </div>
+        </div>
+
+        <div class="apb-row">
+          <label class="apb-lbl">Actions taken since receiving the violation <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;color:var(--text-soft);">— select all that apply</span></label>
+          <div class="apb-checks" id="apb-actions">
+            <div class="apb-ck sel" data-val="thumb_updated" onclick="apbToggle(this)"><div class="apb-ck-box"></div><div class="apb-ck-txt">Updated the thumbnail to remove any comparison imagery</div></div>
+            <div class="apb-ck" data-val="disc_added" onclick="apbToggle(this)"><div class="apb-ck-box"></div><div class="apb-ck-txt">Added / updated disclaimer in video or caption</div></div>
+            <div class="apb-ck" data-val="reviewed_compliant" onclick="apbToggle(this)"><div class="apb-ck-box"></div><div class="apb-ck-txt">Reviewed the video — content was already fully compliant</div></div>
+            <div class="apb-ck" data-val="no_changes" onclick="apbToggle(this)"><div class="apb-ck-box"></div><div class="apb-ck-txt">No changes made yet — filing appeal first</div></div>
+            <div class="apb-ck" data-val="deleted_reupload" onclick="apbToggle(this)"><div class="apb-ck-box"></div><div class="apb-ck-txt">Deleted and re-uploaded with edits</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4: Evidence -->
+      <div class="apb-step reveal">
+        <div class="apb-head">
+          <div class="apb-num">4</div>
+          <div><div class="apb-titl">Evidence Screenshots</div><div class="apb-sub">Select what you have — the letter will reference them. Attach manually when submitting via TikTok.</div></div>
+        </div>
+        <div class="apb-checks" id="apb-evidence">
+          <div class="apb-ck" data-val="ev_video" onclick="apbToggle(this)"><div class="apb-ck-box"></div><div class="apb-ck-txt">📸 Screenshot of the video showing timestamp + compliant content</div></div>
+          <div class="apb-ck" data-val="ev_caption" onclick="apbToggle(this)"><div class="apb-ck-box"></div><div class="apb-ck-txt">📸 Screenshot of the caption at time of posting</div></div>
+          <div class="apb-ck" data-val="ev_disc" onclick="apbToggle(this)"><div class="apb-ck-box"></div><div class="apb-ck-txt">📸 Screenshot of disclaimer visible in the video</div></div>
+          <div class="apb-ck" data-val="ev_thumb" onclick="apbToggle(this)"><div class="apb-ck-box"></div><div class="apb-ck-txt">📸 Screenshot of updated thumbnail (before and after)</div></div>
+          <div class="apb-ck" data-val="ev_listing" onclick="apbToggle(this)"><div class="apb-ck-box"></div><div class="apb-ck-txt">📸 Screenshot of product's TikTok Shop listing page</div></div>
+          <div class="apb-ck" data-val="ev_similar" onclick="apbToggle(this)"><div class="apb-ck-box"></div><div class="apb-ck-txt">📸 Screenshot of a similar compliant video that was not flagged</div></div>
+        </div>
+      </div>
+
+      <!-- GENERATE -->
+      <button class="apb-gen-btn" onclick="apbGenerate()">⚡ Generate My Appeal Letter →</button>
+
+      <!-- OUTPUT -->
+      <div class="apb-out" id="apbOutput">
+        <div class="apb-out-hdr">
+          <div class="apb-out-hdr-lft">Your Appeal Letter — Ready to Submit</div>
+          <div class="apb-out-char" id="apbCharBadge">0 / 500 chars</div>
+        </div>
+        <div class="apb-letter-wrap">
+          <div class="apb-subject">SUBJECT: Appeal — Video Content Policy Violation</div>
+          <div class="apb-body" id="apbBody"></div>
+        </div>
+        <div class="apb-ev-section" id="apbEvSection" style="display:none;">
+          <div class="apb-ev-title">📎 Evidence to Attach When Submitting</div>
+          <div class="apb-ev-intro">TikTok allows you to attach screenshots during the appeal. Include these — they significantly improve approval rates:</div>
+          <div id="apbEvList"></div>
+        </div>
+        <div class="apb-submit-guide">
+          <div class="apb-sg-title">✅ How to Submit</div>
+          <ol class="apb-sg-steps">
+            <li>Go to <strong>TikTok → Profile → Inbox</strong> → find the violation notification</li>
+            <li>Tap <strong>"Submit an appeal"</strong> at the bottom of the violation message</li>
+            <li>Paste the copied letter into the text field <strong>(verify it shows under 500 characters)</strong></li>
+            <li>Attach your evidence screenshots using the paperclip / attachment option</li>
+            <li>Submit — TikTok reviews in <strong>2–7 business days</strong>. You'll receive an inbox decision.</li>
+            <li id="apbSecondNote" style="display:none;color:#B45309;font-weight:600;">⚠️ This is your SECOND appeal — if denied, the decision is final. There are no further appeals.</li>
+          </ol>
+        </div>
+        <div class="apb-actions">
+          <button class="apb-copy-btn" onclick="apbCopy()">Copy Letter</button>
+          <button class="apb-regen-btn" onclick="apbRegen()">↺ Different Version</button>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -895,99 +1034,219 @@
   },{threshold:.12});
   document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
-  // ── NAV SCROLL PROGRESS ──
-  // (not used in this page — clean nav)
-
-  // ── PILL TOGGLE ──
-  document.querySelectorAll('[id^="ag-"]').forEach(group=>{
-    group.querySelectorAll('.ag-pill').forEach(pill=>{
-      pill.addEventListener('click',()=>{
-        group.querySelectorAll('.ag-pill').forEach(p=>p.classList.remove('sel'));
-        pill.classList.add('sel');
+  // ── SINGLE-SELECT PILL GROUPS ──
+  ['apb-vtype','apb-appealnum','apb-ctype','apb-flagged'].forEach(gid=>{
+    const g=document.getElementById(gid);
+    if(!g)return;
+    g.querySelectorAll('.apb-pill').forEach(p=>{
+      p.addEventListener('click',()=>{
+        g.querySelectorAll('.apb-pill').forEach(x=>x.classList.remove('sel'));
+        p.classList.add('sel');
       });
     });
   });
 
-  function toggleCheck(el){el.classList.toggle('sel');}
+  // ── MULTI-SELECT CHECK ITEMS ──
+  function apbToggle(el){el.classList.toggle('sel');}
 
-  // ── APPEAL GENERATOR ──
-  var hairSeed=0;
-  var hairVtype='functionality';
+  // ── STATE HELPERS ──
+  function getSelVal(gid){
+    const s=document.querySelector('#'+gid+' .apb-pill.sel');
+    return s?s.dataset.val:'';
+  }
+  function getChecked(gid){
+    return Array.from(document.querySelectorAll('#'+gid+' .apb-ck.sel')).map(e=>e.dataset.val);
+  }
 
-  document.querySelectorAll('#ag-vtype .ag-pill').forEach(p=>{
-    p.addEventListener('click',()=>{hairVtype=p.dataset.val;});
-  });
-
-  var hairTemplates={
-    functionality:[
-      'I respectfully request a review of this violation. The content does not make exaggerated claims about the product\'s functionality or effect. All statements use personal experience framing ("I personally noticed," "in my experience") with no guaranteed outcomes or transformation promises. I have updated the thumbnail to remove any imagery that could imply a before/after comparison. A disclaimer was included. I request manual review and reversal of this decision.',
-      'I am requesting reconsideration of this Product Functionality and Effect violation. My video used first-person experience language only — no side-by-side comparisons, no claims of hair regrowth, and no disease references. The product was presented as a legal topical hair care product. I have corrected the thumbnail. I request this violation be reviewed in full context and removed from my record.',
-      'I respectfully appeal this violation. The content presented BeBodywise Hair Density Roll-On using only compliant language — "supports hair density" and personal experience framing. No transformation claims or manipulated visuals appeared in the video. Thumbnail has been updated. Disclaimer was included. I request this enforcement be reconsidered.',
-    ],
-    health:[
-      'I respectfully request a review of this violation. The content does not make false, guaranteed, or exaggerated health claims. All statements use personal experience framing and general wellness language — no medical diagnoses or guaranteed outcomes. The product is a legal, over-the-counter topical hair care product. A disclaimer was included. I request this decision be reviewed and the violation removed.',
-      'I am requesting reconsideration of this violation. My video presents general wellness information using qualified language ("may support," "I noticed") and explicit disclaimers. No disease claims, cure language, or guaranteed results were stated. I request manual review and removal of this enforcement action.',
-      'I respectfully appeal this violation. The content used first-person experience language with no absolute claims, no medical diagnosis framing, and no prohibited drug comparisons. A "Not medical advice — results may vary" disclaimer was clearly included. I request this decision be reviewed in full context and reversed.',
-    ],
-    thumbnail:[
-      'I respectfully request a review of this violation. I understand the thumbnail was flagged for containing imagery that may have implied a before/after comparison. I have immediately updated the thumbnail to show only the product and a lifestyle image with no hair comparison. All video content uses compliant personal experience language. I request this violation be reviewed and removed.',
-      'I am requesting reconsideration of this violation. The thumbnail has been updated to remove any visual that could be perceived as a before/after transformation comparison. The video itself uses compliant, first-person experience language with a disclaimer. I commit to ensuring all future thumbnails meet TikTok\'s guidelines. I request this action be reversed.',
-    ],
-    regulated:[
-      'I respectfully request a review of this violation. The product featured is a legal, over-the-counter topical hair care product that complies with TikTok\'s seller requirements. It is not a prohibited or restricted substance. All content uses compliant wellness language without medical claims. I request this violation be reviewed and the product listing reinstated.',
-      'I am requesting reconsideration of this regulated goods violation. The product shown is a legally sold OTC topical hair care product meeting TikTok\'s seller requirements. No prohibited claims were made. Content used personal experience framing only. I request this action be reversed.',
-    ],
-    prohibited:[
-      'I respectfully request a review of this prohibited product violation. The item featured is a legal, over-the-counter topical hair care product — not a prohibited, controlled, or restricted substance. It is legally sold and does not fall under TikTok\'s banned product categories. I request manual review and removal of this violation.',
-      'I am requesting reconsideration of this violation. The product is a legal OTC topical hair care product — not a drug, controlled substance, or otherwise prohibited item. I respectfully request this violation be reviewed and reversed.',
-    ],
-    disclosure:[
-      'I respectfully request a review of this disclosure violation. I was not aware that a branded content disclosure toggle and #ad tag were required for this post. I have since added the required disclosure. I am committed to meeting TikTok\'s branded content requirements on all future posts and request this violation be removed.',
-      'I am requesting reconsideration of this disclosure violation. This was an unintentional oversight. I have corrected the content and added the required paid partnership disclosure. I request the violation be removed given the correction has been made.',
-    ],
-    expired:[
-      'I respectfully request a review of this violation. At the time this video was posted, all pricing and promotional information shown was accurate and current. Any price or discount reference has since been verified. I request this decision be reconsidered and the violation removed from my record.',
-      'I am requesting reconsideration of this expired price violation. The promotional content shown was accurate at time of posting. I have reviewed and updated any outdated pricing references. I request this violation be reviewed and removed.',
-    ],
-    other:[
-      'I respectfully request a review of this violation decision. I believe the flagged content complies with TikTok\'s Community Guidelines. The video was created in good faith using personal experience language, explicit disclaimers, and compliant wellness framing. I request a manual review of the content in full context and reconsideration of this enforcement action.',
-      'I am requesting reconsideration of this violation. My content was created in full compliance with TikTok\'s guidelines and did not make exaggerated, false, or prohibited claims. I respectfully request a manual review.',
-    ],
+  // ── SENTENCE LIBRARY ──
+  // All sentences measured to known char counts for budget management.
+  const S={
+    personal_exp:   "All content used first-person experience language — 'I noticed,' 'in my experience' — no guaranteed outcomes.",        // 107
+    disc_spoken:    "A 'Not medical advice — results may vary' disclaimer was spoken during the video.",                                    // 82
+    disc_overlay:   "The disclaimer was displayed as an on-screen text overlay throughout.",                                                // 70
+    disc_caption:   "The disclaimer was also included in the caption text.",                                                               // 52
+    disc_full:      "A 'Not medical advice — results may vary' disclaimer was spoken, shown as overlay, and in the caption.",              // 103
+    no_compare:     "No before/after comparison or manipulated visual appeared in the video or thumbnail.",                                // 85
+    clean_thumb:    "The thumbnail showed the product in a natural, compliant lifestyle context with no hair comparison.",                  // 94
+    no_banned_kw:   "All language avoided banned terms — regrow, treats, cures, DHT blocker, and pharma comparisons.",                    // 93
+    ingredient_sep: "Ingredients were cited separately — 'Redensyl supports follicle health' — not as product outcome claims.",            // 98
+    no_drug:        "No pharmaceutical drug or prescription product was named or referenced.",                                             // 72
+    no_disease:     "No medical condition or disease was named or implied in the content.",                                                // 67
+    otc:            "BeBodywise Hair Density Roll-On is a legal OTC topical hair product — not a drug.",                                   // 85
+    thumb_updated:  "I have immediately updated the thumbnail to remove any imagery implying a before/after comparison.",                   // 97
+    disc_added:     "I have since added the required disclaimer to the content.",                                                          // 56
+    price_accurate: "All pricing and promotional information was accurate and current at time of posting.",                                // 83
+    ad_disclosure:  "I have added the required branded content disclosure and #ad tag to the content.",                                   // 81
+    reviewed_ok:    "Upon reviewing the full video, I confirm the content is compliant and no changes were required.",                      // 97
   };
 
-  function hairGenerate(){
-    hairSeed=0;
-    renderHairOutput();
-    document.getElementById('hairOutput').classList.add('show');
-    document.getElementById('hairOutput').scrollIntoView({behavior:'smooth',block:'nearest'});
-  }
+  // ── OPENERS ──
+  const OPEN={
+    functionality: "I respectfully appeal this Misleading — Product Functionality & Effect violation.",         // 82
+    health:        "I respectfully appeal this exaggerated health claims violation on my recent content.",       // 84
+    thumbnail:     "I respectfully appeal the before/after thumbnail violation on my video.",                    // 72
+    expired:       "I respectfully appeal this expired price or discount violation on my video.",                // 72
+    lowquality:    "I respectfully appeal this Low-Quality and Repetitive Content violation.",                   // 72
+    regulated:     "I respectfully appeal this regulated goods violation on my recent content.",                 // 74
+    prohibited:    "I respectfully appeal this prohibited product violation on my content.",                     // 69
+    disclosure:    "I respectfully appeal this missing branded content disclosure violation.",                   // 71
+    ip:            "I respectfully appeal this intellectual property or copyright violation.",                   // 72
+    safety:        "I respectfully appeal this safety and harmful content violation.",                           // 63
+    shop:          "I respectfully request reinstatement of my TikTok Shop access.",                            // 63
+    other:         "I respectfully appeal this content policy violation on my recent video.",                    // 70
+  };
 
-  function hairRegen(){hairSeed++;renderHairOutput();}
+  // ── PRIORITY SENTENCE POOLS (by violation type) ──
+  const POOL={
+    functionality: ['no_compare','personal_exp','disc_spoken','disc_overlay','thumb_updated','no_drug','ingredient_sep','no_banned_kw','otc'],
+    health:        ['personal_exp','disc_spoken','disc_overlay','disc_caption','no_disease','no_drug','no_banned_kw','ingredient_sep','no_compare','otc'],
+    thumbnail:     ['thumb_updated','no_compare','personal_exp','disc_spoken','disc_overlay','clean_thumb','otc'],
+    expired:       ['price_accurate','personal_exp','disc_spoken','otc'],
+    lowquality:    ['personal_exp','no_banned_kw','disc_spoken','otc'],
+    regulated:     ['otc','no_drug','no_disease','personal_exp','disc_spoken','no_banned_kw'],
+    prohibited:    ['otc','no_drug','no_banned_kw','personal_exp','disc_spoken'],
+    disclosure:    ['ad_disclosure','disc_added','personal_exp','otc'],
+    ip:            ['personal_exp','otc','disc_spoken'],
+    safety:        ['personal_exp','no_disease','no_banned_kw','disc_spoken','otc'],
+    shop:          ['price_accurate','otc','no_banned_kw','personal_exp','disc_spoken'],
+    other:         ['personal_exp','disc_spoken','no_compare','no_banned_kw','otc'],
+  };
 
-  function renderHairOutput(){
-    const handle=document.getElementById('h-handle').value.trim()||'@yourhandle';
-    const name=document.getElementById('h-name').value.trim()||'[Your Name]';
-    const templates=hairTemplates[hairVtype]||hairTemplates.other;
-    const letter=templates[hairSeed%templates.length];
-    const full=letter+'\n\n'+name+'\n'+handle;
-    document.getElementById('hairBody').innerText=full;
-    updateHairChar();
-  }
+  // ── CLOSER VARIANTS ──
+  const CLOSE_FIRST  = "I request a manual human review of this content in full context and reconsideration of this enforcement action."; // 107
+  const CLOSE_SECOND = "This is my second appeal. I respectfully ask a human reviewer to assess the full context and reconsider.";         // 99
 
-  function updateHairChar(){
-    const text=document.getElementById('hairBody').innerText.trim();
-    const len=text.length;
-    const el=document.getElementById('hairCharCount');
-    if(len<=500){
-      el.style.background='rgba(30,126,52,0.15)';el.style.border='1px solid rgba(30,126,52,0.3)';el.style.color='#4aaa4a';
-    }else{
-      el.style.background='rgba(255,64,64,0.15)';el.style.border='1px solid rgba(255,64,64,0.3)';el.style.color='#ff8080';
+  // ── BUILD LETTER ──
+  function buildLetter(seed){
+    const handle  = (document.getElementById('apb-handle').value.trim()||'@yourhandle');
+    const name    = (document.getElementById('apb-name').value.trim()||'[Your Name]');
+    const vtype   = getSelVal('apb-vtype')||'functionality';
+    const appeal  = getSelVal('apb-appealnum')||'first';
+    const flagged = getSelVal('apb-flagged')||'unsure';
+    const compliance = getChecked('apb-compliance');
+    const actions    = getChecked('apb-actions');
+
+    const sig     = '\n\n' + name + '\n' + handle;
+    const opener  = OPEN[vtype] || OPEN.other;
+    const closer  = appeal==='second' ? CLOSE_SECOND : CLOSE_FIRST;
+
+    // Build action sentences from what they actually did
+    const actionSents=[];
+    if(actions.includes('thumb_updated') && !actionSents.includes(S.thumb_updated)) actionSents.push(S.thumb_updated);
+    if(actions.includes('disc_added') && !compliance.includes('disc_spoken')) actionSents.push(S.disc_added);
+    if(actions.includes('ad_disclosure') && compliance.includes('ad_disclosure')) actionSents.push(S.ad_disclosure);
+    if(actions.includes('reviewed_compliant')) actionSents.push(S.reviewed_ok);
+
+    // Build compliance sentences based on what they checked, in priority order
+    const pool = POOL[vtype] || POOL.other;
+
+    // Map pool keys to sentences, filtered by what was actually checked
+    const complianceMap={
+      no_compare:     compliance.includes('no_compare')    ? S.no_compare    : null,
+      personal_exp:   compliance.includes('personal_exp')  ? S.personal_exp  : null,
+      disc_spoken:    compliance.includes('disc_spoken')   ? (compliance.includes('disc_overlay')&&compliance.includes('disc_caption') ? S.disc_full : (compliance.includes('disc_overlay') ? S.disc_spoken+' '+S.disc_overlay : S.disc_spoken)) : null,
+      disc_overlay:   null, // merged above
+      disc_caption:   compliance.includes('disc_caption')&&!compliance.includes('disc_spoken') ? S.disc_caption : null,
+      thumb_updated:  actions.includes('thumb_updated')    ? S.thumb_updated : null,
+      clean_thumb:    compliance.includes('clean_thumb')&&flagged!=='thumbnail' ? S.clean_thumb : null,
+      no_banned_kw:   compliance.includes('no_banned_kw')  ? S.no_banned_kw  : null,
+      ingredient_sep: compliance.includes('ingredient_sep')? S.ingredient_sep: null,
+      no_drug:        compliance.includes('no_drug')       ? S.no_drug       : null,
+      no_disease:     compliance.includes('no_disease')    ? S.no_disease    : null,
+      otc:            S.otc,
+      price_accurate: compliance.includes('price_accurate')? S.price_accurate: null,
+      ad_disclosure:  compliance.includes('ad_disclosure') ? S.ad_disclosure : null,
+      reviewed_ok:    actions.includes('reviewed_compliant')? S.reviewed_ok  : null,
+      disc_added:     actions.includes('disc_added')       ? S.disc_added    : null,
+    };
+
+    // Budget: total target = 490 (leaves ~10 margin from 500 - signature)
+    // Fixed: opener + closer + sig
+    const fixedLen = opener.length + 1 + closer.length + sig.length;
+    let budget = 490 - fixedLen;
+
+    // Pick sentences from pool respecting budget, rotating by seed
+    const rotatedPool = [...pool.slice(seed % Math.max(pool.length,1)), ...pool.slice(0, seed % Math.max(pool.length,1))];
+    const used=new Set();
+    const picked=[];
+
+    // Always try action sentences first (most relevant to approval)
+    for(const as of actionSents){
+      if(budget - as.length - 1 >= 40){
+        if(!picked.includes(as)){picked.push(as);budget-=as.length+1;used.add(as);}
+      }
     }
-    el.textContent=len+' / 500 chars'+(len>500?' ⚠️ over limit':'');
+
+    // Then compliance sentences in priority order
+    for(const key of rotatedPool){
+      const s = complianceMap[key];
+      if(!s || used.has(s) || picked.includes(s)) continue;
+      if(budget - s.length - 1 < 30) break;
+      picked.push(s); budget -= s.length+1; used.add(s);
+      if(budget < 50) break;
+    }
+
+    // Assemble body
+    let body = opener + ' ' + picked.join(' ') + ' ' + closer;
+
+    // Safety trim: if somehow over 500, drop last compliance sentence
+    while((body+sig).length > 500 && picked.length > 1){
+      picked.pop();
+      body = opener + ' ' + picked.join(' ') + ' ' + closer;
+    }
+
+    return {letter: body+sig, charCount: (body+sig).length};
   }
 
-  function hairCopy(){
-    const text=document.getElementById('hairBody').innerText;
+  // ── EVIDENCE LABELS ──
+  const EV_LABELS={
+    ev_video:   '📸 Screenshot of the video frame showing compliant content with timestamp visible',
+    ev_caption: '📸 Screenshot of the full caption at time of posting — showing disclaimer text and hashtags',
+    ev_disc:    '📸 Screenshot of the "Not medical advice" disclaimer visible on screen during the video',
+    ev_thumb:   '📸 Screenshot of the updated thumbnail (current version showing no comparison imagery)',
+    ev_listing: '📸 Screenshot of the product's TikTok Shop listing page confirming it is an approved product',
+    ev_similar: '📸 Screenshot of a similar video on your account that was NOT flagged — for comparison context',
+  };
+
+  // ── GENERATE ──
+  var apbSeed=0;
+
+  function apbGenerate(){
+    apbSeed=0;
+    renderApb();
+    const out=document.getElementById('apbOutput');
+    out.classList.add('show');
+    setTimeout(()=>out.scrollIntoView({behavior:'smooth',block:'start'}),100);
+    // Show/hide second appeal note
+    document.getElementById('apbSecondNote').style.display=
+      getSelVal('apb-appealnum')==='second' ? 'list-item' : 'none';
+  }
+
+  function apbRegen(){apbSeed++;renderApb();}
+
+  function renderApb(){
+    const {letter, charCount} = buildLetter(apbSeed);
+    document.getElementById('apbBody').innerText = letter;
+
+    // Char counter
+    const badge = document.getElementById('apbCharBadge');
+    badge.textContent = charCount + ' / 500 chars' + (charCount>500?' ⚠️ over':'');
+    badge.style.background = charCount>500 ? 'rgba(255,64,64,0.35)' : charCount>=470 ? 'rgba(30,126,52,0.35)' : 'rgba(255,255,255,0.18)';
+
+    // Evidence section
+    const evChecked = getChecked('apb-evidence');
+    const evList = document.getElementById('apbEvList');
+    const evSection = document.getElementById('apbEvSection');
+    if(evChecked.length > 0){
+      evSection.style.display='block';
+      evList.innerHTML = evChecked.map(k=>`<div class="apb-ev-item">${EV_LABELS[k]||k}</div>`).join('');
+    } else {
+      evSection.style.display='none';
+    }
+  }
+
+  function apbCopy(){
+    const text = document.getElementById('apbBody').innerText;
     navigator.clipboard.writeText(text).then(()=>{
       const t=document.getElementById('copyToast');
       t.classList.add('show');
