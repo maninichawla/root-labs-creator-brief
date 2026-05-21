@@ -36,9 +36,6 @@ button{cursor:pointer;font-family:inherit}
 .header-right{display:flex;align-items:center;gap:8px}
 .btn-icon{width:34px;height:34px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text2);display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .15s}
 .btn-icon:hover{background:var(--surface2)}
-.lang-toggle{display:flex;border:1px solid var(--border);border-radius:8px;overflow:hidden}
-.lang-btn{padding:5px 10px;font-size:12px;font-weight:600;border:none;background:var(--surface);color:var(--text2);transition:all .15s}
-.lang-btn.active{background:var(--blue1);color:#fff}
 
 /* TABS */
 .tab-nav{background:var(--surface);border-bottom:1px solid var(--border)}
@@ -283,12 +280,7 @@ textarea.form-input{resize:vertical;min-height:90px}
       </div>
     </div>
     <div class="header-right">
-      <div class="lang-toggle">
-        <button class="lang-btn active" onclick="setLang('en')" id="lang-en">EN</button>
-        <button class="lang-btn" onclick="setLang('es')" id="lang-es">ES</button>
-      </div>
       <button class="btn-icon" onclick="toggleDark()" title="Toggle dark mode" id="dark-btn">🌙</button>
-      <button class="btn-icon" onclick="openSettings()" title="Settings">⚙️</button>
     </div>
   </div>
 </header>
@@ -296,9 +288,10 @@ textarea.form-input{resize:vertical;min-height:90px}
 <!-- TAB NAV -->
 <nav class="tab-nav">
   <div class="tab-nav-inner">
-    <button class="tab-btn active" onclick="showTab('builder')" id="tab-builder" data-i="tabBuilder">Appeal Builder</button>
-    <button class="tab-btn" onclick="showTab('checker')" id="tab-checker" data-i="tabChecker">Script Checker</button>
-    <button class="tab-btn" onclick="showTab('history')" id="tab-history" data-i="tabHistory">My History</button>
+    <button class="tab-btn active" onclick="showTab('builder')" id="tab-builder">Appeal Builder</button>
+    <button class="tab-btn" onclick="showTab('checker')" id="tab-checker">Script Checker</button>
+    <button class="tab-btn" onclick="showTab('history')" id="tab-history">My History</button>
+    <button class="tab-btn" onclick="showTab('guide')" id="tab-guide">Product Guide</button>
   </div>
 </nav>
 
@@ -478,11 +471,6 @@ textarea.form-input{resize:vertical;min-height:90px}
         <div class="section-card-body" id="summary-body" style="font-size:13px;color:var(--text2);line-height:1.7"><!-- JS --></div>
       </div>
 
-      <div class="info-box orange" id="api-hint" style="display:none">
-        <span>🔑</span>
-        <span>An Anthropic API key is configured. This appeal will be generated using Claude AI for enhanced quality.</span>
-      </div>
-
       <div style="text-align:center;margin-bottom:28px">
         <button class="btn btn-primary btn-lg" id="generate-btn" onclick="generateAppeal()">
           <span>✨</span> <span data-i="generateBtn">Generate Appeal Letter</span>
@@ -510,6 +498,24 @@ textarea.form-input{resize:vertical;min-height:90px}
           <div class="appeal-footer">
             <span class="appeal-char" id="appeal-char-count"></span>
             <button class="btn btn-sm btn-ghost" onclick="saveToHistory()">💾 Save to History</button>
+          </div>
+        </div>
+
+        <!-- SHORT PORTAL VERSION -->
+        <div class="appeal-card" style="margin-bottom:20px">
+          <div class="appeal-card-header" style="background:linear-gradient(135deg,#0F4C81,#1D5FD4)">
+            <div class="appeal-card-header-text">
+              <h3>TikTok Portal Version</h3>
+              <p>Copy this into TikTok's in-app appeal box (≤500 characters)</p>
+            </div>
+            <div class="appeal-actions">
+              <button class="btn-white" onclick="copyShort()">📋 Copy</button>
+            </div>
+          </div>
+          <div class="appeal-body" id="short-body" style="font-family:inherit;font-size:14px"></div>
+          <div class="appeal-footer">
+            <span class="appeal-char" id="short-char-count"></span>
+            <span style="font-size:12px;color:var(--text3)">Paste this directly into TikTok's appeal text field</span>
           </div>
         </div>
 
@@ -575,26 +581,135 @@ textarea.form-input{resize:vertical;min-height:90px}
   </div>
 </div>
 
-<!-- SETTINGS MODAL -->
-<div class="modal-overlay" id="settings-modal">
-  <div class="modal">
-    <div class="modal-title">⚙️ Settings</div>
-    <div class="modal-sub">Configure optional features for enhanced appeal generation.</div>
-    <div class="form-group" style="margin-bottom:16px">
-      <label class="form-label">Anthropic API Key <span style="font-size:11px;color:var(--text3);font-weight:400">(optional — for AI-powered generation)</span></label>
-      <input class="form-input" id="api-key-input" type="password" placeholder="sk-ant-..." value="">
-      <span class="form-hint">Your key is stored locally and never sent to our servers. Used to call Claude directly from your browser.</span>
+<!-- ===================== PRODUCT GUIDE TAB ===================== -->
+<div class="tab-pane" id="tab-pane-guide">
+  <div class="page-body" style="padding-top:28px;padding-bottom:80px">
+    <div class="panel-title">BeBodywise Hair Density Roll-On — Creator Guide</div>
+    <div class="panel-sub">Product facts, safe claim language, banned phrases, and how to post compliantly.</div>
+
+    <!-- PRODUCT OVERVIEW -->
+    <div class="section-card" style="margin-bottom:18px">
+      <div class="section-card-head"><span class="section-num">1</span> Product Overview</div>
+      <div class="section-card-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px">
+          <div style="background:var(--blue7);border-radius:10px;padding:14px">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--blue1);margin-bottom:6px">What It Is</div>
+            <div style="font-size:13px;color:var(--text2);line-height:1.6">A <strong>topical cosmetic roll-on serum</strong> applied directly to the scalp. Not a drug. Not a medical device. Sold on TikTok Shop as a licensed cosmetic product.</div>
+          </div>
+          <div style="background:var(--blue7);border-radius:10px;padding:14px">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--blue1);margin-bottom:6px">How It's Applied</div>
+            <div style="font-size:13px;color:var(--text2);line-height:1.6">Roll directly onto scalp sections. Massage gently. No rinsing required. Best with consistent daily use for 30–60 days.</div>
+          </div>
+        </div>
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);margin-bottom:10px">Key Ingredients</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div style="border:1.5px solid var(--border);border-radius:10px;padding:12px">
+            <div style="font-weight:800;font-size:14px;color:var(--blue1);margin-bottom:4px">Redensyl</div>
+            <div style="font-size:12px;color:var(--text2);line-height:1.5">Targets follicle stem cells (HFDPC). Supports the scalp's natural hair growth environment. Safe claim: <em>"supports follicle activation"</em></div>
+          </div>
+          <div style="border:1.5px solid var(--border);border-radius:10px;padding:12px">
+            <div style="font-weight:800;font-size:14px;color:var(--blue1);margin-bottom:4px">Anagain</div>
+            <div style="font-size:12px;color:var(--text2);line-height:1.5">Derived from organic pea sprouts. Studied for supporting the anagen (growth) phase of the hair cycle. Safe claim: <em>"supports the hair growth cycle"</em></div>
+          </div>
+          <div style="border:1.5px solid var(--border);border-radius:10px;padding:12px">
+            <div style="font-weight:800;font-size:14px;color:var(--blue1);margin-bottom:4px">Caffeine</div>
+            <div style="font-size:12px;color:var(--text2);line-height:1.5">Topical scalp stimulant. Known to support scalp circulation. Safe claim: <em>"stimulates the scalp"</em></div>
+          </div>
+          <div style="border:1.5px solid var(--border);border-radius:10px;padding:12px">
+            <div style="font-weight:800;font-size:14px;color:var(--blue1);margin-bottom:4px">Biotin</div>
+            <div style="font-size:12px;color:var(--text2);line-height:1.5">Supports keratin infrastructure and strand strength. Safe claim: <em>"supports strong, healthy-looking hair"</em></div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-      <label class="form-label">Default Language</label>
-      <select class="form-input" id="default-lang-select" onchange="setLang(this.value)">
-        <option value="en">English</option>
-        <option value="es">Español</option>
-      </select>
+
+    <!-- BANNED vs SAFE WORDS -->
+    <div class="section-card" style="margin-bottom:18px">
+      <div class="section-card-head"><span class="section-num">2</span> Banned Phrases vs. Safe Alternatives</div>
+      <div class="section-card-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border:1.5px solid var(--border);border-radius:10px;overflow:hidden">
+          <div style="background:var(--red);color:#fff;padding:10px 14px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🚫 Will Get You Flagged</div>
+          <div style="background:var(--green);color:#fff;padding:10px 14px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">✅ Safe to Say</div>
+          ${[
+            ['Regrows hair / Grows new hair','Supports the appearance of fuller-looking hair'],
+            ['Stops hair loss / Prevents hair loss','Formulated to support healthy hair maintenance'],
+            ['Clinically proven results','Contains ingredients studied in published research'],
+            ['Dermatologist recommended','Dermatologist-formulated (only if true)'],
+            ['Treats alopecia / baldness / thinning','Designed to support hair density appearance'],
+            ['FDA approved / FDA cleared','Compliant with cosmetic regulations'],
+            ['Guaranteed results / Works in X days','In my experience, I noticed a difference around week 4'],
+            ['Before and after transformation','My Day 1 vs Day 30 personal journey'],
+            ['Reverses hair loss','I noticed my hair looks and feels different'],
+            ['Thickens hair (as a drug claim)','My hair looks fuller with consistent use'],
+            ['Blocks DHT','Supports a healthy scalp environment'],
+            ['100% effective / Instant results','Results may vary — I used it consistently for 60 days'],
+          ].map(([bad,good])=>`
+          <div style="padding:10px 14px;font-size:13px;border-top:1px solid var(--border);color:var(--red);font-weight:600">"${bad}"</div>
+          <div style="padding:10px 14px;font-size:13px;border-top:1px solid var(--border);color:#166534">"${good}"</div>
+          `).join('')}
+        </div>
+      </div>
     </div>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeSettings()">Cancel</button>
-      <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+
+    <!-- THE JOURNEY METHOD -->
+    <div class="section-card" style="margin-bottom:18px">
+      <div class="section-card-head"><span class="section-num">3</span> The Journey Method — Before/After Done Right</div>
+      <div class="section-card-body">
+        <div class="info-box orange" style="margin-bottom:14px">
+          <span>⚠️</span>
+          <span><strong>Before/After THUMBNAILS are what trigger flags</strong> — a dramatic bald-to-full-hair image in the thumbnail, even if the video is compliant. The video content itself (a personal timeline) is safer.</span>
+        </div>
+        <div style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">Creators <em>can</em> show hair changes over time — but it must be framed as a <strong>personal experience timeline</strong>, not a "product caused this transformation" comparison.</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px">
+          ${[['📸 Day 1','Dry, dull scalp. Starting my hair wellness routine.'],['📸 Week 2','Scalp feels less dry. Noticing the product absorbs well.'],['📸 Week 4','Hair looks a bit fuller to me — may just be hydration.'],['📸 60 Days','My overall hair health feels improved. Results are mine personally.']].map(([label,text])=>`
+          <div style="text-align:center;padding:12px 10px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface)">
+            <div style="font-size:20px;margin-bottom:6px">${label.split(' ')[0]}</div>
+            <div style="font-size:11px;font-weight:700;color:var(--blue1);margin-bottom:5px">${label.split(' ').slice(1).join(' ')}</div>
+            <div style="font-size:11px;color:var(--text3);line-height:1.4">${text}</div>
+          </div>`).join('')}
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div style="background:#FFF1F2;border:1px solid #FFE4E6;border-radius:8px;padding:12px">
+            <div style="font-size:12px;font-weight:700;color:#DC2626;margin-bottom:8px">🚫 Thumbnail Don'ts</div>
+            <ul style="font-size:12px;color:#7F1D1D;line-height:1.8;padding-left:16px">
+              <li>Split-screen bald vs. full hair</li>
+              <li>Dramatic before/after side-by-side</li>
+              <li>Overlaid text: "REGREW HAIR IN 30 DAYS"</li>
+              <li>Extreme close-up of sparse vs. thick scalp</li>
+            </ul>
+          </div>
+          <div style="background:#F0FFF4;border:1px solid #BBF7D0;border-radius:8px;padding:12px">
+            <div style="font-size:12px;font-weight:700;color:#166534;margin-bottom:8px">✅ Thumbnail Dos</div>
+            <ul style="font-size:12px;color:#14532D;line-height:1.8;padding-left:16px">
+              <li>Creator holding or applying the product</li>
+              <li>Lifestyle shot with hair looking healthy</li>
+              <li>Text: "My 60-Day Hair Journey" (neutral)</li>
+              <li>Product flat-lay or ingredient focus</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DISCLOSURE REQUIREMENTS -->
+    <div class="section-card">
+      <div class="section-card-head"><span class="section-num">4</span> Required Disclosures — Every Video</div>
+      <div class="section-card-body">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          ${[
+            ['Spoken in video','Say "This is not medical advice — results may vary" out loud, on camera.'],
+            ['On-screen overlay','Add a text overlay with the disclaimer visible for at least 3 seconds.'],
+            ['Caption','Include "Not medical advice. Individual results may vary." in your caption.'],
+            ['#ad / #sponsored','Required if you received the product for free or are paid as an affiliate.'],
+            ['Branded content toggle','Enable TikTok\'s native branded content disclosure in Creator Tools.'],
+            ['Results vary disclaimer','"Results shown are my personal experience and may not be typical."'],
+          ].map(([title,desc])=>`
+          <div style="display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--surface2);border-radius:8px">
+            <span style="color:var(--green);font-weight:800;flex-shrink:0;margin-top:1px">✓</span>
+            <div><strong style="font-size:13px">${title}</strong><br><span style="font-size:12px;color:var(--text2)">${desc}</span></div>
+          </div>`).join('')}
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -783,77 +898,23 @@ const SCRIPT_FLAGS = [
   { pattern:/\bindividual results (may )?vary\b/gi, level:'', phrase:'results disclaimer', alt:'✓ Good — this protects you' },
 ];
 
-// ===== DATA: TRANSLATIONS =====
-const T = {
-  en: {
-    tabBuilder:'Appeal Builder', tabChecker:'Script Checker', tabHistory:'My History',
-    step1Label:'Creator Info', step2Label:'Violation Type', step3Label:'Context',
-    step4Label:'Evidence', step5Label:'Generate',
-    s1Title:'Creator & Video Information', s1Sub:'Enter your details and the video that received the violation notice.',
-    s2Title:'Select Violation Type(s)', s2Sub:'Select all violation types shown on your TikTok notice. Tap a card to see what it means and how to address it.',
-    s3Title:'Content & Claims', s3Sub:'Tell us what was in your video. This helps build the strongest possible appeal.',
-    s3aTitle:'A. What did the video contain?', s3bTitle:'B. What language or claims were used?',
-    s3cTitle:'C. What evidence can you provide?', s3dTitle:'D. Your explanation',
-    s4Title:'Evidence & Documents', s4Sub:'Upload screenshots and documents to strengthen your appeal.',
-    s5Title:'Generate Your Appeal', s5Sub:'Review the summary below, then generate your professional appeal letter.',
-    checkerTitle:'Pre-Video Script Checker', checkerSub:'Paste your draft script below before posting. We\'ll flag language likely to trigger a TikTok violation.',
-    historyTitle:'My Violation History', historySub:'Track past violations and appeal outcomes.',
-    nextBtn:'Next: Violation Type →', checkBtn:'🔍 Check Script', generateBtn:'Generate Appeal Letter',
-  },
-  es: {
-    tabBuilder:'Crear Apelación', tabChecker:'Verificar Guión', tabHistory:'Mi Historial',
-    step1Label:'Creador', step2Label:'Tipo Violación', step3Label:'Contexto',
-    step4Label:'Evidencia', step5Label:'Generar',
-    s1Title:'Información del Creador y Video', s1Sub:'Ingresa tus datos y el video que recibió el aviso de violación.',
-    s2Title:'Seleccionar Tipo(s) de Violación', s2Sub:'Selecciona todos los tipos de violación que aparecen en tu aviso de TikTok.',
-    s3Title:'Contenido y Afirmaciones', s3Sub:'Cuéntanos qué había en tu video para construir la apelación más sólida posible.',
-    s3aTitle:'A. ¿Qué contenía el video?', s3bTitle:'B. ¿Qué lenguaje o afirmaciones se usaron?',
-    s3cTitle:'C. ¿Qué evidencia puedes proporcionar?', s3dTitle:'D. Tu explicación',
-    s4Title:'Evidencia y Documentos', s4Sub:'Sube capturas de pantalla y documentos para fortalecer tu apelación.',
-    s5Title:'Generar tu Apelación', s5Sub:'Revisa el resumen y genera tu carta de apelación profesional.',
-    checkerTitle:'Verificador de Guión', checkerSub:'Pega tu guión antes de publicar. Identificaremos lenguaje que podría generar una violación.',
-    historyTitle:'Mi Historial de Violaciones', historySub:'Registra violaciones pasadas y resultados de apelaciones.',
-    nextBtn:'Siguiente: Tipo de Violación →', checkBtn:'🔍 Verificar Guión', generateBtn:'Generar Carta de Apelación',
-  }
-};
 
 // ===== STATE =====
-let lang = localStorage.getItem('bb_lang') || 'en';
 let currentStep = 1;
 let uploadedFiles = [];
 let editMode = false;
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
-  applyLang();
   renderViolationTypes();
   renderCheckboxLists();
   restoreAutoSave();
   renderHistory();
-  checkApiHint();
-  // Set today's date as default for violation date
   const today = new Date().toISOString().split('T')[0];
   if (!document.getElementById('violation-date').value) {
     document.getElementById('violation-date').value = today;
   }
 });
-
-// ===== LANGUAGE =====
-function setLang(l) {
-  lang = l;
-  localStorage.setItem('bb_lang', l);
-  applyLang();
-}
-function applyLang() {
-  document.documentElement.lang = lang;
-  document.getElementById('lang-en').classList.toggle('active', lang==='en');
-  document.getElementById('lang-es').classList.toggle('active', lang==='es');
-  const t = T[lang];
-  document.querySelectorAll('[data-i]').forEach(el => {
-    const key = el.dataset.i;
-    if (t[key]) el.textContent = t[key];
-  });
-}
 
 // ===== DARK MODE =====
 function toggleDark() {
@@ -878,6 +939,7 @@ function showTab(name) {
   document.getElementById('tab-pane-'+name).classList.add('active');
   document.getElementById('tab-'+name).classList.add('active');
   if (name === 'history') renderHistory();
+  if (name === 'guide') renderGuide();
 }
 
 // ===== STEP NAVIGATION =====
@@ -1160,24 +1222,30 @@ async function generateAppeal() {
   const evidence = EVIDENCE_OPTS.map(o=>o.id).filter(id=>document.getElementById('co_'+id)?.classList.contains('sel'));
   const explanation = document.getElementById('explanation').value.trim();
 
-  const apiKey = localStorage.getItem('bb_api_key');
   let letter = '';
 
+  const formData = { handle, name, videoUrl, postDate, violationDate, product, shopName, shopLink, vtypes, content, claims, evidence, explanation };
+
   try {
-    if (apiKey) {
-      letter = await generateWithAI({ handle, name, videoUrl, postDate, violationDate, product, shopName, shopLink, vtypes, content, claims, evidence, explanation, uploadedFiles }, apiKey);
-    } else {
-      letter = buildAppealLocal({ handle, name, videoUrl, postDate, violationDate, product, shopName, shopLink, vtypes, content, claims, evidence, explanation });
-    }
+    letter = buildAppealLocal(formData);
   } catch(e) {
-    letter = buildAppealLocal({ handle, name, videoUrl, postDate, violationDate, product, shopName, shopLink, vtypes, content, claims, evidence, explanation });
+    letter = 'Error generating appeal. Please check your form entries and try again.';
   }
 
   document.getElementById('appeal-body').textContent = letter;
   document.getElementById('appeal-edit').value = letter;
+  const wordCount = letter.trim().split(/\s+/).length;
   const charCount = letter.length;
-  document.getElementById('appeal-char-count').textContent = `${charCount} characters`;
-  document.getElementById('appeal-meta-line').textContent = `Generated ${new Date().toLocaleString()} · ${charCount} chars`;
+  document.getElementById('appeal-char-count').textContent = `${wordCount} words · ${charCount} characters`;
+  document.getElementById('appeal-meta-line').textContent = `Generated ${new Date().toLocaleString()} · ${wordCount} words`;
+
+  // Short portal version (≤500 chars)
+  const shortText = buildShortAppeal(formData);
+  document.getElementById('short-body').textContent = shortText;
+  const sc = shortText.length;
+  const scEl = document.getElementById('short-char-count');
+  scEl.textContent = `${sc} / 500 characters`;
+  scEl.style.color = sc > 500 ? 'var(--red)' : sc > 460 ? 'var(--orange)' : 'var(--green)';
 
   renderChecklist();
   btn.disabled = false;
@@ -1185,183 +1253,112 @@ async function generateAppeal() {
   document.getElementById('appeal-output').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
-// ===== LOCAL APPEAL BUILDER =====
+// ===== LOCAL APPEAL BUILDER (≈350 words) =====
 function buildAppealLocal(d) {
   const { handle, name, videoUrl, postDate, violationDate, product, shopName, shopLink, vtypes, content, claims, evidence, explanation } = d;
   const dateStr = new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
-  const vNames = vtypes.map(id => {
-    for (const cat of VTYPES) { const item = cat.items.find(i=>i.id===id); if(item) return item.name; }
-    return id;
-  });
+  const vNames = vtypes.map(id => { for (const cat of VTYPES) { const it = cat.items.find(i=>i.id===id); if(it) return it.name; } return id; });
 
-  const hasHealth = vtypes.some(v => ['med_misleading','med_unsubstantiated','med_before_after','med_drug_device','com_misinfo','adv_exaggerated'].includes(v));
+  const hasHealth = vtypes.some(v => ['med_misleading','med_unsubstantiated','med_drug_device','com_misinfo','adv_exaggerated'].includes(v));
   const hasBA = vtypes.includes('med_before_after') || claims.includes('cl_ba');
   const hasAffiliate = vtypes.some(v => ['shop_affiliate','fmt_partnership','adv_unauthorized'].includes(v));
-  const hasListing = vtypes.includes('shop_mismatch');
-  const hasRestricted = vtypes.includes('shop_restricted');
   const hasCopyright = vtypes.some(v => ['com_ip','fmt_copyright'].includes(v));
 
-  // Header
   let letter = `Date: ${dateStr}\n`;
-  letter += `Re: Formal Appeal — Content Violation Notice\n`;
-  if (violationDate) letter += `Notice Date: ${violationDate}\n`;
-  if (videoUrl) letter += `Video URL: ${videoUrl}\n`;
-  letter += `Creator: ${handle || '@creator'}${name ? ' ('+name+')' : ''}\n`;
-  letter += `\nDear TikTok Trust & Safety Team,\n\n`;
+  letter += `Re: Appeal of Content Violation Notice${vNames.length ? ' — '+vNames[0] : ''}\n`;
+  if (videoUrl) letter += `Video: ${videoUrl}\n`;
+  letter += `Creator: ${handle || '@creator'}${name ? ' ('+name+')' : ''}\n\nDear TikTok Trust & Safety Team,\n\n`;
 
-  // Introduction
-  letter += `I am writing to formally appeal the content violation notice issued against my TikTok account${handle?' '+handle:''} on ${violationDate || 'the date of notice'}. I respectfully submit that this notice was issued in error and request a thorough, good-faith review of the flagged content in its full context.\n\n`;
+  // Introduction (2 sentences)
+  letter += `I am writing to formally appeal the violation notice issued on ${violationDate || '[date]'} against my account ${handle || '@creator'}. I respectfully submit that the flagged content is fully compliant upon thorough review, and request that it be reinstated.\n\n`;
 
-  // Product description
-  letter += `The content in question promotes ${product}${shopName?' by '+shopName:''}, a cosmetic topical hair care product sold through TikTok Shop${shopLink?' ('+shopLink+')':''}. This product is formulated with Redensyl (a clinically studied compound targeting follicle stem cell activation), Anagain (derived from organic pea sprouts to support the hair growth cycle), Caffeine (a topical scalp stimulant), and Biotin (supporting keratin structure and hair strand strength). ${product} is classified as a cosmetic product — not a drug or medical device — under applicable regulatory frameworks and is a licensed, approved item on TikTok Shop.\n\n`;
+  // Product context (3 sentences)
+  letter += `The video promotes ${product}${shopName ? ' by '+shopName : ''}, a licensed cosmetic topical serum sold on TikTok Shop${shopLink ? ' ('+shopLink+')' : ''}. It is formulated with Redensyl, Anagain, Caffeine, and Biotin — all cosmetic ingredients — and is classified as a cosmetic product, not a drug or medical device. It is an approved, active listing on TikTok Shop.\n\n`;
 
-  // Claim clarification by violation type
+  // Claim clarification (targeted, one paragraph)
+  let clarify = '';
   if (hasHealth) {
-    letter += `Regarding health and efficacy claims: all language used in the flagged video was consistent with standard cosmetic product communication and in accordance with FTC guidelines distinguishing cosmetic products from drugs. `;
-
-    if (claims.includes('cl_regrow')) letter += `Any reference to hair growth was framed as the cosmetic product's ability to "support the appearance of fuller-looking hair through nourishment of the scalp and follicle area" — not as a guaranteed medical outcome or disease treatment. `;
-    if (claims.includes('cl_stoploss')) letter += `References to hair retention were framed as the product being "formulated with ingredients known to support healthy hair maintenance" — not as a claim to prevent or treat a medical condition such as alopecia or androgenic hair loss. `;
-    if (claims.includes('cl_clinical')) letter += `Any mention of ingredients being "studied" or "researched" referred to published scientific literature on the individual ingredients (Redensyl, Anagain) — not to a product-level clinical trial making therapeutic claims. `;
-    if (claims.includes('cl_alopecia')) letter += `The product was positioned as a cosmetic designed to support hair density appearance, with explicit acknowledgment that it is not intended to diagnose or treat any medical condition. `;
-    if (claims.includes('cl_thicken') || claims.includes('cl_follicle')) letter += `Descriptions such as "supports follicle health" or "hair looks fuller" were presented as first-person observations of cosmetic benefit — framed as personal experience, not clinical proof. `;
-    if (claims.includes('cl_days')) letter += `Any reference to a timeline was framed as a personal experience observation ("I began noticing a difference around week 4") with explicit acknowledgment that individual results may vary. `;
-    if (claims.includes('cl_none') || claims.includes('cl_unsure')) letter += `The video used general cosmetic language consistent with standard hair care content on TikTok — describing the product's application method, ingredients, and personal experience with use. No medical or therapeutic claims were made. `;
-
-    if (!claims.length || claims.every(c => ['cl_natural','cl_none','cl_unsure'].includes(c))) {
-      letter += `The video used general cosmetic language consistent with standard hair care content on TikTok. No medical or therapeutic claims were made. `;
+    clarify += 'All language in the video was cosmetic in nature and compliant with FTC guidelines distinguishing cosmetics from drugs. ';
+    if (claims.includes('cl_regrow')) clarify += 'Hair growth references were framed as "supports the appearance of fuller-looking hair" — not a medical outcome claim. ';
+    if (claims.includes('cl_stoploss')) clarify += '"Hair maintenance" language was used — not a claim to prevent or treat any medical condition. ';
+    if (claims.includes('cl_clinical')) clarify += 'Ingredient research was cited factually ("ingredients studied in published research") — not as a product-level clinical proof. ';
+    if (claims.includes('cl_alopecia')) clarify += 'The product was positioned as cosmetic support for hair density appearance, with explicit acknowledgment it does not treat medical conditions. ';
+    if (claims.includes('cl_days')) clarify += 'Timelines were framed as personal experience with the explicit note that results may vary. ';
+    if (!clarify.includes('framed') && (claims.includes('cl_none') || claims.includes('cl_unsure') || !claims.length)) {
+      clarify += 'The video used standard cosmetic hair care language throughout — describing application, ingredients, and personal experience only. ';
     }
-    letter += `\n\n`;
   }
-
-  if (hasBA) {
-    letter += `Regarding before and after imagery: the content shown was a personal experience timeline documenting my own observations over a period of consistent product use with clearly noted timeframes. This format — showing a personal hair care journey over time — is distinct from a comparative medical claim or a guaranteed outcome presentation. The imagery was authentic, accompanied by first-person experiential language, and explicitly not presented as a guaranteed result for all users. The caption and/or video included the statement that "individual results may vary."\n\n`;
-  }
-
-  if (hasAffiliate) {
-    letter += `Regarding disclosure requirements: the content included the required branded content disclosure, the #ad hashtag in the caption, and TikTok Shop's affiliate tagging was properly configured at the time of posting. The partnership between the creator and ${shopName || 'the brand'} is fully authorized and properly disclosed in accordance with TikTok's creator partnership policies and FTC endorsement guidelines.\n\n`;
-  }
-
-  if (hasListing) {
-    letter += `Regarding the product listing mismatch concern: the video content directly corresponds to the linked TikTok Shop product — ${product}${shopLink?' available at '+shopLink:''}. The product demonstrated in the video is the exact product available for purchase through the linked listing. No discrepancy between the video content and the product listing exists.\n\n`;
-  }
-
-  if (hasRestricted) {
-    letter += `Regarding the restricted product concern: ${product} is a cosmetic hair care product that is legally sold on TikTok Shop as an approved listing. It is not a pharmaceutical, medical device, or prohibited product. I am attaching product registration and listing documentation to confirm the product's approved status on the platform.\n\n`;
-  }
-
-  if (hasCopyright) {
-    letter += `Regarding the intellectual property concern: all content in the video was original, created by me personally. Any music used was sourced from TikTok's licensed sound library. No third-party copyrighted materials were used without authorization.\n\n`;
-  }
+  if (hasBA) clarify += 'Any before/after imagery was a personal experience timeline (Day 1 → Day 60) with clear date labels and a "results may vary" disclosure — not a medical transformation claim. ';
+  if (hasAffiliate) clarify += 'The branded content disclosure, #ad hashtag, and TikTok Shop affiliate tag were all active at time of posting. ';
+  if (hasCopyright) clarify += 'All content was original and any music was sourced from TikTok\'s licensed sound library. ';
+  if (!clarify) clarify = 'All content was created with full awareness of TikTok\'s community guidelines. No medical claims, guaranteed outcomes, or prohibited content appeared in the video. ';
+  letter += clarify.trim() + '\n\n';
 
   // Creator explanation
-  if (explanation) {
-    letter += `Creator Statement: ${explanation}\n\n`;
-  }
+  if (explanation) letter += `Creator statement: ${explanation}\n\n`;
 
-  // Evidence summary
-  const evidenceLabels = {
-    ev_coa: 'Certificate of Analysis / product ingredient list',
-    ev_safety: 'Product safety data sheet',
-    ev_lab: 'Third-party lab test results',
-    ev_auth: 'Brand authorization letter',
-    ev_reg: 'Product registration / compliance documentation',
-    ev_clinical: 'Published clinical or research studies on key ingredients',
-    ev_fda: 'FDA cosmetic registration documentation',
-    ev_derm: 'Dermatologist or professional endorsement letter',
-    ev_consent: 'Customer consent form for testimonial use',
-    ev_original: 'Original content proof',
-    ev_notice: 'Screenshot of the violation notice from TikTok',
-    ev_prior: 'Previous successful appeal for similar content',
-  };
-  const evItems = evidence.filter(id => evidenceLabels[id]);
-  const fileItems = uploadedFiles.filter(f => f.category).map(f => f.category + (f.desc ? ' ('+f.desc+')' : ''));
-  const allEvidence = [...evItems.map(id=>evidenceLabels[id]), ...fileItems];
+  // Evidence list
+  const EV_LABELS = { ev_coa:'Product CoA/ingredient list', ev_safety:'Safety data sheet', ev_lab:'Third-party lab results', ev_auth:'Brand authorization letter', ev_reg:'Product registration docs', ev_clinical:'Clinical study on ingredients', ev_fda:'FDA cosmetic registration', ev_derm:'Dermatologist letter', ev_consent:'Customer consent form', ev_original:'Original content proof', ev_notice:'Violation notice screenshot', ev_prior:'Prior successful appeal' };
+  const evList = [...evidence.filter(id=>EV_LABELS[id]).map(id=>EV_LABELS[id]), ...uploadedFiles.filter(f=>f.category).map(f=>f.category)];
+  if (evList.length) { letter += `Supporting documentation attached:\n`; evList.forEach(e => letter += `• ${e}\n`); letter += '\n'; }
 
-  if (allEvidence.length > 0) {
-    letter += `In support of this appeal, I am providing the following documentation:\n`;
-    allEvidence.forEach(e => letter += `  • ${e}\n`);
-    letter += `\n`;
-  }
-
-  // Policy alignment
-  letter += `I am fully aware of and operate in accordance with TikTok's Community Guidelines — Integrity and Authenticity; TikTok Shop Seller and Creator Policies regarding Prohibited and Restricted Products; TikTok Advertising Policies for Health and Beauty Claims; and FTC guidelines distinguishing cosmetic claims from drug claims. This content was created with these policies in mind, and I firmly believe it is compliant upon careful and thorough review.\n\n`;
-
-  // Closing
-  letter += `I respectfully request that TikTok's moderation team conduct a thorough review of the full video in context, taking into consideration the evidence provided and the cosmetic nature of the product being promoted. I respectfully ask that the content be reinstated to active status. I am committed to working collaboratively within TikTok's guidelines and welcome any specific guidance that would help ensure continued compliance.\n\n`;
-  letter += `Thank you sincerely for your time and consideration.\n\n`;
-  letter += `Respectfully,\n${name || 'Creator Name'}\n${handle || '@handle'}`;
-  if (shopName) letter += `\nAffiliate/Creator: ${shopName}`;
+  // Policy + closing
+  letter += `This content was created in accordance with TikTok's Community Guidelines (Integrity & Authenticity), TikTok Shop Creator Policies, TikTok Advertising Policies for Health & Beauty, and FTC cosmetic vs. drug claim guidelines. I respectfully request full reinstatement of this content and welcome any specific guidance to ensure continued compliance.\n\n`;
+  letter += `Thank you for your time and consideration.\n\nRespectfully,\n${name || 'Creator Name'}\n${handle || '@handle'}`;
+  if (shopName) letter += `\n${shopName}`;
 
   return letter;
 }
 
-// ===== AI GENERATION (optional) =====
-async function generateWithAI(d, apiKey) {
-  const prompt = buildAIPrompt(d);
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'x-api-key': apiKey,
-      'anthropic-version': '2023-06-01',
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 1500,
-      messages: [{ role:'user', content: prompt }]
-    })
-  });
-  if (!res.ok) throw new Error('API error');
-  const data = await res.json();
-  return data.content[0].text;
+// ===== SHORT PORTAL VERSION (≤500 chars) =====
+function buildShortAppeal(d) {
+  const { handle, name, vtypes, claims, explanation, product, violationDate } = d;
+
+  // Sentence library with measured lengths — pick sentences to fill budget
+  const SENTENCES = {
+    opening: `I am appealing the violation notice issued on ${violationDate||'[date]'}. `,
+    cosmetic: `${product||'This product'} is a licensed cosmetic — not a drug or medical device. `,
+    language: `All language used was first-person experience ("I noticed") with no medical outcome claims. `,
+    ba: `Before/after content was a personal dated timeline — not a guaranteed transformation claim. `,
+    disclaimer: `A "not medical advice — results may vary" disclaimer was included. `,
+    ingredients: `Claims referenced ingredient names (Redensyl, Anagain) — not product-level clinical proof. `,
+    disclosure: `Branded content disclosure and #ad tag were included. `,
+    request: `I respectfully request reinstatement and welcome any guidance. `,
+    closing: `— ${name||'Creator'} (${handle||'@handle'})`,
+  };
+
+  const violationRelated = [];
+  const hasHealth = vtypes.some(v=>['med_misleading','med_unsubstantiated','med_drug_device','com_misinfo','adv_exaggerated'].includes(v));
+  const hasBA = vtypes.includes('med_before_after') || claims.includes('cl_ba');
+  const hasAffiliate = vtypes.some(v=>['shop_affiliate','fmt_partnership'].includes(v));
+
+  // Priority pool based on what was flagged
+  const pool = [SENTENCES.opening, SENTENCES.cosmetic];
+  if (hasHealth) pool.push(SENTENCES.language, SENTENCES.ingredients, SENTENCES.disclaimer);
+  if (hasBA) pool.push(SENTENCES.ba, SENTENCES.disclaimer);
+  if (hasAffiliate) pool.push(SENTENCES.disclosure);
+  pool.push(SENTENCES.request, SENTENCES.closing);
+
+  // Budget fill: target 490 chars
+  const TARGET = 490;
+  let result = '';
+  for (const s of pool) {
+    if ((result + s).length <= TARGET) result += s;
+    else if (result.length < 400) { result += s.slice(0, TARGET - result.length - 1) + '.'; break; }
+    else break;
+  }
+  return result.trim();
 }
 
-function buildAIPrompt(d) {
-  const vNames = d.vtypes.map(id => {
-    for (const cat of VTYPES) { const item = cat.items.find(i=>i.id===id); if(item) return item.name; }
-    return id;
-  });
-  const claimNames = CLAIMS_OPTS.filter(o=>d.claims.includes(o.id)).map(o=>o.label);
-  const evNames = EVIDENCE_OPTS.filter(o=>d.evidence.includes(o.id)).map(o=>o.label);
-  return `Write a professional TikTok content violation appeal letter for the following creator. The letter must be formal, respectful, non-confrontational, and structured with these sections: Introduction, Product Description, Claim Clarification, Evidence Summary, Policy Alignment, Closing Request.
+// ===== COPY SHORT VERSION =====
+function copyShort() {
+  const text = document.getElementById('short-body').textContent;
+  navigator.clipboard.writeText(text).then(() => showToast('Portal version copied!', 'success'));
+}
 
-CREATOR DETAILS:
-- Handle: ${d.handle}
-- Name: ${d.name}
-- Product: ${d.product}
-- Shop: ${d.shopName || 'N/A'}
-- Video URL: ${d.videoUrl}
-- Violation date: ${d.violationDate}
-
-VIOLATION TYPE(S): ${vNames.join(', ')}
-
-VIDEO CONTENT: ${CONTENT_OPTS.filter(o=>d.content.includes(o.id)).map(o=>o.label).join(', ')}
-
-CLAIMS/LANGUAGE USED: ${claimNames.join(', ')||'General cosmetic language only'}
-
-EVIDENCE AVAILABLE: ${evNames.join(', ')||'None specified'}
-
-CREATOR EXPLANATION: "${d.explanation}"
-
-PRODUCT FACTS:
-- BeBodywise Hair Growth Density Roll-On is a COSMETIC topical product (not a drug or medical device)
-- Key ingredients: Redensyl (follicle stem cell activation), Anagain (pea sprout, hair cycle support), Caffeine (scalp stimulant), Biotin (keratin/strength)
-- Sold on TikTok Shop as an approved product
-
-REFRAMING RULES (apply these automatically):
-- "Regrows hair" → "supports the appearance of fuller-looking hair through cosmetic nourishment"
-- "Stops hair loss" → "formulated with ingredients known to support healthy hair maintenance"
-- "Clinically proven" → "contains ingredients studied in published research for cosmetic hair care benefits"
-- "Before and after" → "personal experience timeline showing results of consistent use — not guaranteed outcomes"
-- "Treats alopecia" → "designed as a cosmetic to support hair density appearance — not intended to diagnose or treat any medical condition"
-
-POLICY CITATIONS TO INCLUDE:
-- TikTok Community Guidelines — Integrity and Authenticity
-- TikTok Shop Seller/Creator Policies — Prohibited and Restricted Products
-- TikTok Advertising Policies — Health and Beauty Claims
-- FTC guidelines on cosmetic vs. drug claims
-
-The appeal must NEVER admit fault or agree the violation was correct — only reframe and clarify. Output only the appeal letter text, no preamble.`;
+// ===== RENDER GUIDE TAB =====
+function renderGuide() {
+  // Guide tab is static HTML already rendered — nothing to do
 }
 
 // ===== APPEAL OUTPUT ACTIONS =====
@@ -1600,24 +1597,6 @@ function clearScript() {
   document.getElementById('script-result-area').innerHTML = '';
 }
 
-// ===== SETTINGS =====
-function openSettings() {
-  document.getElementById('api-key-input').value = localStorage.getItem('bb_api_key') || '';
-  document.getElementById('settings-modal').classList.add('open');
-}
-function closeSettings() { document.getElementById('settings-modal').classList.remove('open'); }
-function saveSettings() {
-  const key = document.getElementById('api-key-input').value.trim();
-  if (key) localStorage.setItem('bb_api_key', key);
-  else localStorage.removeItem('bb_api_key');
-  closeSettings();
-  checkApiHint();
-  showToast('Settings saved!', 'success');
-}
-function checkApiHint() {
-  const hint = document.getElementById('api-hint');
-  if (hint) hint.style.display = localStorage.getItem('bb_api_key') ? 'flex' : 'none';
-}
 
 // ===== TOAST =====
 function showToast(msg, type='') {
