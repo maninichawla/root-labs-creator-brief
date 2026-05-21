@@ -36,6 +36,9 @@ button{cursor:pointer;font-family:inherit}
 .header-right{display:flex;align-items:center;gap:8px}
 .btn-icon{width:34px;height:34px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text2);display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .15s}
 .btn-icon:hover{background:var(--surface2)}
+.lang-toggle{display:flex;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.lang-btn{padding:5px 11px;font-size:12px;font-weight:700;border:none;background:var(--surface);color:var(--text2);transition:all .15s;cursor:pointer}
+.lang-btn.active{background:var(--blue1);color:#fff}
 
 /* TABS */
 .tab-nav{background:var(--surface);border-bottom:1px solid var(--border)}
@@ -280,6 +283,10 @@ textarea.form-input{resize:vertical;min-height:90px}
       </div>
     </div>
     <div class="header-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="lang-btn-en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" id="lang-btn-es" onclick="setLang('es')">ES</button>
+      </div>
       <button class="btn-icon" onclick="toggleDark()" title="Toggle dark mode" id="dark-btn">🌙</button>
     </div>
   </div>
@@ -583,10 +590,13 @@ textarea.form-input{resize:vertical;min-height:90px}
 
 <!-- ===================== PRODUCT GUIDE TAB ===================== -->
 <div class="tab-pane" id="tab-pane-guide">
-  <div class="page-body" style="padding-top:28px;padding-bottom:80px">
-    <div class="panel-title">BeBodywise Hair Density Roll-On — Creator Guide</div>
-    <div class="panel-sub">Product facts, safe claim language, banned phrases, and how to post compliantly.</div>
+  <div class="page-body" style="padding-top:28px;padding-bottom:80px" id="guide-body">
+    <!-- Rendered by renderGuide() -->
+  </div>
+</div>
 
+<!-- PLACEHOLDER TO REMOVE (old broken static guide) -->
+<div style="display:none" id="_old_guide_placeholder">
     <!-- PRODUCT OVERVIEW -->
     <div class="section-card" style="margin-bottom:18px">
       <div class="section-card-head"><span class="section-num">1</span> Product Overview</div>
@@ -712,7 +722,7 @@ textarea.form-input{resize:vertical;min-height:90px}
       </div>
     </div>
   </div>
-</div>
+</div><!-- end _old_guide_placeholder -->
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
@@ -900,21 +910,165 @@ const SCRIPT_FLAGS = [
 
 
 // ===== STATE =====
+let lang = localStorage.getItem('bb_lang') || 'en';
 let currentStep = 1;
 let uploadedFiles = [];
 let editMode = false;
 
+// ===== TRANSLATIONS (static UI labels) =====
+const T = {
+  en:{
+    tabBuilder:'Appeal Builder',tabChecker:'Script Checker',tabHistory:'My History',tabGuide:'Product Guide',
+    step1Label:'Creator Info',step2Label:'Violation Type',step3Label:'Context',step4Label:'Evidence',step5Label:'Generate',
+    s1Title:'Creator & Video Information',s1Sub:'Enter your details and the video that received the violation notice.',
+    s2Title:'Select Violation Type(s)',s2Sub:'Select all violation types shown on your TikTok notice. Tap a card to see what it means and how to address it.',
+    s3Title:'Content & Claims',s3Sub:'Tell us what was in your video. This helps build the strongest possible appeal.',
+    s3aTitle:'A. What did the video contain?',s3bTitle:'B. What language or claims were used?',
+    s3cTitle:'C. What evidence can you provide?',s3dTitle:'D. Your explanation',
+    s4Title:'Evidence & Documents',s4Sub:'Upload screenshots and documents to strengthen your appeal.',
+    s5Title:'Generate Your Appeal',s5Sub:'Review the summary below, then generate your professional appeal letter.',
+    checkerTitle:'Pre-Video Script Checker',checkerSub:"Paste your draft script below before posting. We'll flag language likely to trigger a TikTok violation.",
+    historyTitle:'My Violation History',historySub:'Track past violations and appeal outcomes.',
+    guideTitle:'BeBodywise Hair Density Roll-On — Creator Guide',guideSub:'Ingredient benefits, safe claim language, banned phrases, and all dos & don\'ts.',
+    nextBtn:'Next: Violation Type →',checkBtn:'🔍 Check Script',generateBtn:'Generate Appeal Letter',
+    handleLabel:'TikTok Handle',nameLabel:'Full Legal Name',videoUrlLabel:'Video URL',postDateLabel:'Video Post Date',
+    violationDateLabel:'Violation Notice Date',productLabel:'Product Name',shopLabel:'Shop / Seller Name',shopLinkLabel:'TikTok Shop Product Link',
+    explanationPlaceholder:"e.g. My video showed me applying the roll-on to my scalp while explaining the ingredients. I described Redensyl as an ingredient that supports scalp health. I did not claim it treats any medical condition...",
+    explainPrompt:'In your own words, describe what the video showed and why you believe it does not violate TikTok\'s policies.',
+  },
+  es:{
+    tabBuilder:'Crear Apelación',tabChecker:'Verificar Guión',tabHistory:'Mi Historial',tabGuide:'Guía del Producto',
+    step1Label:'Creador',step2Label:'Tipo Violación',step3Label:'Contexto',step4Label:'Evidencia',step5Label:'Generar',
+    s1Title:'Información del Creador y Video',s1Sub:'Ingresa tus datos y el video que recibió el aviso de violación.',
+    s2Title:'Seleccionar Tipo(s) de Violación',s2Sub:'Selecciona todos los tipos de violación en tu aviso de TikTok. Toca una tarjeta para ver qué significa y cómo responder.',
+    s3Title:'Contenido y Afirmaciones',s3Sub:'Cuéntanos qué había en tu video para construir la apelación más sólida posible.',
+    s3aTitle:'A. ¿Qué contenía el video?',s3bTitle:'B. ¿Qué lenguaje o afirmaciones se usaron?',
+    s3cTitle:'C. ¿Qué evidencia puedes proporcionar?',s3dTitle:'D. Tu explicación',
+    s4Title:'Evidencia y Documentos',s4Sub:'Sube capturas de pantalla y documentos para fortalecer tu apelación.',
+    s5Title:'Generar tu Apelación',s5Sub:'Revisa el resumen y genera tu carta de apelación profesional.',
+    checkerTitle:'Verificador de Guión',checkerSub:'Pega tu guión antes de publicar. Identificaremos lenguaje que podría generar una violación.',
+    historyTitle:'Mi Historial de Violaciones',historySub:'Registra violaciones pasadas y resultados de apelaciones.',
+    guideTitle:'BeBodywise Hair Density Roll-On — Guía del Creador',guideSub:'Beneficios de ingredientes, lenguaje seguro, frases prohibidas y todo lo que debes y no debes hacer.',
+    nextBtn:'Siguiente: Tipo de Violación →',checkBtn:'🔍 Verificar Guión',generateBtn:'Generar Carta de Apelación',
+    handleLabel:'Usuario de TikTok',nameLabel:'Nombre Completo',videoUrlLabel:'URL del Video',postDateLabel:'Fecha de Publicación',
+    violationDateLabel:'Fecha del Aviso',productLabel:'Nombre del Producto',shopLabel:'Nombre de la Tienda',shopLinkLabel:'Enlace del Producto TikTok Shop',
+    explanationPlaceholder:'ej. Mi video mostraba cómo aplico el roll-on en el cuero cabelludo explicando los ingredientes. Describí Redensyl como un ingrediente que apoya la salud capilar. No afirmé que trate condiciones médicas...',
+    explainPrompt:'En tus propias palabras, describe qué mostraba el video y por qué crees que no viola las políticas de TikTok.',
+  }
+};
+
+// ===== SPANISH VIOLATION TYPES TRANSLATIONS =====
+const VTYPES_ES = {
+  med_misleading:{name:'Afirmaciones médicas o de salud engañosas',desc:'TikTok marcó el contenido por afirmar que un producto cosmético trata, cura o previene una condición médica.',tip:'Tu apelación debe establecer claramente que el producto es cosmético, no un medicamento, y reformular el lenguaje como beneficio cosmético personal.'},
+  med_unsubstantiated:{name:'Afirmaciones de eficacia no sustentadas',desc:'Se prometieron resultados específicos (ej. "hace crecer el cabello en 2 semanas") sin pruebas clínicas.',tip:'Enmarca todas las afirmaciones como experiencia personal ("noté", "en mi experiencia") y no como resultados garantizados.'},
+  med_before_after:{name:'Violación de imágenes antes y después',desc:'Fotos o videos antes/después interpretados como engañosos sobre transformaciones garantizadas.',tip:'Aclara que las imágenes fueron una línea de tiempo de experiencia personal con fechas claras, no una comparación médica.'},
+  med_drug_device:{name:'Representación como medicamento o dispositivo médico',desc:'El contenido implicó que el producto funciona como medicamento o dispositivo médico.',tip:'Declara explícitamente que el producto es un cosmético con licencia, no un medicamento ni dispositivo.'},
+  adv_deceptive:{name:'Publicidad engañosa o falsa',desc:'El contenido general fue considerado engañoso sobre la naturaleza o capacidades del producto.',tip:'Aborda cada elemento potencialmente engañoso. Demuestra que todas las afirmaciones son honestas y de primera persona.'},
+  adv_exaggerated:{name:'Afirmaciones exageradas sobre el producto',desc:'Las afirmaciones sobre velocidad, efectividad o resultados fueron más allá de lo sustentado para un cosmético.',tip:'Reemplaza superlativos ("el mejor", "garantizado") con lenguaje basado en experiencia.'},
+  adv_fake_reviews:{name:'Testimonios falsos o reseñas fabricadas',desc:'TikTok sospechó que los testimonios pueden ser fabricados o no de clientes reales.',tip:'Si usaste testimonio real, adjunta formularios de consentimiento firmados.'},
+  adv_unauthorized:{name:'Afirmaciones promocionales no autorizadas',desc:'Se hicieron afirmaciones sin autorización adecuada de la marca.',tip:'Incluye carta de autorización de marca confirmando que eres afiliado aprobado.'},
+  adv_pricing:{name:'Afirmaciones de precios engañosas',desc:'Los precios o descuentos mostrados eran inexactos o no verificables.',tip:'Adjunta captura del listado del producto mostrando el precio correcto actual.'},
+  com_misinfo:{name:'Desinformación dañina (relacionada con salud)',desc:'El contenido fue marcado por difundir información de salud engañosa.',tip:'Aclara que todas las declaraciones relacionadas con la salud eran de naturaleza cosmética únicamente.'},
+  com_spam:{name:'Spam o comportamiento no auténtico',desc:'Los patrones de publicación o tácticas de engagement fueron marcados como no auténticos.',tip:'Confirma que todo el contenido y engagement es orgánico y auténtico.'},
+  com_ip:{name:'Violación de propiedad intelectual',desc:'Tu video usó contenido protegido por derechos de autor sin licencia adecuada.',tip:'Confirma que todo el contenido fue original o debidamente licenciado.'},
+  com_dangerous:{name:'Actividades peligrosas o desafíos',desc:'El contenido fue asociado con una actividad peligrosa o tendencia.',tip:'Aclara que el contenido involucra aplicación normal de un producto cosmético sin riesgo físico.'},
+  shop_restricted:{name:'Violación de política de producto restringido',desc:'El producto fue marcado como posiblemente restringido o prohibido en TikTok Shop.',tip:'Proporciona documentación de registro y confirma que el artículo es un producto aprobado en TikTok Shop.'},
+  shop_mismatch:{name:'Discrepancia en el listado del producto',desc:'El contenido de tu video no coincidía con el listado del producto en TikTok Shop.',tip:'Confirma que el producto mostrado es exactamente el del listado vinculado.'},
+  shop_affiliate:{name:'Violación de cumplimiento de afiliado',desc:'Tu asociación de afiliado no fue debidamente revelada.',tip:'Confirma que la divulgación de contenido de marca estuvo incluida y la relación de afiliado fue etiquetada correctamente.'},
+  shop_prohibited:{name:'Afirmaciones prohibidas en contenido comprables',desc:'Las afirmaciones en contenido vinculado a la tienda violaron restricciones específicas.',tip:'Revisa todas las afirmaciones según la política de TikTok. Reformula como experiencia cosmética personal.'},
+  shop_ingredient:{name:'Violación de divulgación de ingredientes o seguridad',desc:'Faltaban divulgaciones requeridas de ingredientes o advertencias de seguridad.',tip:'Confirma que el listado incluye lista completa de ingredientes.'},
+  fmt_ai:{name:'Medios generados por IA no revelados',desc:'Contenido sintético generado por IA no fue revelado a los espectadores.',tip:'Confirma que todo el contenido fue creado personalmente por ti.'},
+  fmt_partnership:{name:'Asociación pagada no revelada',desc:'Una colaboración pagada/obsequiada con la marca no fue debidamente revelada.',tip:'Confirma que la divulgación de contenido de marca estaba activa y #ad fue incluido.'},
+  fmt_copyright:{name:'Violación de derechos de autor o música',desc:'La música o audio usó material con derechos de autor sin licencia adecuada.',tip:'Confirma que la música proviene de la biblioteca de sonidos con licencia de TikTok.'},
+  acc_warning:{name:'Advertencia o cargo en la cuenta',desc:'Tu cuenta recibió una advertencia formal o cargo de contenido.',tip:'Aborda la violación subyacente directamente y demuestra pasos para prevenir recurrencia.'},
+  acc_suspension:{name:'Suspensión temporal de privilegios de publicación',desc:'Tu capacidad de publicar nuevo contenido ha sido temporalmente restringida.',tip:'Actúa rápido — las apelaciones de suspensión son urgentes.'},
+  acc_shop_revoked:{name:'Privilegios de creador TikTok Shop revocados',desc:'Tu capacidad de crear contenido comprables ha sido suspendida.',tip:'Esto requiere una apelación más detallada abordando tanto la violación como el compromiso con las políticas de comercio.'},
+  acc_ban:{name:'Aviso de prohibición permanente',desc:'Tu cuenta ha recibido un aviso de prohibición permanente.',tip:'Las apelaciones de prohibición permanente requieren evidencia sustancial. Considera escalar a través de los canales formales de revisión de TikTok.'},
+};
+
+// ===== SPANISH CHECKBOX TRANSLATIONS =====
+const CONTENT_OPTS_ES = [
+  'Creador hablando a cámara sobre el producto',
+  'Grabación de pantalla de reseñas o comentarios',
+  'Demostración del producto (aplicando el roll-on)',
+  'Comparación antes y después (fotos o video)',
+  'Testimonio de cliente o UGC',
+  'Unboxing o primeras impresiones',
+  'Explicación de ingredientes o contenido educativo',
+  'Contenido de estilo de vida con el producto',
+  'Dueto o stitch con otro creador',
+  'Pantalla verde con texto o imágenes detrás',
+];
+const CLAIMS_OPTS_ES = [
+  '"Hace crecer el cabello" o "crece nuevo cabello"',
+  '"Detiene la caída del cabello" o "previene la caída"',
+  '"Clínicamente probado" o "recomendado por dermatólogos"',
+  'Se muestran resultados antes y después',
+  '"Funciona en X días/semanas"',
+  '"Resultados garantizados"',
+  '"Trata la alopecia / adelgazamiento / calvicie"',
+  '"Aprobado por FDA" o "autorizado por FDA"',
+  '"Natural / orgánico / libre de químicos"',
+  '"Engrosa el cabello" o "agrega densidad"',
+  '"Fortalece los folículos capilares"',
+  'Ninguno — usé lenguaje cosmético general',
+  'No sé qué activó la violación',
+];
+const EVIDENCE_OPTS_ES = [
+  'Lista de ingredientes / Certificado de Análisis (CoA)',
+  'Hoja de datos de seguridad del producto',
+  'Resultados de laboratorio de terceros',
+  'Carta de autorización de marca',
+  'Documentación de registro o cumplimiento',
+  'Estudios clínicos sobre afirmaciones',
+  'Registro cosmético FDA (si aplica)',
+  'Carta de dermatólogo o respaldo profesional',
+  'Consentimiento del cliente para testimonio',
+  'Prueba de contenido original',
+  'Captura del aviso de violación de TikTok',
+  'Apelación exitosa anterior para contenido similar',
+];
+
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
+  applyLang();
   renderViolationTypes();
   renderCheckboxLists();
   restoreAutoSave();
   renderHistory();
+  renderGuide();
   const today = new Date().toISOString().split('T')[0];
   if (!document.getElementById('violation-date').value) {
     document.getElementById('violation-date').value = today;
   }
 });
+
+// ===== LANGUAGE =====
+function setLang(l) {
+  lang = l;
+  localStorage.setItem('bb_lang', l);
+  applyLang();
+  renderViolationTypes();
+  renderCheckboxLists();
+  renderGuide();
+}
+
+function applyLang() {
+  const t = T[lang];
+  // Toggle button states
+  document.getElementById('lang-btn-en').classList.toggle('active', lang==='en');
+  document.getElementById('lang-btn-es').classList.toggle('active', lang==='es');
+  // Static data-i elements
+  document.querySelectorAll('[data-i]').forEach(el => {
+    const key = el.dataset.i;
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+  // Form placeholder text
+  const expEl = document.getElementById('explanation');
+  if (expEl) expEl.placeholder = t.explanationPlaceholder;
+  const expPromptEl = document.querySelector('.cb-section-sub[data-explain]');
+  if (expPromptEl) expPromptEl.textContent = t.explainPrompt;
+}
 
 // ===== DARK MODE =====
 function toggleDark() {
@@ -1011,22 +1165,30 @@ function hideErr(id) { const e=document.getElementById(id); if(e){e.classList.re
 // ===== RENDER VIOLATION TYPES =====
 function renderViolationTypes() {
   const container = document.getElementById('vtype-container');
+  const tipLabel = lang==='es' ? 'Consejo:' : 'Appeal tip:';
+  const selectedIds = getSelectedVtypes();
   container.innerHTML = VTYPES.map(cat => `
     <div class="vcat">
       <div class="vcat-label">
         <span style="background:${cat.color};color:#fff;" class="vcat-badge">${cat.cat}</span>
       </div>
       <div class="vtype-grid">
-        ${cat.items.map(item => `
-          <div class="vcard" id="vc_${item.id}" onclick="toggleVtype('${item.id}')">
+        ${cat.items.map(item => {
+          const es = VTYPES_ES[item.id];
+          const name = (lang==='es' && es) ? es.name : item.name;
+          const desc = (lang==='es' && es) ? es.desc : item.desc;
+          const tip  = (lang==='es' && es) ? es.tip  : item.tip;
+          const sel  = selectedIds.includes(item.id) ? ' sel' : '';
+          return `
+          <div class="vcard${sel}" id="vc_${item.id}" onclick="toggleVtype('${item.id}')">
             <div class="vcard-row">
               <div class="vcard-cb">✓</div>
-              <div class="vcard-name">${item.name}</div>
+              <div class="vcard-name">${name}</div>
             </div>
-            <div class="vcard-desc">${item.desc}</div>
-            <div class="vcard-tip">💡 <strong>Appeal tip:</strong> ${item.tip}</div>
-          </div>
-        `).join('')}
+            <div class="vcard-desc">${desc}</div>
+            <div class="vcard-tip">💡 <strong>${tipLabel}</strong> ${tip}</div>
+          </div>`;
+        }).join('')}
       </div>
     </div>
   `).join('');
@@ -1044,30 +1206,32 @@ function getSelectedVtypes() {
 
 // ===== RENDER CHECKBOX LISTS =====
 function renderCheckboxLists() {
-  // 3A Content
-  document.getElementById('content-list').innerHTML = CONTENT_OPTS.map(o =>
-    `<div class="cb-item" id="co_${o.id}" onclick="toggleCb(this)">
-      <div class="cb-box">✓</div>
-      <div class="cb-text">${o.label}</div>
-    </div>`
-  ).join('');
+  const selContent  = CONTENT_OPTS.map(o=>o.id).filter(id=>document.getElementById('co_'+id)?.classList.contains('sel'));
+  const selClaims   = CLAIMS_OPTS.map(o=>o.id).filter(id=>document.getElementById('co_'+id)?.classList.contains('sel'));
+  const selEvidence = EVIDENCE_OPTS.map(o=>o.id).filter(id=>document.getElementById('co_'+id)?.classList.contains('sel'));
 
-  // 3B Claims
-  document.getElementById('claims-list').innerHTML = CLAIMS_OPTS.map(o =>
-    `<div class="cb-item" id="co_${o.id}" onclick="toggleCb(this)">
-      <div class="cb-box">✓</div>
-      <div class="cb-text">${o.label}</div>
-      ${o.risk ? `<span class="risk-tag ${o.risk==='H'?'risk-h':o.risk==='M'?'risk-m':'risk-l'}">${o.risk==='H'?'HIGH RISK':o.risk==='M'?'MED':'LOW'}</span>` : ''}
-    </div>`
-  ).join('');
+  const riskLabelH = lang==='es'?'ALTO':'HIGH';
+  const riskLabelM = lang==='es'?'MEDIO':'MED';
+  const riskLabelL = lang==='es'?'BAJO':'LOW';
 
-  // 3C Evidence
-  document.getElementById('evidence-list').innerHTML = EVIDENCE_OPTS.map(o =>
-    `<div class="cb-item" id="co_${o.id}" onclick="toggleCb(this)">
-      <div class="cb-box">✓</div>
-      <div class="cb-text">${o.label}</div>
-    </div>`
-  ).join('');
+  document.getElementById('content-list').innerHTML = CONTENT_OPTS.map((o,i) => {
+    const label = lang==='es' ? CONTENT_OPTS_ES[i] : o.label;
+    const sel = selContent.includes(o.id) ? ' sel' : '';
+    return `<div class="cb-item${sel}" id="co_${o.id}" onclick="toggleCb(this)"><div class="cb-box">✓</div><div class="cb-text">${label}</div></div>`;
+  }).join('');
+
+  document.getElementById('claims-list').innerHTML = CLAIMS_OPTS.map((o,i) => {
+    const label = lang==='es' ? CLAIMS_OPTS_ES[i] : o.label;
+    const sel = selClaims.includes(o.id) ? ' sel' : '';
+    const riskTag = o.risk ? `<span class="risk-tag ${o.risk==='H'?'risk-h':o.risk==='M'?'risk-m':'risk-l'}">${o.risk==='H'?riskLabelH:o.risk==='M'?riskLabelM:riskLabelL}</span>` : '';
+    return `<div class="cb-item${sel}" id="co_${o.id}" onclick="toggleCb(this)"><div class="cb-box">✓</div><div class="cb-text">${label}</div>${riskTag}</div>`;
+  }).join('');
+
+  document.getElementById('evidence-list').innerHTML = EVIDENCE_OPTS.map((o,i) => {
+    const label = lang==='es' ? EVIDENCE_OPTS_ES[i] : o.label;
+    const sel = selEvidence.includes(o.id) ? ' sel' : '';
+    return `<div class="cb-item${sel}" id="co_${o.id}" onclick="toggleCb(this)"><div class="cb-box">✓</div><div class="cb-text">${label}</div></div>`;
+  }).join('');
 }
 
 function toggleCb(el) { el.classList.toggle('sel'); autoSave(); }
@@ -1253,59 +1417,70 @@ async function generateAppeal() {
   document.getElementById('appeal-output').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
-// ===== LOCAL APPEAL BUILDER (≈350 words) =====
+// ===== LOCAL APPEAL BUILDER (≈480–500 words) =====
 function buildAppealLocal(d) {
   const { handle, name, videoUrl, postDate, violationDate, product, shopName, shopLink, vtypes, content, claims, evidence, explanation } = d;
   const dateStr = new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
   const vNames = vtypes.map(id => { for (const cat of VTYPES) { const it = cat.items.find(i=>i.id===id); if(it) return it.name; } return id; });
 
-  const hasHealth = vtypes.some(v => ['med_misleading','med_unsubstantiated','med_drug_device','com_misinfo','adv_exaggerated'].includes(v));
-  const hasBA = vtypes.includes('med_before_after') || claims.includes('cl_ba');
-  const hasAffiliate = vtypes.some(v => ['shop_affiliate','fmt_partnership','adv_unauthorized'].includes(v));
-  const hasCopyright = vtypes.some(v => ['com_ip','fmt_copyright'].includes(v));
+  const hasHealth   = vtypes.some(v=>['med_misleading','med_unsubstantiated','med_drug_device','com_misinfo','adv_exaggerated'].includes(v));
+  const hasBA       = vtypes.includes('med_before_after') || claims.includes('cl_ba');
+  const hasAffiliate= vtypes.some(v=>['shop_affiliate','fmt_partnership','adv_unauthorized'].includes(v));
+  const hasRestricted = vtypes.includes('shop_restricted');
+  const hasMismatch = vtypes.includes('shop_mismatch');
+  const hasCopyright= vtypes.some(v=>['com_ip','fmt_copyright'].includes(v));
 
+  // Header (~25 words)
   let letter = `Date: ${dateStr}\n`;
-  letter += `Re: Appeal of Content Violation Notice${vNames.length ? ' — '+vNames[0] : ''}\n`;
+  letter += `Re: Formal Appeal — Content Violation Notice${vNames.length?' ('+vNames[0]+')':''}\n`;
   if (videoUrl) letter += `Video: ${videoUrl}\n`;
-  letter += `Creator: ${handle || '@creator'}${name ? ' ('+name+')' : ''}\n\nDear TikTok Trust & Safety Team,\n\n`;
+  letter += `Creator: ${handle||'@creator'}${name?' ('+name+')':''}\n\nDear TikTok Trust & Safety Team,\n\n`;
 
-  // Introduction (2 sentences)
-  letter += `I am writing to formally appeal the violation notice issued on ${violationDate || '[date]'} against my account ${handle || '@creator'}. I respectfully submit that the flagged content is fully compliant upon thorough review, and request that it be reinstated.\n\n`;
+  // Introduction (~55 words)
+  letter += `I am writing to formally appeal the content violation notice issued on ${violationDate||'[date]'} against my TikTok account ${handle||'@creator'}. I respectfully submit that this content was created in full compliance with TikTok's platform policies and community guidelines, and that the violation notice was issued in error. I kindly request a thorough, good-faith review of the flagged video in its complete context before any further action is taken.\n\n`;
 
-  // Product context (3 sentences)
-  letter += `The video promotes ${product}${shopName ? ' by '+shopName : ''}, a licensed cosmetic topical serum sold on TikTok Shop${shopLink ? ' ('+shopLink+')' : ''}. It is formulated with Redensyl, Anagain, Caffeine, and Biotin — all cosmetic ingredients — and is classified as a cosmetic product, not a drug or medical device. It is an approved, active listing on TikTok Shop.\n\n`;
+  // Product description (~75 words)
+  letter += `The flagged video promotes ${product}${shopName?' by '+shopName:''}, a licensed cosmetic topical hair care serum sold through TikTok Shop${shopLink?' ('+shopLink+')':''} as an approved, active product listing. ${product} is formulated with Redensyl — a patented compound studied for its role in supporting follicle stem cell activity; Anagain — derived from organic pea sprouts and studied to support the anagen (growth) phase of the hair cycle; Caffeine — a topical scalp stimulant supporting circulation; and Biotin — supporting keratin structure and hair strand strength. This product is classified as a cosmetic under applicable regulatory definitions — not a drug, not a medical device.\n\n`;
 
-  // Claim clarification (targeted, one paragraph)
+  // Claim clarification (~120 words, targeted per flags)
   let clarify = '';
   if (hasHealth) {
-    clarify += 'All language in the video was cosmetic in nature and compliant with FTC guidelines distinguishing cosmetics from drugs. ';
-    if (claims.includes('cl_regrow')) clarify += 'Hair growth references were framed as "supports the appearance of fuller-looking hair" — not a medical outcome claim. ';
-    if (claims.includes('cl_stoploss')) clarify += '"Hair maintenance" language was used — not a claim to prevent or treat any medical condition. ';
-    if (claims.includes('cl_clinical')) clarify += 'Ingredient research was cited factually ("ingredients studied in published research") — not as a product-level clinical proof. ';
-    if (claims.includes('cl_alopecia')) clarify += 'The product was positioned as cosmetic support for hair density appearance, with explicit acknowledgment it does not treat medical conditions. ';
-    if (claims.includes('cl_days')) clarify += 'Timelines were framed as personal experience with the explicit note that results may vary. ';
-    if (!clarify.includes('framed') && (claims.includes('cl_none') || claims.includes('cl_unsure') || !claims.length)) {
-      clarify += 'The video used standard cosmetic hair care language throughout — describing application, ingredients, and personal experience only. ';
+    clarify += 'All language used in the video was cosmetic in nature and fully consistent with FTC guidelines distinguishing cosmetic products from drugs. ';
+    if (claims.includes('cl_regrow'))    clarify += 'Any reference to hair growth was framed as the product\'s cosmetic ability to "support the appearance of fuller-looking hair through scalp and follicle nourishment" — not as a guaranteed medical outcome or disease treatment. ';
+    if (claims.includes('cl_stoploss'))  clarify += 'References to hair retention were framed as the product being "formulated with ingredients known to support healthy hair maintenance" — not as a claim to prevent or treat a medical condition such as alopecia or androgenic hair loss. ';
+    if (claims.includes('cl_clinical'))  clarify += 'Any mention of ingredients being "studied" referred specifically to published scientific literature on individual ingredients (Redensyl, Anagain) — not to a product-level clinical trial making therapeutic claims. ';
+    if (claims.includes('cl_alopecia'))  clarify += 'The product was positioned as a cosmetic designed to support hair density appearance, with explicit acknowledgment that it is not intended to diagnose or treat any medical condition. ';
+    if (claims.includes('cl_thicken')||claims.includes('cl_follicle')) clarify += 'Descriptions such as "supports follicle health" or "hair looks fuller" were presented as first-person cosmetic observations — framed as personal experience, not clinical proof. ';
+    if (claims.includes('cl_days'))      clarify += 'Any timeline reference ("I began noticing a difference around week four") was clearly framed as personal experience, with the explicit acknowledgment that individual results may vary. ';
+    if (claims.includes('cl_fda'))       clarify += 'No FDA approval claims were made. The product is a cosmetic sold in compliance with applicable cosmetic regulations. ';
+    if (!clarify.includes('framed') && !clarify.includes('compliant')) {
+      clarify += 'The video used standard cosmetic hair care language throughout — describing application method, individual ingredient properties, and first-person personal experience only. No medical claims, therapeutic promises, or guaranteed outcomes were made at any point. ';
     }
+  } else {
+    clarify += 'The video content was created with full awareness of TikTok\'s community guidelines and advertising policies. All claims were framed as personal cosmetic experience and no guaranteed outcomes or medical claims were made. ';
   }
-  if (hasBA) clarify += 'Any before/after imagery was a personal experience timeline (Day 1 → Day 60) with clear date labels and a "results may vary" disclosure — not a medical transformation claim. ';
-  if (hasAffiliate) clarify += 'The branded content disclosure, #ad hashtag, and TikTok Shop affiliate tag were all active at time of posting. ';
-  if (hasCopyright) clarify += 'All content was original and any music was sourced from TikTok\'s licensed sound library. ';
-  if (!clarify) clarify = 'All content was created with full awareness of TikTok\'s community guidelines. No medical claims, guaranteed outcomes, or prohibited content appeared in the video. ';
+  if (hasBA)       clarify += 'Any before/after imagery shown was a personal experience timeline documenting my own observations over a consistent-use period, with clearly noted timeframes and an explicit "individual results may vary" statement — not a comparative medical transformation claim. ';
+  if (hasAffiliate) clarify += 'The required branded content disclosure was active, the #ad hashtag was included in the caption, and TikTok Shop\'s affiliate tag was correctly configured at the time of posting — in full compliance with TikTok\'s creator partnership and FTC endorsement guidelines. ';
+  if (hasRestricted) clarify += `${product} is a legal cosmetic product with an approved, active listing on TikTok Shop. It is not a pharmaceutical, a restricted substance, or a prohibited product. Product registration documentation is attached to confirm its approved status. `;
+  if (hasMismatch)  clarify += 'The product demonstrated in the video is the exact product available for purchase through the linked TikTok Shop listing — no discrepancy exists between the video content and the product listing. ';
+  if (hasCopyright) clarify += 'All video content was original and created entirely by me. Any music used was sourced from TikTok\'s licensed sound library. No third-party copyrighted materials were used without proper authorization. ';
   letter += clarify.trim() + '\n\n';
 
-  // Creator explanation
-  if (explanation) letter += `Creator statement: ${explanation}\n\n`;
+  // Creator statement
+  if (explanation) letter += `Creator Statement: ${explanation}\n\n`;
 
-  // Evidence list
-  const EV_LABELS = { ev_coa:'Product CoA/ingredient list', ev_safety:'Safety data sheet', ev_lab:'Third-party lab results', ev_auth:'Brand authorization letter', ev_reg:'Product registration docs', ev_clinical:'Clinical study on ingredients', ev_fda:'FDA cosmetic registration', ev_derm:'Dermatologist letter', ev_consent:'Customer consent form', ev_original:'Original content proof', ev_notice:'Violation notice screenshot', ev_prior:'Prior successful appeal' };
-  const evList = [...evidence.filter(id=>EV_LABELS[id]).map(id=>EV_LABELS[id]), ...uploadedFiles.filter(f=>f.category).map(f=>f.category)];
-  if (evList.length) { letter += `Supporting documentation attached:\n`; evList.forEach(e => letter += `• ${e}\n`); letter += '\n'; }
+  // Evidence (~30 words)
+  const EV_LABELS = { ev_coa:'Product Certificate of Analysis / ingredient list', ev_safety:'Product safety data sheet', ev_lab:'Third-party lab test results', ev_auth:'Brand authorization letter confirming creator affiliation', ev_reg:'Product registration / compliance documentation', ev_clinical:'Published clinical or research studies on key ingredients', ev_fda:'FDA cosmetic registration documentation', ev_derm:'Dermatologist or professional endorsement letter', ev_consent:'Customer consent form for testimonial use', ev_original:'Original content proof (creator ownership)', ev_notice:'Screenshot of the TikTok violation notice', ev_prior:'Previous successful appeal for similar content' };
+  const evList = [...evidence.filter(id=>EV_LABELS[id]).map(id=>EV_LABELS[id]), ...uploadedFiles.filter(f=>f.category).map(f=>f.category+(f.desc?' — '+f.desc:''))];
+  if (evList.length) { letter += `In support of this appeal, I am providing the following documentation:\n`; evList.forEach(e=>letter+=`  • ${e}\n`); letter+='\n'; }
 
-  // Policy + closing
-  letter += `This content was created in accordance with TikTok's Community Guidelines (Integrity & Authenticity), TikTok Shop Creator Policies, TikTok Advertising Policies for Health & Beauty, and FTC cosmetic vs. drug claim guidelines. I respectfully request full reinstatement of this content and welcome any specific guidance to ensure continued compliance.\n\n`;
-  letter += `Thank you for your time and consideration.\n\nRespectfully,\n${name || 'Creator Name'}\n${handle || '@handle'}`;
-  if (shopName) letter += `\n${shopName}`;
+  // Policy alignment (~65 words)
+  letter += `I am fully aware of and have operated in accordance with: TikTok's Community Guidelines — Integrity and Authenticity; TikTok Shop Seller and Creator Policies regarding Prohibited and Restricted Products; TikTok's Advertising Policies for Health and Beauty product claims; and FTC guidelines distinguishing cosmetic product claims from drug claims under the Federal Food, Drug, and Cosmetic Act. This content was developed with an understanding of these frameworks, and I firmly believe it is compliant upon careful and thorough review.\n\n`;
+
+  // Closing (~55 words)
+  letter += `I respectfully request that TikTok's moderation team conduct a thorough, full-context review of this video, consider the evidence and documentation provided, and reinstate the content to active status. I am fully committed to working within TikTok's guidelines and welcome any specific guidance that would help ensure continued, unambiguous compliance with all applicable policies.\n\n`;
+  letter += `Thank you sincerely for your time and consideration.\n\nRespectfully,\n${name||'Creator Name'}\n${handle||'@handle'}`;
+  if (shopName) letter += `\nAffiliate / Creator for: ${shopName}`;
 
   return letter;
 }
@@ -1358,7 +1533,198 @@ function copyShort() {
 
 // ===== RENDER GUIDE TAB =====
 function renderGuide() {
-  // Guide tab is static HTML already rendered — nothing to do
+  const el = document.getElementById('guide-body');
+  if (!el) return;
+  const isES = lang === 'es';
+
+  const SWAPS = [
+    ['"Regrows hair" / "Grows new hair"',              '"Supports the appearance of fuller-looking hair"'],
+    ['"Stops hair loss" / "Prevents hair loss"',       '"Formulated with ingredients to support healthy hair maintenance"'],
+    ['"Clinically proven results"',                    '"Contains ingredients studied in published research"'],
+    ['"Dermatologist recommended"',                    '"Dermatologist-formulated" (only if actually true)'],
+    ['"Treats alopecia / baldness / thinning"',        '"Designed to support hair density appearance"'],
+    ['"FDA approved" / "FDA cleared"',                 '"Compliant with cosmetic regulations"'],
+    ['"Guaranteed results"',                           '"In my experience, I noticed a difference around week 4"'],
+    ['"Works in X days / weeks"',                      '"Some users notice changes over 30–60 days of consistent use"'],
+    ['"Before and after transformation"',              '"My Day 1 vs Day 30 personal hair journey"'],
+    ['"Reverses hair loss"',                           '"I noticed my hair looks and feels different with consistent use"'],
+    ['"Blocks DHT"',                                   '"Supports a healthy scalp environment"'],
+    ['"Thickens hair" (as drug claim)',                '"My hair looks fuller with consistent use" (1st person only)'],
+    ['"100% effective" / "Instant results"',           '"Results may vary — I used it consistently for 60 days"'],
+    ['"Cures weak hair" / "Treats breakage"',          '"I notice my hair feels stronger and healthier"'],
+  ];
+  const SWAPS_ES = [
+    ['"Hace crecer el cabello"',             '"Apoya la apariencia de un cabello más lleno"'],
+    ['"Detiene / Previene la caída"',        '"Formulado para apoyar el mantenimiento de un cabello saludable"'],
+    ['"Clínicamente probado"',               '"Contiene ingredientes estudiados en investigación publicada"'],
+    ['"Recomendado por dermatólogos"',       '"Formulado por dermatólogos" (solo si es verdad)'],
+    ['"Trata alopecia / calvicie"',          '"Diseñado para apoyar la apariencia de densidad capilar"'],
+    ['"Aprobado por FDA"',                   '"Cumple con regulaciones cosméticas"'],
+    ['"Resultados garantizados"',            '"En mi experiencia, noté diferencia alrededor de la semana 4"'],
+    ['"Funciona en X días"',                 '"Algunos usuarios notan cambios en 30–60 días de uso consistente"'],
+    ['"Transformación antes y después"',     '"Mi jornada personal Día 1 vs Día 30"'],
+    ['"Revierte la caída"',                  '"Noté que mi cabello se ve y siente diferente con uso consistente"'],
+    ['"Bloquea DHT"',                        '"Apoya un ambiente saludable del cuero cabelludo"'],
+    ['"Engrosa el cabello" (reclamo médico)','"Mi cabello se ve más lleno con uso consistente" (1ª persona)'],
+    ['"100% efectivo" / "Resultados inmediatos"','"Los resultados pueden variar — lo usé consistentemente 60 días"'],
+    ['"Cura el cabello débil"',              '"Noto que mi cabello se siente más fuerte y saludable"'],
+  ];
+  const swaps = isES ? SWAPS_ES : SWAPS;
+
+  const INGREDIENTS = [
+    { name:'Redensyl', color:'#1D5FD4',
+      benefit: isES ? 'Activa las células madre del folículo (HFDPC). Apoya el entorno natural de crecimiento del cuero cabelludo.' : 'Targets follicle stem cells (HFDPC). Supports the scalp\'s natural hair growth environment.',
+      safe: isES ? '"Apoya la activación del folículo"' : '"Supports follicle activation"',
+      avoid: isES ? '"Hace crecer el cabello"' : '"Regrows hair"' },
+    { name:'Anagain', color:'#059669',
+      benefit: isES ? 'Derivado de brotes de guisante orgánico. Estudiado para apoyar la fase anágena (crecimiento) del ciclo capilar.' : 'Derived from organic pea sprouts. Studied to support the anagen (growth) phase of the hair cycle.',
+      safe: isES ? '"Apoya el ciclo de crecimiento capilar"' : '"Supports the hair growth cycle"',
+      avoid: isES ? '"Hace que el cabello vuelva a crecer"' : '"Makes hair grow back"' },
+    { name:'Caffeine', color:'#7C3AED',
+      benefit: isES ? 'Estimulante tópico del cuero cabelludo. Conocido por apoyar la circulación del cuero cabelludo.' : 'Topical scalp stimulant. Known to support scalp circulation.',
+      safe: isES ? '"Estimula el cuero cabelludo"' : '"Stimulates the scalp"',
+      avoid: isES ? '"Detiene la caída del cabello"' : '"Stops hair loss"' },
+    { name:'Biotin', color:'#D97706',
+      benefit: isES ? 'Apoya la infraestructura de queratina y la resistencia del cabello.' : 'Supports keratin infrastructure and strand strength.',
+      safe: isES ? '"Apoya un cabello fuerte y saludable"' : '"Supports strong, healthy-looking hair"',
+      avoid: isES ? '"Cura el cabello dañado"' : '"Cures damaged hair"' },
+  ];
+
+  const JOURNEY = isES
+    ? [['📸 Día 1','Cuero cabelludo seco. Comienzo mi rutina de cuidado capilar.'],['📸 Semana 2','El cuero cabelludo se siente menos seco. El producto se absorbe bien.'],['📸 Semana 4','Mi cabello me parece un poco más lleno — podría ser hidratación.'],['📸 60 Días','Mi salud capilar general parece mejorada. Resultados personales.']]
+    : [['📸 Day 1','Dry, dull scalp. Starting my hair wellness routine.'],['📸 Week 2','Scalp feels less dry. Noticing the product absorbs well.'],['📸 Week 4','Hair looks a bit fuller to me — may just be hydration.'],['📸 60 Days','My overall hair health feels improved. Personal results.']];
+
+  const DISCLOSURES = isES
+    ? [['Dicho en video','Di en cámara: "Esto no es consejo médico — los resultados pueden variar."'],['Texto en pantalla','Agrega un texto con el aviso visible por al menos 3 segundos.'],['Caption','Incluye "No es consejo médico. Los resultados individuales pueden variar." en tu descripción.'],['#ad / #patrocinado','Requerido si recibiste el producto gratis o eres afiliado pagado.'],['Toggle de contenido de marca','Activa la divulgación nativa de TikTok en Creator Tools.'],['Aviso de variación de resultados','"Los resultados mostrados son mi experiencia personal y pueden no ser típicos."']]
+    : [['Spoken in video','Say "This is not medical advice — results may vary" out loud, on camera.'],['On-screen overlay','Add a text overlay with the disclaimer visible for at least 3 seconds.'],['Caption','Include "Not medical advice. Individual results may vary." in your caption.'],['#ad / #sponsored','Required if you received the product for free or are paid as an affiliate.'],['Branded content toggle','Enable TikTok\'s native branded content disclosure in Creator Tools.'],['Results vary disclaimer','"Results shown are my personal experience and may not be typical."']];
+
+  const h = (t,s) => `<div class="section-card-head"><span class="section-num">${s}</span> ${t}</div>`;
+
+  el.innerHTML = `
+    <div class="panel-title" data-i="guideTitle">${T[lang].guideTitle}</div>
+    <div class="panel-sub" data-i="guideSub">${T[lang].guideSub}</div>
+
+    <!-- 1. INGREDIENT BENEFITS -->
+    <div class="section-card" style="margin-bottom:18px">
+      ${h(isES?'Beneficios de Ingredientes':'Ingredient Benefits & Safe Claims','1')}
+      <div class="section-card-body">
+        <div class="info-box blue" style="margin-bottom:14px">
+          <span>💡</span>
+          <span>${isES?'<strong>Regla de oro:</strong> Cita siempre el INGREDIENTE, no el producto. "Redensyl apoya la salud del folículo" es seguro. "Este roll-on hace crecer tu cabello" no lo es.':'<strong>Golden rule:</strong> Always cite the INGREDIENT, not the product. "Redensyl supports follicle health" is safe. "This roll-on regrows your hair" is not.'}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          ${INGREDIENTS.map(ing=>`
+          <div style="border:1.5px solid var(--border);border-radius:12px;overflow:hidden">
+            <div style="background:${ing.color};padding:10px 14px">
+              <div style="font-weight:800;font-size:15px;color:#fff">${ing.name}</div>
+            </div>
+            <div style="padding:12px 14px">
+              <div style="font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:10px">${ing.benefit}</div>
+              <div style="font-size:11px;font-weight:700;color:#166534;margin-bottom:3px">${isES?'✅ Di esto:':'✅ Say this:'}</div>
+              <div style="font-size:12px;color:#166534;background:#F0FFF4;padding:5px 8px;border-radius:6px;margin-bottom:8px"><em>${ing.safe}</em></div>
+              <div style="font-size:11px;font-weight:700;color:#DC2626;margin-bottom:3px">${isES?'🚫 No digas:':'🚫 Avoid:'}</div>
+              <div style="font-size:12px;color:#DC2626;background:#FFF1F2;padding:5px 8px;border-radius:6px"><em>${ing.avoid}</em></div>
+            </div>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. BANNED vs SAFE WORDS -->
+    <div class="section-card" style="margin-bottom:18px">
+      ${h(isES?'Frases Prohibidas vs. Alternativas Seguras':'Banned Phrases vs. Safe Alternatives','2')}
+      <div class="section-card-body" style="padding:0;overflow:hidden">
+        <div style="display:grid;grid-template-columns:1fr 1fr">
+          <div style="background:#EF4444;color:#fff;padding:10px 16px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🚫 ${isES?'Te Pondrá en Riesgo':'Will Get You Flagged'}</div>
+          <div style="background:#22C55E;color:#fff;padding:10px 16px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">✅ ${isES?'Seguro de Decir':'Safe to Say'}</div>
+          ${swaps.map(([bad,good],i)=>`
+          <div style="padding:9px 16px;font-size:12.5px;border-top:1px solid var(--border);color:#DC2626;font-weight:600;background:${i%2===0?'var(--surface)':'var(--surface2)'}">${bad}</div>
+          <div style="padding:9px 16px;font-size:12.5px;border-top:1px solid var(--border);color:#166534;background:${i%2===0?'var(--surface)':'var(--surface2)'}">${good}</div>`).join('')}
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. THE JOURNEY METHOD -->
+    <div class="section-card" style="margin-bottom:18px">
+      ${h(isES?'El Método Journey — Antes/Después Bien Hecho':'The Journey Method — Before/After Done Right','3')}
+      <div class="section-card-body">
+        <div class="info-box orange" style="margin-bottom:14px">
+          <span>⚠️</span>
+          <span>${isES?'<strong>Las MINIATURAS antes/después son las que activan las alertas</strong> — una imagen dramática de calvicie a cabello lleno en la miniatura, incluso si el video es conforme.':'<strong>Before/After THUMBNAILS trigger flags</strong> — a dramatic bald-to-full-hair image in the thumbnail, even if the video script is compliant.'}</span>
+        </div>
+        <div style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">${isES?'Los creadores <em>pueden</em> mostrar cambios a lo largo del tiempo — pero debe enmarcarse como una <strong>línea de tiempo de experiencia personal</strong>, no una comparación de "el producto causó esta transformación".':'Creators <em>can</em> show hair changes over time — but it must be framed as a <strong>personal experience timeline</strong>, not a product-caused transformation comparison.'}</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px">
+          ${JOURNEY.map(([label,text])=>`
+          <div style="text-align:center;padding:12px 8px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface)">
+            <div style="font-size:22px;margin-bottom:5px">${label.split(' ')[0]}</div>
+            <div style="font-size:11px;font-weight:700;color:var(--blue1);margin-bottom:5px">${label.split(' ').slice(1).join(' ')}</div>
+            <div style="font-size:11px;color:var(--text3);line-height:1.4">${text}</div>
+          </div>`).join('')}
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div style="background:#FFF1F2;border:1px solid #FFE4E6;border-radius:10px;padding:14px">
+            <div style="font-size:12px;font-weight:700;color:#DC2626;margin-bottom:8px">🚫 ${isES?'Miniaturas — NO hagas:':'Thumbnail Don\'ts'}</div>
+            <ul style="font-size:12px;color:#7F1D1D;line-height:1.9;padding-left:16px">
+              <li>${isES?'Pantalla dividida: calvicie vs. cabello lleno':'Split-screen bald vs. full hair'}</li>
+              <li>${isES?'Antes/después dramático lado a lado':'Dramatic before/after side-by-side'}</li>
+              <li>${isES?'Texto: "HICE CRECER MI CABELLO EN 30 DÍAS"':'Overlaid text: "REGREW HAIR IN 30 DAYS"'}</li>
+              <li>${isES?'Primer plano extremo: cuero cabelludo escaso vs. lleno':'Extreme close-up sparse vs. thick scalp'}</li>
+              <li>${isES?'Flechas señalando zonas de "transformación"':'Arrows pointing to "transformation" zones'}</li>
+            </ul>
+          </div>
+          <div style="background:#F0FFF4;border:1px solid #BBF7D0;border-radius:10px;padding:14px">
+            <div style="font-size:12px;font-weight:700;color:#166534;margin-bottom:8px">✅ ${isES?'Miniaturas — SÍ puedes:':'Thumbnail Dos'}</div>
+            <ul style="font-size:12px;color:#14532D;line-height:1.9;padding-left:16px">
+              <li>${isES?'Creador sosteniendo o aplicando el producto':'Creator holding or applying the product'}</li>
+              <li>${isES?'Foto de estilo de vida con cabello saludable':'Lifestyle shot with hair looking healthy'}</li>
+              <li>${isES?'Texto: "Mi Viaje Capilar de 60 Días" (neutro)':'Text: "My 60-Day Hair Journey" (neutral)'}</li>
+              <li>${isES?'Producto o enfoque en ingredientes':'Product flat-lay or ingredient focus'}</li>
+              <li>${isES?'Fecha clara visible (Semana 1, Semana 4)':'Clear date label visible (Week 1, Week 4)'}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. DOS AND DON'TS (VIDEO) -->
+    <div class="section-card" style="margin-bottom:18px">
+      ${h(isES?'Reglas de Video — Qué Hacer y No Hacer':'Video Dos & Don\'ts','4')}
+      <div class="section-card-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--green)">✅ ${isES?'SÍ PUEDES DECIR':'DO SAY'}</div>
+            ${[
+              isES?['"Noté que mi cabello se ve más lleno" (1ª persona)','Citar ingredientes: "Redensyl apoya la salud del folículo"','Mostrar aplicación: "Así es como aplico el roll-on"','Hablar de experiencia: "Lo usé por 60 días consistentemente"','Decir "en mi experiencia" o "a mí me parece"','Añadir aviso: "Esto no es consejo médico"']
+              :
+              ['"I noticed my hair looks fuller" (first person)','Cite ingredients: "Redensyl supports follicle health"','Show application: "Here\'s how I apply the roll-on"','Share experience: "I used it for 60 days consistently"','Say "in my experience" or "I noticed"','Add disclaimer: "This is not medical advice"'],
+            ][0].map(item=>`<div style="font-size:13px;color:#166534;padding:6px 10px;margin-bottom:5px;background:#F0FFF4;border-radius:7px;line-height:1.4">${item}</div>`).join('')}
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--red)">🚫 ${isES?'NO DIGAS':'DON\'T SAY'}</div>
+            ${[
+              isES?['"Este producto hace crecer el cabello"','"Garantiza resultados en X semanas"','"Trata la alopecia o la calvicie"','"Clínicamente probado para detener la caída"','"Como metotrexato pero natural" (comparación farmacéutica)','"Aprobado por FDA / probado médicamente"']
+              :
+              ['"This product regrows hair"','"Guarantees results in X weeks"','"Treats alopecia or baldness"','"Clinically proven to stop hair loss"','"Like minoxidil but natural" (pharma comparison)','"FDA approved / medically proven"'],
+            ][0].map(item=>`<div style="font-size:13px;color:#DC2626;padding:6px 10px;margin-bottom:5px;background:#FFF1F2;border-radius:7px;line-height:1.4">${item}</div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. REQUIRED DISCLOSURES -->
+    <div class="section-card">
+      ${h(isES?'Avisos Requeridos — Cada Video':'Required Disclosures — Every Video','5')}
+      <div class="section-card-body">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          ${DISCLOSURES.map(([title,desc])=>`
+          <div style="display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--surface2);border-radius:8px">
+            <span style="color:var(--green);font-weight:800;flex-shrink:0;margin-top:1px">✓</span>
+            <div><strong style="font-size:13px">${title}</strong><br><span style="font-size:12px;color:var(--text2)">${desc}</span></div>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>
+  `;
 }
 
 // ===== APPEAL OUTPUT ACTIONS =====
