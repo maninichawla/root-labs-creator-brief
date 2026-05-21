@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TikTok Appeal Builder — BeBodywise Hair</title>
+<style>
+:root{
+  --blue1:#1D5FD4;--blue2:#2B7DE9;--blue3:#3B96FF;
+  --blue4:#93C5FD;--blue5:#BFDBFE;--blue6:#DBEAFE;--blue7:#EFF6FF;
+  --text:#0F172A;--text2:#475569;--text3:#94A3B8;
+  --border:#E2E8F0;--bg:#F8FAFC;--surface:#FFFFFF;--surface2:#F1F5F9;
+  --green:#22C55E;--yellow:#EAB308;--red:#EF4444;--orange:#F97316;
+  --shadow:0 1px 3px rgba(0,0,0,.08);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,.1);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,.12);
+  --radius:12px;--radius-sm:8px;--radius-lg:20px;
+}
+[data-theme="dark"]{
+  --text:#F1F5F9;--text2:#94A3B8;--text3:#475569;
+  --border:#1E293B;--bg:#020617;--surface:#0F172A;--surface2:#1E293B;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;transition:background .2s,color .2s}
+input,textarea,select{font-family:inherit;font-size:inherit;color:inherit}
+button{cursor:pointer;font-family:inherit}
+
+/* HEADER */
+.app-header{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:var(--shadow)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;max-width:1000px;margin:0 auto}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-mark{width:34px;height:34px;background:linear-gradient(135deg,#1D5FD4,#3B96FF);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:13px;letter-spacing:-.5px}
+.logo-text{font-weight:800;font-size:15px;color:var(--text);line-height:1.2}
+.logo-sub{font-size:11px;color:var(--text3);font-weight:400}
+.header-right{display:flex;align-items:center;gap:8px}
+.btn-icon{width:34px;height:34px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text2);display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .15s}
+.btn-icon:hover{background:var(--surface2)}
+.lang-toggle{display:flex;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.lang-btn{padding:5px 10px;font-size:12px;font-weight:600;border:none;background:var(--surface);color:var(--text2);transition:all .15s}
+.lang-btn.active{background:var(--blue1);color:#fff}
+
+/* TABS */
+.tab-nav{background:var(--surface);border-bottom:1px solid var(--border)}
+.tab-nav-inner{display:flex;max-width:1000px;margin:0 auto;padding:0 24px}
+.tab-btn{padding:13px 18px;font-size:14px;font-weight:600;color:var(--text2);border:none;background:none;border-bottom:2.5px solid transparent;transition:all .15s;white-space:nowrap}
+.tab-btn.active{color:var(--blue1);border-bottom-color:var(--blue1)}
+.tab-btn:hover:not(.active){color:var(--text);background:var(--surface2)}
+.tab-pane{display:none}.tab-pane.active{display:block}
+
+/* PROGRESS BAR */
+.progress-wrap{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 24px}
+.progress-inner{max-width:760px;margin:0 auto}
+.progress-steps{display:flex;align-items:flex-start}
+.prog-step{flex:1;display:flex;flex-direction:column;align-items:center;position:relative}
+.prog-step:not(:last-child)::after{content:'';position:absolute;top:15px;left:50%;width:100%;height:2px;background:var(--border);z-index:0;transition:background .3s}
+.prog-step.done:not(:last-child)::after,.prog-step.active:not(:last-child)::after{background:var(--blue1)}
+.prog-circle{width:30px;height:30px;border-radius:50%;border:2px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--text3);position:relative;z-index:1;transition:all .2s}
+.prog-step.active .prog-circle{border-color:var(--blue1);background:var(--blue1);color:#fff}
+.prog-step.done .prog-circle{border-color:var(--blue1);background:var(--blue1);color:#fff}
+.prog-label{font-size:10.5px;color:var(--text3);margin-top:5px;text-align:center;font-weight:500;line-height:1.2}
+.prog-step.active .prog-label,.prog-step.done .prog-label{color:var(--blue1)}
+
+/* MAIN LAYOUT */
+.page-body{max-width:1000px;margin:0 auto;padding:0 24px}
+.step-panel{display:none;padding:32px 0 80px}
+.step-panel.active{display:block}
+.panel-title{font-size:21px;font-weight:800;color:var(--text);margin-bottom:4px}
+.panel-sub{font-size:14px;color:var(--text2);margin-bottom:28px}
+
+/* FORM GRID */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-grid.g1{grid-template-columns:1fr}
+.form-grid.g3{grid-template-columns:1fr 1fr 1fr}
+.span2{grid-column:span 2}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-label{font-size:13px;font-weight:600;color:var(--text)}
+.req{color:var(--red)}
+.form-input{padding:9px 13px;border:1.5px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);font-size:14px;transition:border-color .15s;outline:none;width:100%}
+.form-input:focus{border-color:var(--blue1);box-shadow:0 0 0 3px rgba(29,95,212,.1)}
+.form-input.err{border-color:var(--red)}
+.form-hint{font-size:11px;color:var(--text3)}
+.field-err{font-size:11px;color:var(--red);display:none}
+.field-err.show{display:block}
+textarea.form-input{resize:vertical;min-height:90px}
+
+/* VIOLATION TYPE CARDS */
+.vcat{margin-bottom:22px}
+.vcat-label{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text3);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.vcat-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.vcat-badge{padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;color:#fff}
+.vtype-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.vcard{border:1.5px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);padding:11px 13px;cursor:pointer;transition:all .15s}
+.vcard:hover{border-color:var(--blue3);background:var(--blue7)}
+.vcard.sel{border-color:var(--blue1);background:rgba(29,95,212,.05)}
+[data-theme="dark"] .vcard:hover,[data-theme="dark"] .vcard.sel{background:rgba(29,95,212,.15)}
+.vcard-row{display:flex;align-items:flex-start;gap:8px}
+.vcard-cb{width:16px;height:16px;border:2px solid var(--border);border-radius:4px;flex-shrink:0;margin-top:1px;background:var(--surface);display:flex;align-items:center;justify-content:center;transition:all .15s;font-size:10px;color:transparent}
+.vcard.sel .vcard-cb{background:var(--blue1);border-color:var(--blue1);color:#fff}
+.vcard-name{font-size:13px;font-weight:600;color:var(--text);line-height:1.3}
+.vcard-desc{font-size:12px;color:var(--text2);margin-top:6px;display:none;line-height:1.5}
+.vcard.sel .vcard-desc{display:block}
+.vcard-tip{font-size:11.5px;background:var(--blue7);border-left:3px solid var(--blue3);padding:7px 10px;border-radius:0 6px 6px 0;color:var(--text2);display:none;margin-top:6px}
+.vcard.sel .vcard-tip{display:block}
+[data-theme="dark"] .vcard-tip{background:rgba(59,150,255,.1)}
+
+/* CHECKBOX ITEMS */
+.cb-section{margin-bottom:26px}
+.cb-section-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+.cb-section-sub{font-size:12px;color:var(--text2);margin-bottom:10px}
+.cb-list{display:flex;flex-direction:column;gap:6px}
+.cb-item{display:flex;align-items:flex-start;gap:9px;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;background:var(--surface);transition:all .15s;user-select:none}
+.cb-item:hover{border-color:var(--blue3);background:var(--blue7)}
+.cb-item.sel{border-color:var(--blue1);background:rgba(29,95,212,.05)}
+[data-theme="dark"] .cb-item:hover,[data-theme="dark"] .cb-item.sel{background:rgba(29,95,212,.15)}
+.cb-box{width:16px;height:16px;border:2px solid var(--border);border-radius:4px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:10px;color:transparent;transition:all .15s}
+.cb-item.sel .cb-box{background:var(--blue1);border-color:var(--blue1);color:#fff}
+.cb-text{font-size:13px;color:var(--text);line-height:1.4;flex:1}
+.risk-tag{margin-left:auto;flex-shrink:0;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:700}
+.risk-h{background:#FEE2E2;color:#DC2626}
+.risk-m{background:#FEF3C7;color:#D97706}
+.risk-l{background:#DCFCE7;color:#16A34A}
+
+/* FILE UPLOAD */
+.upload-zone{border:2px dashed var(--border);border-radius:var(--radius);background:var(--surface2);padding:28px;text-align:center;cursor:pointer;transition:all .2s}
+.upload-zone:hover,.upload-zone.over{border-color:var(--blue1);background:var(--blue7)}
+.upload-icon{font-size:32px;margin-bottom:8px}
+.upload-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}
+.upload-sub{font-size:12px;color:var(--text3)}
+#file-input{display:none}
+.file-list{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.file-item{display:flex;align-items:flex-start;gap:12px;padding:12px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface)}
+.file-thumb{width:48px;height:48px;border-radius:8px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;overflow:hidden}
+.file-thumb img{width:100%;height:100%;object-fit:cover;border-radius:8px}
+.file-meta{flex:1;min-width:0}
+.file-name{font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.file-size{font-size:11px;color:var(--text3);margin-bottom:6px}
+.file-remove{background:none;border:none;color:var(--red);font-size:18px;padding:2px 6px;line-height:1;flex-shrink:0}
+.file-select{padding:5px 8px;border:1px solid var(--border);border-radius:6px;background:var(--surface);font-size:12px;color:var(--text);width:100%;margin-bottom:5px}
+.file-desc-input{padding:5px 8px;border:1px solid var(--border);border-radius:6px;background:var(--surface);font-size:12px;color:var(--text);width:100%}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:10px;font-size:14px;font-weight:600;border:none;transition:all .15s;line-height:1}
+.btn-primary{background:var(--blue1);color:#fff}
+.btn-primary:hover{background:var(--blue2);transform:translateY(-1px);box-shadow:var(--shadow-md)}
+.btn-secondary{background:var(--surface);color:var(--text);border:1.5px solid var(--border)}
+.btn-secondary:hover{background:var(--surface2)}
+.btn-ghost{background:transparent;color:var(--blue1);border:1.5px solid var(--blue5)}
+.btn-ghost:hover{background:var(--blue7)}
+.btn-lg{padding:12px 26px;font-size:15px;border-radius:12px}
+.btn-sm{padding:6px 13px;font-size:12px;border-radius:7px}
+.btn-full{width:100%;justify-content:center}
+.btn:disabled{opacity:.5;pointer-events:none}
+.step-nav{display:flex;justify-content:space-between;align-items:center;margin-top:32px;padding-top:22px;border-top:1px solid var(--border)}
+.step-nav-right{display:flex;gap:10px}
+
+/* APPEAL OUTPUT */
+.appeal-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:20px}
+.appeal-card-header{background:linear-gradient(135deg,var(--blue1),var(--blue2));padding:18px 24px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.appeal-card-header-text h3{font-size:16px;font-weight:700;color:#fff;margin-bottom:2px}
+.appeal-card-header-text p{font-size:12px;color:rgba(255,255,255,.75)}
+.appeal-actions{display:flex;gap:7px;flex-wrap:wrap;flex-shrink:0}
+.btn-white{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);padding:7px 13px;border-radius:8px;font-size:12px;font-weight:600}
+.btn-white:hover{background:rgba(255,255,255,.25)}
+.appeal-body{padding:26px 30px;font-size:14px;line-height:1.85;color:var(--text);white-space:pre-wrap;font-family:'Georgia',Georgia,serif;min-height:300px}
+.appeal-edit{width:100%;border:none;background:transparent;resize:none;font-family:'Georgia',Georgia,serif;font-size:14px;line-height:1.85;color:var(--text);outline:none;min-height:420px;padding:26px 30px;display:none}
+.appeal-footer{padding:14px 24px;border-top:1px solid var(--border);background:var(--surface2);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.appeal-char{font-size:12px;color:var(--text3);font-weight:500}
+
+/* CHECKLIST */
+.checklist-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 22px;margin-bottom:20px}
+.checklist-title{font-size:14px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.cl-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.cl-item:last-child{border-bottom:none}
+.cl-box{width:18px;height:18px;border:2px solid var(--border);border-radius:4px;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;color:transparent;transition:all .15s;margin-top:1px}
+.cl-box.done{background:var(--green);border-color:var(--green);color:#fff}
+.cl-label{font-size:13px;color:var(--text2);line-height:1.4}
+
+/* SPINNER */
+.spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--blue1);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-state{display:flex;flex-direction:column;align-items:center;gap:12px;padding:60px 20px;color:var(--text2);font-size:14px}
+
+/* SCRIPT CHECKER */
+.script-area{width:100%;min-height:180px;padding:14px;border:1.5px solid var(--border);border-radius:var(--radius);background:var(--surface);font-size:14px;line-height:1.7;color:var(--text);resize:vertical;outline:none}
+.script-area:focus{border-color:var(--blue1)}
+.script-result{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:16px}
+.script-result-header{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;font-weight:700;font-size:14px;background:var(--surface2)}
+.risk-pills{display:flex;gap:8px}
+.rpill{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.rpill-g{background:#DCFCE7;color:#166534}
+.rpill-y{background:#FEF9C3;color:#854D0E}
+.rpill-r{background:#FEE2E2;color:#991B1B}
+.script-highlighted{padding:16px;line-height:1.9;font-size:14px;white-space:pre-wrap;font-family:inherit}
+.hl-g{background:#DCFCE7;border-radius:3px;padding:0 2px}
+.hl-y{background:#FEF9C3;border-radius:3px;padding:0 2px;border-bottom:2px dashed var(--yellow)}
+.hl-r{background:#FEE2E2;border-radius:3px;padding:0 2px;border-bottom:2px solid var(--red)}
+.flag-list{padding:14px;display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--border)}
+.flag-item{padding:10px 12px;border-radius:8px;font-size:13px;display:flex;gap:10px}
+.flag-y{background:#FFFBEB;border:1px solid #FEF3C7}
+.flag-r{background:#FFF1F2;border:1px solid #FFE4E6}
+.flag-icon{font-size:15px;flex-shrink:0;margin-top:1px}
+.flag-phrase{font-weight:700;color:var(--text)}
+.flag-alt{color:var(--text2);margin-top:2px}
+
+/* HISTORY */
+.history-empty{text-align:center;padding:60px 20px;color:var(--text3)}
+.history-empty-icon{font-size:44px;margin-bottom:10px}
+.history-list{display:flex;flex-direction:column;gap:10px}
+.hcard{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px 18px;display:flex;gap:14px;align-items:flex-start}
+.hcard-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.hcard-icon.won{background:#DCFCE7}.hcard-icon.lost{background:#FEE2E2}.hcard-icon.pending{background:#FEF9C3}
+.hcard-info{flex:1}
+.hcard-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}
+.hcard-meta{font-size:12px;color:var(--text3);display:flex;gap:10px;flex-wrap:wrap}
+.hcard-actions{display:flex;gap:6px}
+.insight-box{background:var(--blue7);border:1px solid var(--blue5);border-radius:var(--radius);padding:13px 16px;margin-bottom:18px;font-size:13px;color:var(--text);display:flex;gap:10px;align-items:flex-start}
+[data-theme="dark"] .insight-box{background:rgba(29,95,212,.12);border-color:rgba(29,95,212,.3)}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border-radius:var(--radius-lg);padding:26px;max-width:460px;width:100%;box-shadow:var(--shadow-lg)}
+.modal-title{font-size:17px;font-weight:800;margin-bottom:4px}
+.modal-sub{font-size:13px;color:var(--text2);margin-bottom:20px}
+.modal-footer{display:flex;justify-content:flex-end;gap:8px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:#0F172A;color:#fff;padding:11px 18px;border-radius:10px;font-size:13px;font-weight:600;z-index:9999;transform:translateY(80px);opacity:0;transition:all .25s;pointer-events:none}
+.toast.show{transform:none;opacity:1}
+.toast.success{background:#166534}
+.toast.error{background:#991B1B}
+
+/* SECTION CARD */
+.section-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:18px}
+.section-card-head{padding:14px 18px;border-bottom:1px solid var(--border);background:var(--surface2);display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px;color:var(--text)}
+.section-num{width:24px;height:24px;border-radius:50%;background:var(--blue1);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.section-card-body{padding:18px}
+
+/* CHAR COUNTER */
+.char-row{display:flex;justify-content:flex-end;margin-top:4px}
+.char-badge{padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600}
+.char-ok{background:#DCFCE7;color:#166534}
+.char-warn{background:#FEF3C7;color:#92400E}
+.char-bad{background:#FEE2E2;color:#991B1B}
+
+/* INFO BOX */
+.info-box{padding:12px 16px;border-radius:8px;font-size:13px;display:flex;gap:10px;align-items:flex-start;margin-bottom:18px}
+.info-box.blue{background:var(--blue7);border:1px solid var(--blue6);color:var(--text2)}
+.info-box.orange{background:#FFF7ED;border:1px solid #FED7AA;color:#7C2D12}
+[data-theme="dark"] .info-box.blue{background:rgba(29,95,212,.12);border-color:rgba(29,95,212,.3)}
+[data-theme="dark"] .info-box.orange{background:rgba(249,115,22,.08);border-color:rgba(249,115,22,.2)}
+
+/* RESPONSIVE */
+@media(max-width:640px){
+  .form-grid{grid-template-columns:1fr}
+  .span2{grid-column:span 1}
+  .vtype-grid{grid-template-columns:1fr}
+  .header-inner{padding:10px 14px}
+  .page-body{padding:0 14px}
+  .appeal-card-header{flex-direction:column}
+  .appeal-body,.appeal-edit{padding:18px}
+  .prog-label{display:none}
+  .prog-circle{width:26px;height:26px;font-size:11px}
+}
+@media print{
+  .app-header,.tab-nav,.progress-wrap,.step-nav,.appeal-actions,.appeal-footer,.no-print{display:none!important}
+  .appeal-body{padding:0;font-size:12pt}
+  .appeal-card{border:none}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="app-header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-mark">BB</div>
+      <div>
+        <div class="logo-text">BeBodywise Appeal Builder</div>
+        <div class="logo-sub">TikTok Violation Appeal Tool — Hair Density Roll-On</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('en')" id="lang-en">EN</button>
+        <button class="lang-btn" onclick="setLang('es')" id="lang-es">ES</button>
+      </div>
+      <button class="btn-icon" onclick="toggleDark()" title="Toggle dark mode" id="dark-btn">🌙</button>
+      <button class="btn-icon" onclick="openSettings()" title="Settings">⚙️</button>
+    </div>
+  </div>
+</header>
+
+<!-- TAB NAV -->
+<nav class="tab-nav">
+  <div class="tab-nav-inner">
+    <button class="tab-btn active" onclick="showTab('builder')" id="tab-builder" data-i="tabBuilder">Appeal Builder</button>
+    <button class="tab-btn" onclick="showTab('checker')" id="tab-checker" data-i="tabChecker">Script Checker</button>
+    <button class="tab-btn" onclick="showTab('history')" id="tab-history" data-i="tabHistory">My History</button>
+  </div>
+</nav>
+
+<!-- ===================== APPEAL BUILDER TAB ===================== -->
+<div class="tab-pane active" id="tab-pane-builder">
+
+  <!-- PROGRESS BAR -->
+  <div class="progress-wrap no-print">
+    <div class="progress-inner">
+      <div class="progress-steps" id="progress-steps">
+        <div class="prog-step active" id="ps1">
+          <div class="prog-circle">1</div>
+          <div class="prog-label" data-i="step1Label">Creator Info</div>
+        </div>
+        <div class="prog-step" id="ps2">
+          <div class="prog-circle">2</div>
+          <div class="prog-label" data-i="step2Label">Violation Type</div>
+        </div>
+        <div class="prog-step" id="ps3">
+          <div class="prog-circle">3</div>
+          <div class="prog-label" data-i="step3Label">Context</div>
+        </div>
+        <div class="prog-step" id="ps4">
+          <div class="prog-circle">4</div>
+          <div class="prog-label" data-i="step4Label">Evidence</div>
+        </div>
+        <div class="prog-step" id="ps5">
+          <div class="prog-circle">5</div>
+          <div class="prog-label" data-i="step5Label">Generate</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-body">
+
+    <!-- STEP 1: CREATOR & VIDEO INFO -->
+    <div class="step-panel active" id="step1">
+      <div class="panel-title" data-i="s1Title">Creator & Video Information</div>
+      <div class="panel-sub" data-i="s1Sub">Enter your details and the video that received the violation notice.</div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label" for="handle">TikTok Handle <span class="req">*</span></label>
+          <input class="form-input" id="handle" type="text" placeholder="@yourcreatorname" oninput="autoSave();validateHandle(this)">
+          <span class="field-err" id="handle-err">Enter a valid handle (e.g. @username)</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="fullname">Full Legal Name <span class="req">*</span></label>
+          <input class="form-input" id="fullname" type="text" placeholder="Your full name" oninput="autoSave()">
+          <span class="field-err" id="fullname-err">Full name is required</span>
+        </div>
+        <div class="form-group span2">
+          <label class="form-label" for="video-url">Video URL <span class="req">*</span></label>
+          <input class="form-input" id="video-url" type="url" placeholder="https://www.tiktok.com/@username/video/..." oninput="autoSave();validateVideoUrl(this)">
+          <span class="form-hint">Must be a tiktok.com or vm.tiktok.com URL</span>
+          <span class="field-err" id="video-url-err">Enter a valid TikTok video URL</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="post-date">Video Post Date <span class="req">*</span></label>
+          <input class="form-input" id="post-date" type="date" oninput="autoSave()">
+          <span class="field-err" id="post-date-err">Post date is required</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="violation-date">Violation Notice Date <span class="req">*</span></label>
+          <input class="form-input" id="violation-date" type="date" oninput="autoSave()">
+          <span class="field-err" id="violation-date-err">Violation date is required</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="product-name">Product Name</label>
+          <input class="form-input" id="product-name" type="text" value="Hair Growth Density Roll-On" oninput="autoSave()">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="shop-name">Shop / Seller Name</label>
+          <input class="form-input" id="shop-name" type="text" placeholder="BeBodywise" oninput="autoSave()">
+        </div>
+        <div class="form-group span2">
+          <label class="form-label" for="shop-link">TikTok Shop Product Link</label>
+          <input class="form-input" id="shop-link" type="url" placeholder="https://www.tiktok.com/t/..." oninput="autoSave()">
+        </div>
+      </div>
+
+      <div class="step-nav no-print">
+        <div></div>
+        <div class="step-nav-right">
+          <button class="btn btn-primary" onclick="goStep(2)" data-i="nextBtn">Next: Violation Type →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: VIOLATION TYPES -->
+    <div class="step-panel" id="step2">
+      <div class="panel-title" data-i="s2Title">Select Violation Type(s)</div>
+      <div class="panel-sub" data-i="s2Sub">Select all violation types shown on your TikTok notice. Tap a card to see what it means and how to address it.</div>
+
+      <div id="vtype-container"><!-- Populated by JS --></div>
+
+      <div class="step-nav no-print">
+        <button class="btn btn-secondary" onclick="goStep(1)">← Back</button>
+        <button class="btn btn-primary" onclick="goStep(3)">Next: Context →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: CONTEXT & CLAIMS -->
+    <div class="step-panel" id="step3">
+      <div class="panel-title" data-i="s3Title">Content & Claims</div>
+      <div class="panel-sub" data-i="s3Sub">Tell us what was in your video. This helps build the strongest possible appeal.</div>
+
+      <!-- 3A: Video content -->
+      <div class="cb-section">
+        <div class="cb-section-title" data-i="s3aTitle">A. What did the video contain? <span style="font-weight:400;color:var(--text3)">(select all that apply)</span></div>
+        <div class="cb-list" id="content-list"><!-- JS --></div>
+      </div>
+
+      <!-- 3B: Claims used -->
+      <div class="cb-section">
+        <div class="cb-section-title" data-i="s3bTitle">B. What language or claims were used? <span style="font-weight:400;color:var(--text3)">(select all that apply)</span></div>
+        <div class="cb-section-sub">Risk tags indicate how likely each phrase is to trigger a violation.</div>
+        <div class="cb-list" id="claims-list"><!-- JS --></div>
+      </div>
+
+      <!-- 3C: Evidence available -->
+      <div class="cb-section">
+        <div class="cb-section-title" data-i="s3cTitle">C. What evidence can you provide? <span style="font-weight:400;color:var(--text3)">(select all that apply)</span></div>
+        <div class="cb-list" id="evidence-list"><!-- JS --></div>
+      </div>
+
+      <!-- 3D: Creator explanation -->
+      <div class="cb-section">
+        <div class="cb-section-title" data-i="s3dTitle">D. Your explanation <span class="req">*</span></div>
+        <div class="cb-section-sub">In your own words, describe what the video showed and why you believe it does not violate TikTok's policies. Be specific.</div>
+        <textarea class="form-input" id="explanation" rows="5" placeholder="e.g. My video showed me applying the roll-on to my scalp while explaining the ingredients. I described Redensyl as an ingredient that supports scalp health. I did not claim it treats any medical condition or guarantees hair regrowth..." oninput="autoSave();updateExplainCount()"></textarea>
+        <div class="char-row">
+          <span class="char-badge" id="explain-count">0 / min 50 chars</span>
+        </div>
+        <span class="field-err" id="explanation-err">Please provide an explanation (min 50 characters)</span>
+      </div>
+
+      <div class="step-nav no-print">
+        <button class="btn btn-secondary" onclick="goStep(2)">← Back</button>
+        <button class="btn btn-primary" onclick="goStep(4)">Next: Evidence →</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: EVIDENCE UPLOAD -->
+    <div class="step-panel" id="step4">
+      <div class="panel-title" data-i="s4Title">Evidence & Documents</div>
+      <div class="panel-sub" data-i="s4Sub">Upload screenshots and documents to strengthen your appeal. Up to 10 files (JPG, PNG, PDF, WEBP · 10MB each).</div>
+
+      <div class="info-box blue">
+        <span>💡</span>
+        <span>The most impactful uploads are: <strong>the violation notice screenshot</strong>, <strong>product ingredient list</strong>, and <strong>brand authorization letter</strong>. Include at least one before clicking Generate.</span>
+      </div>
+
+      <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()" ondragover="dragOver(event)" ondrop="dropFiles(event)" ondragleave="dragLeave(event)">
+        <div class="upload-icon">📎</div>
+        <div class="upload-title">Click to upload or drag & drop files here</div>
+        <div class="upload-sub">JPG · PNG · PDF · WEBP — max 10MB per file</div>
+      </div>
+      <input type="file" id="file-input" multiple accept=".jpg,.jpeg,.png,.pdf,.webp" onchange="handleFiles(this.files)">
+      <div class="file-list" id="file-list"></div>
+
+      <div class="step-nav no-print">
+        <button class="btn btn-secondary" onclick="goStep(3)">← Back</button>
+        <button class="btn btn-primary" onclick="goStep(5)">Next: Generate Appeal →</button>
+      </div>
+    </div>
+
+    <!-- STEP 5: GENERATE -->
+    <div class="step-panel" id="step5">
+      <div class="panel-title" data-i="s5Title">Generate Your Appeal</div>
+      <div class="panel-sub" data-i="s5Sub">Review the summary below, then generate your professional appeal letter.</div>
+
+      <!-- Summary -->
+      <div class="section-card" id="summary-card" style="margin-bottom:22px">
+        <div class="section-card-head"><span class="section-num">✓</span> Summary</div>
+        <div class="section-card-body" id="summary-body" style="font-size:13px;color:var(--text2);line-height:1.7"><!-- JS --></div>
+      </div>
+
+      <div class="info-box orange" id="api-hint" style="display:none">
+        <span>🔑</span>
+        <span>An Anthropic API key is configured. This appeal will be generated using Claude AI for enhanced quality.</span>
+      </div>
+
+      <div style="text-align:center;margin-bottom:28px">
+        <button class="btn btn-primary btn-lg" id="generate-btn" onclick="generateAppeal()">
+          <span>✨</span> <span data-i="generateBtn">Generate Appeal Letter</span>
+        </button>
+      </div>
+
+      <!-- Output -->
+      <div id="appeal-output" style="display:none">
+        <div class="appeal-card" id="appeal-card">
+          <div class="appeal-card-header">
+            <div class="appeal-card-header-text">
+              <h3>Appeal Letter</h3>
+              <p id="appeal-meta-line">Generated just now</p>
+            </div>
+            <div class="appeal-actions">
+              <button class="btn-white" onclick="copyAppeal()">📋 Copy</button>
+              <button class="btn-white" onclick="downloadTxt()">⬇ TXT</button>
+              <button class="btn-white" onclick="printAppeal()">🖨 PDF</button>
+              <button class="btn-white" onclick="toggleEdit()">✏️ Edit</button>
+              <button class="btn-white" onclick="generateAppeal()">🔄 Regen</button>
+            </div>
+          </div>
+          <div class="appeal-body" id="appeal-body"><!-- JS --></div>
+          <textarea class="appeal-edit" id="appeal-edit" oninput="syncEdit()"></textarea>
+          <div class="appeal-footer">
+            <span class="appeal-char" id="appeal-char-count"></span>
+            <button class="btn btn-sm btn-ghost" onclick="saveToHistory()">💾 Save to History</button>
+          </div>
+        </div>
+
+        <!-- Submission Checklist -->
+        <div class="checklist-card">
+          <div class="checklist-title">📋 Before You Submit — Checklist</div>
+          <div id="checklist-items"><!-- JS --></div>
+        </div>
+
+        <!-- Submission Guide -->
+        <div class="section-card">
+          <div class="section-card-head"><span class="section-num">→</span> How to Submit Your Appeal</div>
+          <div class="section-card-body">
+            <ol style="font-size:13px;color:var(--text2);line-height:2;padding-left:18px">
+              <li>Open TikTok → tap your profile → tap the flagged video</li>
+              <li>Tap <strong>"Appeal"</strong> on the violation notice banner</li>
+              <li>Copy your appeal letter and paste it into the appeal text field</li>
+              <li>Attach any supporting screenshots using the attachment option</li>
+              <li>Submit — TikTok typically reviews within 1–3 business days</li>
+              <li>If denied, you have <strong>15 days</strong> to submit a second appeal</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-nav no-print">
+        <button class="btn btn-secondary" onclick="goStep(4)">← Back</button>
+        <div></div>
+      </div>
+    </div>
+
+  </div><!-- /page-body -->
+</div><!-- /builder tab -->
+
+<!-- ===================== SCRIPT CHECKER TAB ===================== -->
+<div class="tab-pane" id="tab-pane-checker">
+  <div class="page-body" style="padding-top:28px;padding-bottom:80px">
+    <div class="panel-title" data-i="checkerTitle">Pre-Video Script Checker</div>
+    <div class="panel-sub" data-i="checkerSub">Paste your draft script below before posting. We'll flag language likely to trigger a TikTok violation and suggest compliant alternatives.</div>
+
+    <textarea class="script-area" id="script-input" placeholder="Paste your video script here...&#10;&#10;e.g. Hey guys! I've been using this hair roll-on for 30 days and I want to share my honest experience. The product has Redensyl and Anagain which I noticed makes my hair look thicker..."></textarea>
+    <div style="margin-top:10px;display:flex;gap:10px">
+      <button class="btn btn-primary" onclick="checkScript()" data-i="checkBtn">🔍 Check Script</button>
+      <button class="btn btn-secondary" onclick="clearScript()">Clear</button>
+    </div>
+
+    <div id="script-result-area"></div>
+  </div>
+</div>
+
+<!-- ===================== HISTORY TAB ===================== -->
+<div class="tab-pane" id="tab-pane-history">
+  <div class="page-body" style="padding-top:28px;padding-bottom:80px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <div>
+        <div class="panel-title" data-i="historyTitle">My Violation History</div>
+        <div class="panel-sub" data-i="historySub">Track past violations and appeal outcomes.</div>
+      </div>
+      <button class="btn btn-secondary btn-sm no-print" onclick="clearHistory()">🗑 Clear All</button>
+    </div>
+    <div id="insight-area"></div>
+    <div id="history-area"><!-- JS --></div>
+  </div>
+</div>
+
+<!-- SETTINGS MODAL -->
+<div class="modal-overlay" id="settings-modal">
+  <div class="modal">
+    <div class="modal-title">⚙️ Settings</div>
+    <div class="modal-sub">Configure optional features for enhanced appeal generation.</div>
+    <div class="form-group" style="margin-bottom:16px">
+      <label class="form-label">Anthropic API Key <span style="font-size:11px;color:var(--text3);font-weight:400">(optional — for AI-powered generation)</span></label>
+      <input class="form-input" id="api-key-input" type="password" placeholder="sk-ant-..." value="">
+      <span class="form-hint">Your key is stored locally and never sent to our servers. Used to call Claude directly from your browser.</span>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Default Language</label>
+      <select class="form-input" id="default-lang-select" onchange="setLang(this.value)">
+        <option value="en">English</option>
+        <option value="es">Español</option>
+      </select>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeSettings()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== DATA: VIOLATION TYPES =====
+const VTYPES = [
+  { cat:'Health & Medical Claims', color:'#EF4444', bg:'#FEE2E2', items:[
+    { id:'med_misleading', name:'Misleading medical or health claims',
+      desc:'TikTok flagged content for claiming a cosmetic product treats, cures, or prevents a medical condition — implying it functions as a medicine.',
+      tip:'Your appeal must clearly establish the product is a cosmetic (not a drug), cite its cosmetic classification, and reframe any health-adjacent language as personal experience or cosmetic benefit.' },
+    { id:'med_unsubstantiated', name:'Unsubstantiated efficacy claims',
+      desc:'Specific results were promised (e.g. "regrows hair in 2 weeks") without clinical proof or peer-reviewed studies to back them.',
+      tip:'Reframe all outcome language as personal experience ("I noticed") and reference ingredient research (not product guarantees). Attach any available lab/clinical evidence.' },
+    { id:'med_before_after', name:'Before and after imagery violation',
+      desc:'Before/after photos or video clips that TikTok\'s system interpreted as implying a medical transformation or guaranteed outcome.',
+      tip:'Clarify the imagery was a personal experience timeline (Day 1 → Week 4), not a clinical before/after comparison. Include a statement that results vary.' },
+    { id:'med_drug_device', name:'Drug or medical device misrepresentation',
+      desc:'Content implied the product functions as a drug, prescription treatment, or medical device.',
+      tip:'Explicitly state the product is a licensed cosmetic product, not a drug or device, and is sold via TikTok Shop as a standard hair care item.' },
+  ]},
+  { cat:'Advertising & Promotion', color:'#F97316', bg:'#FFF7ED', items:[
+    { id:'adv_deceptive', name:'Deceptive or misleading advertising',
+      desc:'The overall framing of the content was deemed misleading to viewers about the product\'s nature or capabilities.',
+      tip:'Address each potentially misleading element specifically. Demonstrate that all claims are honest, first-person, and do not exaggerate beyond cosmetic positioning.' },
+    { id:'adv_exaggerated', name:'Exaggerated product claims',
+      desc:'Claims about the product\'s speed, effectiveness, or results went beyond what is substantiated for a cosmetic product.',
+      tip:'Replace superlatives ("best," "fastest," "guaranteed") with experience-based language. Attach ingredient documentation to support any efficacy references.' },
+    { id:'adv_fake_reviews', name:'Fake testimonials or fabricated reviews',
+      desc:'TikTok suspected testimonials or review content may be fabricated or not from genuine customers.',
+      tip:'If you used real customer testimony, attach signed consent forms. Clarify the testimonial was genuine and unprompted (or properly disclosed if paid).' },
+    { id:'adv_unauthorized', name:'Unauthorized promotional claims',
+      desc:'Promotional claims were made without proper authorization from the brand, or claims exceeded what the brand has authorized.',
+      tip:'Include a brand authorization letter confirming you are an approved affiliate and that the claims made are within the scope of your authorization.' },
+    { id:'adv_pricing', name:'Misleading pricing or discount claims',
+      desc:'Pricing, discounts, or promotional offers shown in the video were inaccurate, expired, or could not be verified.',
+      tip:'Attach a screenshot of the product listing showing the correct current price. If the offer was time-limited, include documentation of the valid promotion period.' },
+  ]},
+  { cat:'Community Guidelines', color:'#8B5CF6', bg:'#F5F3FF', items:[
+    { id:'com_misinfo', name:'Harmful misinformation (health-related)',
+      desc:'Content was flagged for spreading health misinformation that could mislead viewers about medical topics.',
+      tip:'Clarify all health-adjacent statements were cosmetic in nature. Demonstrate you did not claim the product prevents, treats, or cures any disease or medical condition.' },
+    { id:'com_spam', name:'Spam or inauthentic behavior',
+      desc:'Posting patterns or engagement tactics were flagged as inauthentic or spam-like.',
+      tip:'Confirm all content and engagement is organic and authentic. Address any specific behavior pattern TikTok identified.' },
+    { id:'com_ip', name:'Intellectual property violation',
+      desc:'Your video used copyrighted content (music, footage, images) without proper licensing or attribution.',
+      tip:'Confirm all content in the video was original or properly licensed. Attach proof of ownership or licensing for any third-party material used.' },
+    { id:'com_dangerous', name:'Dangerous activities or challenges',
+      desc:'Content was associated with a dangerous activity, trend, or challenge.',
+      tip:'Clarify the content involved normal cosmetic product application with no physical risk to viewers.' },
+  ]},
+  { cat:'TikTok Shop-Specific', color:'#0EA5E9', bg:'#F0F9FF', items:[
+    { id:'shop_restricted', name:'Restricted product policy violation',
+      desc:'The product was flagged as potentially restricted or prohibited under TikTok Shop seller policies.',
+      tip:'Provide product registration documentation and confirm the item is listed as an approved product on TikTok Shop. Include the live product listing URL.' },
+    { id:'shop_mismatch', name:'Product listing mismatch',
+      desc:'The content of your video did not match the linked TikTok Shop product listing.',
+      tip:'Confirm the product shown in the video is the exact product in the linked listing. Attach a screenshot of the matching product listing.' },
+    { id:'shop_affiliate', name:'Affiliate compliance violation',
+      desc:'Your affiliate partnership was not properly disclosed, or affiliate activity violated TikTok\'s creator partnership policies.',
+      tip:'Confirm the branded content disclosure was included and the affiliate relationship was properly tagged. Include the disclosure screenshot.' },
+    { id:'shop_prohibited', name:'Prohibited claims in shoppable content',
+      desc:'Claims made in shoppable content (video tagged with product) violated specific restrictions on what can be said in commerce-linked videos.',
+      tip:'Review all claims against TikTok\'s shoppable content policy. Reframe any product-outcome language as personal cosmetic experience.' },
+    { id:'shop_ingredient', name:'Ingredient or safety disclosure violation',
+      desc:'Required ingredient disclosures or safety warnings were missing from the content or product listing.',
+      tip:'Confirm the product listing includes a full ingredient list. If required disclosures were absent from the video, note any remedial action taken.' },
+  ]},
+  { cat:'Content Format', color:'#10B981', bg:'#ECFDF5', items:[
+    { id:'fmt_ai', name:'AI-generated or synthetic media not disclosed',
+      desc:'AI-generated visuals, voice, or other synthetic content was not disclosed to viewers.',
+      tip:'Confirm all content was created by you personally (real footage, real voice). If any AI tools were used, note what was disclosed.' },
+    { id:'fmt_partnership', name:'Undisclosed paid partnership',
+      desc:'A paid/gifted brand collaboration was not properly disclosed with #ad, #sponsored, or TikTok\'s branded content toggle.',
+      tip:'Confirm the branded content disclosure was active and #ad was included in the caption. Note any corrective action taken.' },
+    { id:'fmt_copyright', name:'Copyright or music violation',
+      desc:'Music or audio in the video used copyrighted material without proper licensing.',
+      tip:'Confirm music was from TikTok\'s licensed sound library, or was original/royalty-free. Provide licensing proof if applicable.' },
+  ]},
+  { cat:'Account-Level Actions', color:'#DC2626', bg:'#FEF2F2', items:[
+    { id:'acc_warning', name:'Account warning or strike',
+      desc:'Your account received a formal warning or content strike that affects your standing.',
+      tip:'Address the underlying violation directly and demonstrate steps taken to prevent recurrence. A strong appeal with evidence has the best chance of clearing a strike.' },
+    { id:'acc_suspension', name:'Temporary suspension of posting privileges',
+      desc:'Your ability to post new content has been temporarily restricted.',
+      tip:'Act quickly — suspension appeals are time-sensitive. Focus on the most recent violation and provide the most compelling evidence possible.' },
+    { id:'acc_shop_revoked', name:'TikTok Shop creator privileges revoked',
+      desc:'Your ability to create shoppable content or earn through TikTok Shop has been suspended.',
+      tip:'This requires an especially thorough appeal addressing both the content violation and your commitment to commerce policy compliance. Include brand authorization.' },
+    { id:'acc_ban', name:'Permanent ban notice',
+      desc:'Your account has received a permanent ban notice.',
+      tip:'Permanent ban appeals require substantial evidence and a clear case of policy misapplication. Consider escalating through TikTok\'s formal review channels if the first appeal fails.' },
+  ]},
+];
+
+// ===== DATA: VIDEO CONTENT OPTIONS =====
+const CONTENT_OPTS = [
+  { id:'c_talking', label:'Creator talking to camera about the product (talking head)' },
+  { id:'c_screen', label:'Screen recording of reviews or comments' },
+  { id:'c_demo', label:'Product demonstration (applying the roll-on)' },
+  { id:'c_ba', label:'Before and after comparison (photos or video)' },
+  { id:'c_ugc', label:'Customer testimonial or UGC' },
+  { id:'c_unbox', label:'Unboxing or first impressions' },
+  { id:'c_ingredient', label:'Ingredient breakdown or education' },
+  { id:'c_lifestyle', label:'Lifestyle / aesthetic content with product placement' },
+  { id:'c_duet', label:'Duet or stitch with another creator\'s content' },
+  { id:'c_greenscreen', label:'Green screen with text or images behind creator' },
+];
+
+// ===== DATA: CLAIMS =====
+const CLAIMS_OPTS = [
+  { id:'cl_regrow', label:'"Regrows hair" or "grows new hair"', risk:'H' },
+  { id:'cl_stoploss', label:'"Stops hair loss" or "prevents hair loss"', risk:'H' },
+  { id:'cl_clinical', label:'"Clinically proven" or "dermatologist recommended"', risk:'H' },
+  { id:'cl_ba', label:'Before and after results shown', risk:'M' },
+  { id:'cl_days', label:'"Works in X days/weeks"', risk:'H' },
+  { id:'cl_guaranteed', label:'"Guaranteed results"', risk:'H' },
+  { id:'cl_alopecia', label:'"Treats alopecia / thinning / bald spots"', risk:'H' },
+  { id:'cl_fda', label:'"FDA approved" or "FDA cleared"', risk:'H' },
+  { id:'cl_natural', label:'"Natural / organic / chemical-free"', risk:'L' },
+  { id:'cl_thicken', label:'"Thickens hair" or "adds density"', risk:'M' },
+  { id:'cl_follicle', label:'"Strengthens hair follicles"', risk:'M' },
+  { id:'cl_none', label:'None of the above — I used general cosmetic language only', risk:'' },
+  { id:'cl_unsure', label:"I'm not sure what triggered the violation", risk:'' },
+];
+
+// ===== DATA: EVIDENCE OPTIONS =====
+const EVIDENCE_OPTS = [
+  { id:'ev_coa', label:'Product ingredient list / Certificate of Analysis (CoA)' },
+  { id:'ev_safety', label:'Product safety data sheet' },
+  { id:'ev_lab', label:'Third-party lab test results' },
+  { id:'ev_auth', label:'Brand authorization letter' },
+  { id:'ev_reg', label:'Product registration or compliance documentation' },
+  { id:'ev_clinical', label:'Clinical study or trial results supporting claims' },
+  { id:'ev_fda', label:'FDA cosmetic registration (if applicable)' },
+  { id:'ev_derm', label:'Dermatologist or professional endorsement letter' },
+  { id:'ev_consent', label:'Customer consent for testimonial use' },
+  { id:'ev_original', label:'Original content proof (proving it\'s not stolen IP)' },
+  { id:'ev_notice', label:'Screenshot of the violation notice from TikTok' },
+  { id:'ev_prior', label:'Previous successful appeal for similar content' },
+];
+
+// ===== DATA: FILE CATEGORIES =====
+const FILE_CATS = [
+  'Screenshot of violation notice',
+  'Product ingredient list / label',
+  'Certificate of Analysis or lab report',
+  'Brand authorization letter',
+  'Before/after photo context (proving authenticity)',
+  'Customer consent form',
+  'Previous successful appeal screenshot',
+  'Product listing screenshot',
+  'Other supporting document',
+];
+
+// ===== DATA: CHECKLIST =====
+const CHECKLIST_ITEMS = [
+  'I have attached the violation notice screenshot',
+  'I have reviewed all claims in my appeal and confirmed they are accurate',
+  'I have included supporting documentation where available',
+  'I understand this appeal will be reviewed by TikTok\'s moderation team',
+  'I have NOT admitted to violating any policy in my appeal',
+];
+
+// ===== DATA: SCRIPT FLAGS =====
+const SCRIPT_FLAGS = [
+  { pattern:/\bregrow[s]?\b|\bgrow[s]? (new )?hair\b/gi, level:'r', phrase:'regrows/grows hair', alt:'try: "supports the appearance of fuller-looking hair"' },
+  { pattern:/\bstop[s]? hair loss\b|\bpreven[t]s? hair loss\b/gi, level:'r', phrase:'stops/prevents hair loss', alt:'try: "formulated with ingredients that support healthy hair"' },
+  { pattern:/\bclinically proven\b/gi, level:'r', phrase:'clinically proven', alt:'try: "contains ingredients studied in published research"' },
+  { pattern:/\bdermatologist[- ]recommended\b/gi, level:'r', phrase:'dermatologist recommended', alt:'try: "dermatologist-formulated" (only if true) or remove' },
+  { pattern:/\bguaranteed?\b/gi, level:'r', phrase:'guaranteed', alt:'try: "in my experience" or "I noticed"' },
+  { pattern:/\b(treat[s]?|cure[s]?|heal[s]?) (alopecia|hair loss|thinning|bald)\b/gi, level:'r', phrase:'treats/cures medical condition', alt:'try: "designed to support hair density appearance"' },
+  { pattern:/\bFDA[- ](approved|cleared|certified)\b/gi, level:'r', phrase:'FDA approved/cleared', alt:'Remove — cosmetics are not FDA approved. Say "compliant with cosmetic regulations" if needed' },
+  { pattern:/\bworks in \d+ (day|week|month)/gi, level:'r', phrase:'guaranteed timeline (works in X days)', alt:'try: "some users notice a difference within weeks — results vary"' },
+  { pattern:/\bbefore (and|&) after\b/gi, level:'y', phrase:'before and after', alt:'try: "my Day 1 vs Day 30 personal experience"' },
+  { pattern:/\bthicken[s]?\b|\badd[s]? density\b/gi, level:'y', phrase:'thickens/adds density', alt:'try: "I noticed my hair looks fuller" (first-person only)' },
+  { pattern:/\bstrengthen[s]? (hair )?follicle[s]?\b/gi, level:'y', phrase:'strengthens follicles', alt:'try: "Redensyl is known to support follicle health" (cite ingredient)' },
+  { pattern:/\bstop[s]? thinning\b|\breverse[s]? hair loss\b/gi, level:'r', phrase:'stops thinning/reverses hair loss', alt:'try: "I\'ve noticed my hair feels healthier with consistent use"' },
+  { pattern:/\b(100%|completely|totally) (effective|works|safe)\b/gi, level:'y', phrase:'absolute efficacy claim', alt:'Avoid absolutes — try "in my experience" or "I noticed"' },
+  { pattern:/\b(instant|immediate|overnight) results?\b/gi, level:'r', phrase:'instant/overnight results', alt:'Avoid — no cosmetic delivers instant results. Say "with consistent use over time"' },
+  { pattern:/\bnot medical advice\b/gi, level:'', phrase:'disclaimer present', alt:'✓ Good — keep this disclaimer visible' },
+  { pattern:/\bindividual results (may )?vary\b/gi, level:'', phrase:'results disclaimer', alt:'✓ Good — this protects you' },
+];
+
+// ===== DATA: TRANSLATIONS =====
+const T = {
+  en: {
+    tabBuilder:'Appeal Builder', tabChecker:'Script Checker', tabHistory:'My History',
+    step1Label:'Creator Info', step2Label:'Violation Type', step3Label:'Context',
+    step4Label:'Evidence', step5Label:'Generate',
+    s1Title:'Creator & Video Information', s1Sub:'Enter your details and the video that received the violation notice.',
+    s2Title:'Select Violation Type(s)', s2Sub:'Select all violation types shown on your TikTok notice. Tap a card to see what it means and how to address it.',
+    s3Title:'Content & Claims', s3Sub:'Tell us what was in your video. This helps build the strongest possible appeal.',
+    s3aTitle:'A. What did the video contain?', s3bTitle:'B. What language or claims were used?',
+    s3cTitle:'C. What evidence can you provide?', s3dTitle:'D. Your explanation',
+    s4Title:'Evidence & Documents', s4Sub:'Upload screenshots and documents to strengthen your appeal.',
+    s5Title:'Generate Your Appeal', s5Sub:'Review the summary below, then generate your professional appeal letter.',
+    checkerTitle:'Pre-Video Script Checker', checkerSub:'Paste your draft script below before posting. We\'ll flag language likely to trigger a TikTok violation.',
+    historyTitle:'My Violation History', historySub:'Track past violations and appeal outcomes.',
+    nextBtn:'Next: Violation Type →', checkBtn:'🔍 Check Script', generateBtn:'Generate Appeal Letter',
+  },
+  es: {
+    tabBuilder:'Crear Apelación', tabChecker:'Verificar Guión', tabHistory:'Mi Historial',
+    step1Label:'Creador', step2Label:'Tipo Violación', step3Label:'Contexto',
+    step4Label:'Evidencia', step5Label:'Generar',
+    s1Title:'Información del Creador y Video', s1Sub:'Ingresa tus datos y el video que recibió el aviso de violación.',
+    s2Title:'Seleccionar Tipo(s) de Violación', s2Sub:'Selecciona todos los tipos de violación que aparecen en tu aviso de TikTok.',
+    s3Title:'Contenido y Afirmaciones', s3Sub:'Cuéntanos qué había en tu video para construir la apelación más sólida posible.',
+    s3aTitle:'A. ¿Qué contenía el video?', s3bTitle:'B. ¿Qué lenguaje o afirmaciones se usaron?',
+    s3cTitle:'C. ¿Qué evidencia puedes proporcionar?', s3dTitle:'D. Tu explicación',
+    s4Title:'Evidencia y Documentos', s4Sub:'Sube capturas de pantalla y documentos para fortalecer tu apelación.',
+    s5Title:'Generar tu Apelación', s5Sub:'Revisa el resumen y genera tu carta de apelación profesional.',
+    checkerTitle:'Verificador de Guión', checkerSub:'Pega tu guión antes de publicar. Identificaremos lenguaje que podría generar una violación.',
+    historyTitle:'Mi Historial de Violaciones', historySub:'Registra violaciones pasadas y resultados de apelaciones.',
+    nextBtn:'Siguiente: Tipo de Violación →', checkBtn:'🔍 Verificar Guión', generateBtn:'Generar Carta de Apelación',
+  }
+};
+
+// ===== STATE =====
+let lang = localStorage.getItem('bb_lang') || 'en';
+let currentStep = 1;
+let uploadedFiles = [];
+let editMode = false;
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', () => {
+  applyLang();
+  renderViolationTypes();
+  renderCheckboxLists();
+  restoreAutoSave();
+  renderHistory();
+  checkApiHint();
+  // Set today's date as default for violation date
+  const today = new Date().toISOString().split('T')[0];
+  if (!document.getElementById('violation-date').value) {
+    document.getElementById('violation-date').value = today;
+  }
+});
+
+// ===== LANGUAGE =====
+function setLang(l) {
+  lang = l;
+  localStorage.setItem('bb_lang', l);
+  applyLang();
+}
+function applyLang() {
+  document.documentElement.lang = lang;
+  document.getElementById('lang-en').classList.toggle('active', lang==='en');
+  document.getElementById('lang-es').classList.toggle('active', lang==='es');
+  const t = T[lang];
+  document.querySelectorAll('[data-i]').forEach(el => {
+    const key = el.dataset.i;
+    if (t[key]) el.textContent = t[key];
+  });
+}
+
+// ===== DARK MODE =====
+function toggleDark() {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  document.getElementById('dark-btn').textContent = next === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('bb_theme', next);
+}
+(function(){
+  const saved = localStorage.getItem('bb_theme');
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme','dark');
+    document.getElementById('dark-btn').textContent = '☀️';
+  }
+})();
+
+// ===== TABS =====
+function showTab(name) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-pane-'+name).classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+  if (name === 'history') renderHistory();
+}
+
+// ===== STEP NAVIGATION =====
+function goStep(n) {
+  if (n > currentStep) {
+    if (!validateStep(currentStep)) return;
+  }
+  currentStep = n;
+  document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('step'+n).classList.add('active');
+  updateProgress(n);
+  if (n === 5) buildSummary();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function updateProgress(n) {
+  for (let i = 1; i <= 5; i++) {
+    const el = document.getElementById('ps'+i);
+    el.classList.remove('active','done');
+    if (i < n) el.classList.add('done');
+    else if (i === n) el.classList.add('active');
+    const circle = el.querySelector('.prog-circle');
+    if (i < n) circle.textContent = '✓';
+    else circle.textContent = i;
+  }
+}
+
+// ===== VALIDATION =====
+function validateStep(step) {
+  if (step === 1) {
+    let ok = true;
+    const handle = document.getElementById('handle').value.trim();
+    if (!handle || !handle.startsWith('@') || handle.length < 2) {
+      showErr('handle-err'); ok = false;
+    } else hideErr('handle-err');
+    const name = document.getElementById('fullname').value.trim();
+    if (!name) { showErr('fullname-err'); ok = false; } else hideErr('fullname-err');
+    const url = document.getElementById('video-url').value.trim();
+    if (!isValidTikTokUrl(url)) { showErr('video-url-err'); ok = false; } else hideErr('video-url-err');
+    const pd = document.getElementById('post-date').value;
+    if (!pd) { showErr('post-date-err'); ok = false; } else hideErr('post-date-err');
+    const vd = document.getElementById('violation-date').value;
+    if (!vd) { showErr('violation-date-err'); ok = false; } else hideErr('violation-date-err');
+    return ok;
+  }
+  if (step === 3) {
+    const exp = document.getElementById('explanation').value.trim();
+    if (exp.length < 50) { showErr('explanation-err'); return false; }
+    hideErr('explanation-err');
+  }
+  return true;
+}
+
+function isValidTikTokUrl(url) {
+  return /^https?:\/\/(www\.)?tiktok\.com\//.test(url) || /^https?:\/\/vm\.tiktok\.com\//.test(url) || url === '';
+}
+
+function validateHandle(input) {
+  if (input.value && !input.value.startsWith('@')) input.value = '@'+input.value.replace('@','');
+}
+function validateVideoUrl(input) {
+  if (input.value && !isValidTikTokUrl(input.value)) input.classList.add('err');
+  else input.classList.remove('err');
+}
+
+function showErr(id) { const e=document.getElementById(id); if(e){e.classList.add('show'); document.getElementById(id.replace('-err',''))?.classList.add('err');} }
+function hideErr(id) { const e=document.getElementById(id); if(e){e.classList.remove('show'); document.getElementById(id.replace('-err',''))?.classList.remove('err');} }
+
+// ===== RENDER VIOLATION TYPES =====
+function renderViolationTypes() {
+  const container = document.getElementById('vtype-container');
+  container.innerHTML = VTYPES.map(cat => `
+    <div class="vcat">
+      <div class="vcat-label">
+        <span style="background:${cat.color};color:#fff;" class="vcat-badge">${cat.cat}</span>
+      </div>
+      <div class="vtype-grid">
+        ${cat.items.map(item => `
+          <div class="vcard" id="vc_${item.id}" onclick="toggleVtype('${item.id}')">
+            <div class="vcard-row">
+              <div class="vcard-cb">✓</div>
+              <div class="vcard-name">${item.name}</div>
+            </div>
+            <div class="vcard-desc">${item.desc}</div>
+            <div class="vcard-tip">💡 <strong>Appeal tip:</strong> ${item.tip}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleVtype(id) {
+  const card = document.getElementById('vc_'+id);
+  card.classList.toggle('sel');
+  autoSave();
+}
+
+function getSelectedVtypes() {
+  return Array.from(document.querySelectorAll('.vcard.sel')).map(el => el.id.replace('vc_',''));
+}
+
+// ===== RENDER CHECKBOX LISTS =====
+function renderCheckboxLists() {
+  // 3A Content
+  document.getElementById('content-list').innerHTML = CONTENT_OPTS.map(o =>
+    `<div class="cb-item" id="co_${o.id}" onclick="toggleCb(this)">
+      <div class="cb-box">✓</div>
+      <div class="cb-text">${o.label}</div>
+    </div>`
+  ).join('');
+
+  // 3B Claims
+  document.getElementById('claims-list').innerHTML = CLAIMS_OPTS.map(o =>
+    `<div class="cb-item" id="co_${o.id}" onclick="toggleCb(this)">
+      <div class="cb-box">✓</div>
+      <div class="cb-text">${o.label}</div>
+      ${o.risk ? `<span class="risk-tag ${o.risk==='H'?'risk-h':o.risk==='M'?'risk-m':'risk-l'}">${o.risk==='H'?'HIGH RISK':o.risk==='M'?'MED':'LOW'}</span>` : ''}
+    </div>`
+  ).join('');
+
+  // 3C Evidence
+  document.getElementById('evidence-list').innerHTML = EVIDENCE_OPTS.map(o =>
+    `<div class="cb-item" id="co_${o.id}" onclick="toggleCb(this)">
+      <div class="cb-box">✓</div>
+      <div class="cb-text">${o.label}</div>
+    </div>`
+  ).join('');
+}
+
+function toggleCb(el) { el.classList.toggle('sel'); autoSave(); }
+
+function getSelected(ids) {
+  return ids.filter(id => document.getElementById('co_'+id)?.classList.contains('sel'));
+}
+
+// ===== EXPLANATION COUNTER =====
+function updateExplainCount() {
+  const len = document.getElementById('explanation').value.length;
+  const el = document.getElementById('explain-count');
+  el.textContent = `${len} chars${len < 50 ? ' — need '+(50-len)+' more' : ' ✓'}`;
+  el.className = 'char-badge ' + (len < 50 ? 'char-warn' : 'char-ok');
+}
+
+// ===== FILE UPLOAD =====
+function dragOver(e) { e.preventDefault(); document.getElementById('upload-zone').classList.add('over'); }
+function dragLeave(e) { document.getElementById('upload-zone').classList.remove('over'); }
+function dropFiles(e) {
+  e.preventDefault();
+  document.getElementById('upload-zone').classList.remove('over');
+  handleFiles(e.dataTransfer.files);
+}
+
+function handleFiles(files) {
+  const remaining = 10 - uploadedFiles.length;
+  const toAdd = Array.from(files).slice(0, remaining);
+  toAdd.forEach(file => {
+    if (file.size > 10*1024*1024) { showToast('File too large: '+file.name, 'error'); return; }
+    const reader = new FileReader();
+    reader.onload = e => {
+      uploadedFiles.push({ name:file.name, size:file.size, type:file.type, data:e.target.result, category:'', desc:'' });
+      renderFileList();
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderFileList() {
+  const list = document.getElementById('file-list');
+  list.innerHTML = uploadedFiles.map((f, i) => `
+    <div class="file-item" id="fi_${i}">
+      <div class="file-thumb">
+        ${f.type.startsWith('image/') ? `<img src="${f.data}" alt="${f.name}">` : f.type==='application/pdf' ? '📄' : '📎'}
+      </div>
+      <div class="file-meta">
+        <div class="file-name">${f.name}</div>
+        <div class="file-size">${(f.size/1024).toFixed(0)} KB</div>
+        <select class="file-select" onchange="setFileCat(${i},this.value)">
+          <option value="">— Select category —</option>
+          ${FILE_CATS.map(c=>`<option value="${c}" ${f.category===c?'selected':''}>${c}</option>`).join('')}
+        </select>
+        <input class="file-desc-input" type="text" placeholder="What does this document prove? (optional)" value="${f.desc}" oninput="setFileDesc(${i},this.value)">
+      </div>
+      <button class="file-remove" onclick="removeFile(${i})">×</button>
+    </div>
+  `).join('');
+}
+
+function removeFile(i) { uploadedFiles.splice(i,1); renderFileList(); }
+function setFileCat(i,v) { uploadedFiles[i].category = v; }
+function setFileDesc(i,v) { uploadedFiles[i].desc = v; }
+
+// ===== AUTO-SAVE =====
+function autoSave() {
+  const data = {
+    handle: document.getElementById('handle').value,
+    fullname: document.getElementById('fullname').value,
+    videoUrl: document.getElementById('video-url').value,
+    postDate: document.getElementById('post-date').value,
+    violationDate: document.getElementById('violation-date').value,
+    productName: document.getElementById('product-name').value,
+    shopName: document.getElementById('shop-name').value,
+    shopLink: document.getElementById('shop-link').value,
+    vtypes: getSelectedVtypes(),
+    content: CONTENT_OPTS.map(o=>o.id).filter(id=>document.getElementById('co_'+id)?.classList.contains('sel')),
+    claims: CLAIMS_OPTS.map(o=>o.id).filter(id=>document.getElementById('co_'+id)?.classList.contains('sel')),
+    evidence: EVIDENCE_OPTS.map(o=>o.id).filter(id=>document.getElementById('co_'+id)?.classList.contains('sel')),
+    explanation: document.getElementById('explanation').value,
+  };
+  localStorage.setItem('bb_autosave', JSON.stringify(data));
+}
+
+function restoreAutoSave() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('bb_autosave'));
+    if (!saved) return;
+    const fields = ['handle','fullname','videoUrl','postDate','violationDate','productName','shopName','shopLink','explanation'];
+    const ids = ['handle','fullname','video-url','post-date','violation-date','product-name','shop-name','shop-link','explanation'];
+    fields.forEach((f,i) => { if(saved[f]) document.getElementById(ids[i]).value = saved[f]; });
+    setTimeout(() => {
+      (saved.vtypes||[]).forEach(id => document.getElementById('vc_'+id)?.classList.add('sel'));
+      [...(saved.content||[]),...(saved.claims||[]),...(saved.evidence||[])].forEach(id => document.getElementById('co_'+id)?.classList.add('sel'));
+      updateExplainCount();
+    }, 50);
+  } catch(e) {}
+}
+
+// ===== BUILD SUMMARY =====
+function buildSummary() {
+  const handle = document.getElementById('handle').value || '(no handle)';
+  const name = document.getElementById('fullname').value || '(no name)';
+  const url = document.getElementById('video-url').value || '(no URL)';
+  const product = document.getElementById('product-name').value || 'Hair Growth Density Roll-On';
+  const vtypes = getSelectedVtypes();
+  const vtypeNames = vtypes.map(id => {
+    for (const cat of VTYPES) {
+      const item = cat.items.find(i=>i.id===id);
+      if (item) return item.name;
+    }
+    return id;
+  });
+  const claims = CLAIMS_OPTS.filter(o=>document.getElementById('co_'+o.id)?.classList.contains('sel')).map(o=>o.label);
+  const evidenceCount = EVIDENCE_OPTS.filter(o=>document.getElementById('co_'+o.id)?.classList.contains('sel')).length;
+
+  document.getElementById('summary-body').innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 24px">
+      <div><span style="color:var(--text3);font-size:12px">Creator</span><br><strong>${handle}</strong> (${name})</div>
+      <div><span style="color:var(--text3);font-size:12px">Product</span><br><strong>${product}</strong></div>
+      <div style="grid-column:span 2"><span style="color:var(--text3);font-size:12px">Video URL</span><br><a href="${url}" target="_blank" style="color:var(--blue1);word-break:break-all;font-size:13px">${url||'—'}</a></div>
+      <div style="grid-column:span 2"><span style="color:var(--text3);font-size:12px">Violation type(s) selected</span><br>
+        ${vtypeNames.length ? vtypeNames.map(n=>`<span style="display:inline-block;background:var(--blue6);color:var(--blue1);padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;margin:2px">${n}</span>`).join('') : '<span style="color:var(--text3)">None selected</span>'}
+      </div>
+      <div><span style="color:var(--text3);font-size:12px">Claims flagged</span><br>${claims.length} selected</div>
+      <div><span style="color:var(--text3);font-size:12px">Evidence available</span><br>${evidenceCount} item(s) + ${uploadedFiles.length} file(s)</div>
+    </div>
+  `;
+}
+
+// ===== APPEAL GENERATION =====
+async function generateAppeal() {
+  const btn = document.getElementById('generate-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner" style="width:18px;height:18px"></div> Generating...';
+
+  document.getElementById('appeal-output').style.display = 'block';
+  document.getElementById('appeal-body').innerHTML = '<div class="loading-state"><div class="spinner"></div><div>Building your appeal...</div></div>';
+
+  // Collect all data
+  const handle = document.getElementById('handle').value.trim();
+  const name = document.getElementById('fullname').value.trim();
+  const videoUrl = document.getElementById('video-url').value.trim();
+  const postDate = document.getElementById('post-date').value;
+  const violationDate = document.getElementById('violation-date').value;
+  const product = document.getElementById('product-name').value.trim() || 'Hair Growth Density Roll-On';
+  const shopName = document.getElementById('shop-name').value.trim();
+  const shopLink = document.getElementById('shop-link').value.trim();
+  const vtypes = getSelectedVtypes();
+  const content = CONTENT_OPTS.map(o=>o.id).filter(id=>document.getElementById('co_'+id)?.classList.contains('sel'));
+  const claims = CLAIMS_OPTS.map(o=>o.id).filter(id=>document.getElementById('co_'+id)?.classList.contains('sel'));
+  const evidence = EVIDENCE_OPTS.map(o=>o.id).filter(id=>document.getElementById('co_'+id)?.classList.contains('sel'));
+  const explanation = document.getElementById('explanation').value.trim();
+
+  const apiKey = localStorage.getItem('bb_api_key');
+  let letter = '';
+
+  try {
+    if (apiKey) {
+      letter = await generateWithAI({ handle, name, videoUrl, postDate, violationDate, product, shopName, shopLink, vtypes, content, claims, evidence, explanation, uploadedFiles }, apiKey);
+    } else {
+      letter = buildAppealLocal({ handle, name, videoUrl, postDate, violationDate, product, shopName, shopLink, vtypes, content, claims, evidence, explanation });
+    }
+  } catch(e) {
+    letter = buildAppealLocal({ handle, name, videoUrl, postDate, violationDate, product, shopName, shopLink, vtypes, content, claims, evidence, explanation });
+  }
+
+  document.getElementById('appeal-body').textContent = letter;
+  document.getElementById('appeal-edit').value = letter;
+  const charCount = letter.length;
+  document.getElementById('appeal-char-count').textContent = `${charCount} characters`;
+  document.getElementById('appeal-meta-line').textContent = `Generated ${new Date().toLocaleString()} · ${charCount} chars`;
+
+  renderChecklist();
+  btn.disabled = false;
+  btn.innerHTML = '<span>✨</span> <span>Regenerate</span>';
+  document.getElementById('appeal-output').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ===== LOCAL APPEAL BUILDER =====
+function buildAppealLocal(d) {
+  const { handle, name, videoUrl, postDate, violationDate, product, shopName, shopLink, vtypes, content, claims, evidence, explanation } = d;
+  const dateStr = new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+  const vNames = vtypes.map(id => {
+    for (const cat of VTYPES) { const item = cat.items.find(i=>i.id===id); if(item) return item.name; }
+    return id;
+  });
+
+  const hasHealth = vtypes.some(v => ['med_misleading','med_unsubstantiated','med_before_after','med_drug_device','com_misinfo','adv_exaggerated'].includes(v));
+  const hasBA = vtypes.includes('med_before_after') || claims.includes('cl_ba');
+  const hasAffiliate = vtypes.some(v => ['shop_affiliate','fmt_partnership','adv_unauthorized'].includes(v));
+  const hasListing = vtypes.includes('shop_mismatch');
+  const hasRestricted = vtypes.includes('shop_restricted');
+  const hasCopyright = vtypes.some(v => ['com_ip','fmt_copyright'].includes(v));
+
+  // Header
+  let letter = `Date: ${dateStr}\n`;
+  letter += `Re: Formal Appeal — Content Violation Notice\n`;
+  if (violationDate) letter += `Notice Date: ${violationDate}\n`;
+  if (videoUrl) letter += `Video URL: ${videoUrl}\n`;
+  letter += `Creator: ${handle || '@creator'}${name ? ' ('+name+')' : ''}\n`;
+  letter += `\nDear TikTok Trust & Safety Team,\n\n`;
+
+  // Introduction
+  letter += `I am writing to formally appeal the content violation notice issued against my TikTok account${handle?' '+handle:''} on ${violationDate || 'the date of notice'}. I respectfully submit that this notice was issued in error and request a thorough, good-faith review of the flagged content in its full context.\n\n`;
+
+  // Product description
+  letter += `The content in question promotes ${product}${shopName?' by '+shopName:''}, a cosmetic topical hair care product sold through TikTok Shop${shopLink?' ('+shopLink+')':''}. This product is formulated with Redensyl (a clinically studied compound targeting follicle stem cell activation), Anagain (derived from organic pea sprouts to support the hair growth cycle), Caffeine (a topical scalp stimulant), and Biotin (supporting keratin structure and hair strand strength). ${product} is classified as a cosmetic product — not a drug or medical device — under applicable regulatory frameworks and is a licensed, approved item on TikTok Shop.\n\n`;
+
+  // Claim clarification by violation type
+  if (hasHealth) {
+    letter += `Regarding health and efficacy claims: all language used in the flagged video was consistent with standard cosmetic product communication and in accordance with FTC guidelines distinguishing cosmetic products from drugs. `;
+
+    if (claims.includes('cl_regrow')) letter += `Any reference to hair growth was framed as the cosmetic product's ability to "support the appearance of fuller-looking hair through nourishment of the scalp and follicle area" — not as a guaranteed medical outcome or disease treatment. `;
+    if (claims.includes('cl_stoploss')) letter += `References to hair retention were framed as the product being "formulated with ingredients known to support healthy hair maintenance" — not as a claim to prevent or treat a medical condition such as alopecia or androgenic hair loss. `;
+    if (claims.includes('cl_clinical')) letter += `Any mention of ingredients being "studied" or "researched" referred to published scientific literature on the individual ingredients (Redensyl, Anagain) — not to a product-level clinical trial making therapeutic claims. `;
+    if (claims.includes('cl_alopecia')) letter += `The product was positioned as a cosmetic designed to support hair density appearance, with explicit acknowledgment that it is not intended to diagnose or treat any medical condition. `;
+    if (claims.includes('cl_thicken') || claims.includes('cl_follicle')) letter += `Descriptions such as "supports follicle health" or "hair looks fuller" were presented as first-person observations of cosmetic benefit — framed as personal experience, not clinical proof. `;
+    if (claims.includes('cl_days')) letter += `Any reference to a timeline was framed as a personal experience observation ("I began noticing a difference around week 4") with explicit acknowledgment that individual results may vary. `;
+    if (claims.includes('cl_none') || claims.includes('cl_unsure')) letter += `The video used general cosmetic language consistent with standard hair care content on TikTok — describing the product's application method, ingredients, and personal experience with use. No medical or therapeutic claims were made. `;
+
+    if (!claims.length || claims.every(c => ['cl_natural','cl_none','cl_unsure'].includes(c))) {
+      letter += `The video used general cosmetic language consistent with standard hair care content on TikTok. No medical or therapeutic claims were made. `;
+    }
+    letter += `\n\n`;
+  }
+
+  if (hasBA) {
+    letter += `Regarding before and after imagery: the content shown was a personal experience timeline documenting my own observations over a period of consistent product use with clearly noted timeframes. This format — showing a personal hair care journey over time — is distinct from a comparative medical claim or a guaranteed outcome presentation. The imagery was authentic, accompanied by first-person experiential language, and explicitly not presented as a guaranteed result for all users. The caption and/or video included the statement that "individual results may vary."\n\n`;
+  }
+
+  if (hasAffiliate) {
+    letter += `Regarding disclosure requirements: the content included the required branded content disclosure, the #ad hashtag in the caption, and TikTok Shop's affiliate tagging was properly configured at the time of posting. The partnership between the creator and ${shopName || 'the brand'} is fully authorized and properly disclosed in accordance with TikTok's creator partnership policies and FTC endorsement guidelines.\n\n`;
+  }
+
+  if (hasListing) {
+    letter += `Regarding the product listing mismatch concern: the video content directly corresponds to the linked TikTok Shop product — ${product}${shopLink?' available at '+shopLink:''}. The product demonstrated in the video is the exact product available for purchase through the linked listing. No discrepancy between the video content and the product listing exists.\n\n`;
+  }
+
+  if (hasRestricted) {
+    letter += `Regarding the restricted product concern: ${product} is a cosmetic hair care product that is legally sold on TikTok Shop as an approved listing. It is not a pharmaceutical, medical device, or prohibited product. I am attaching product registration and listing documentation to confirm the product's approved status on the platform.\n\n`;
+  }
+
+  if (hasCopyright) {
+    letter += `Regarding the intellectual property concern: all content in the video was original, created by me personally. Any music used was sourced from TikTok's licensed sound library. No third-party copyrighted materials were used without authorization.\n\n`;
+  }
+
+  // Creator explanation
+  if (explanation) {
+    letter += `Creator Statement: ${explanation}\n\n`;
+  }
+
+  // Evidence summary
+  const evidenceLabels = {
+    ev_coa: 'Certificate of Analysis / product ingredient list',
+    ev_safety: 'Product safety data sheet',
+    ev_lab: 'Third-party lab test results',
+    ev_auth: 'Brand authorization letter',
+    ev_reg: 'Product registration / compliance documentation',
+    ev_clinical: 'Published clinical or research studies on key ingredients',
+    ev_fda: 'FDA cosmetic registration documentation',
+    ev_derm: 'Dermatologist or professional endorsement letter',
+    ev_consent: 'Customer consent form for testimonial use',
+    ev_original: 'Original content proof',
+    ev_notice: 'Screenshot of the violation notice from TikTok',
+    ev_prior: 'Previous successful appeal for similar content',
+  };
+  const evItems = evidence.filter(id => evidenceLabels[id]);
+  const fileItems = uploadedFiles.filter(f => f.category).map(f => f.category + (f.desc ? ' ('+f.desc+')' : ''));
+  const allEvidence = [...evItems.map(id=>evidenceLabels[id]), ...fileItems];
+
+  if (allEvidence.length > 0) {
+    letter += `In support of this appeal, I am providing the following documentation:\n`;
+    allEvidence.forEach(e => letter += `  • ${e}\n`);
+    letter += `\n`;
+  }
+
+  // Policy alignment
+  letter += `I am fully aware of and operate in accordance with TikTok's Community Guidelines — Integrity and Authenticity; TikTok Shop Seller and Creator Policies regarding Prohibited and Restricted Products; TikTok Advertising Policies for Health and Beauty Claims; and FTC guidelines distinguishing cosmetic claims from drug claims. This content was created with these policies in mind, and I firmly believe it is compliant upon careful and thorough review.\n\n`;
+
+  // Closing
+  letter += `I respectfully request that TikTok's moderation team conduct a thorough review of the full video in context, taking into consideration the evidence provided and the cosmetic nature of the product being promoted. I respectfully ask that the content be reinstated to active status. I am committed to working collaboratively within TikTok's guidelines and welcome any specific guidance that would help ensure continued compliance.\n\n`;
+  letter += `Thank you sincerely for your time and consideration.\n\n`;
+  letter += `Respectfully,\n${name || 'Creator Name'}\n${handle || '@handle'}`;
+  if (shopName) letter += `\nAffiliate/Creator: ${shopName}`;
+
+  return letter;
+}
+
+// ===== AI GENERATION (optional) =====
+async function generateWithAI(d, apiKey) {
+  const prompt = buildAIPrompt(d);
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1500,
+      messages: [{ role:'user', content: prompt }]
+    })
+  });
+  if (!res.ok) throw new Error('API error');
+  const data = await res.json();
+  return data.content[0].text;
+}
+
+function buildAIPrompt(d) {
+  const vNames = d.vtypes.map(id => {
+    for (const cat of VTYPES) { const item = cat.items.find(i=>i.id===id); if(item) return item.name; }
+    return id;
+  });
+  const claimNames = CLAIMS_OPTS.filter(o=>d.claims.includes(o.id)).map(o=>o.label);
+  const evNames = EVIDENCE_OPTS.filter(o=>d.evidence.includes(o.id)).map(o=>o.label);
+  return `Write a professional TikTok content violation appeal letter for the following creator. The letter must be formal, respectful, non-confrontational, and structured with these sections: Introduction, Product Description, Claim Clarification, Evidence Summary, Policy Alignment, Closing Request.
+
+CREATOR DETAILS:
+- Handle: ${d.handle}
+- Name: ${d.name}
+- Product: ${d.product}
+- Shop: ${d.shopName || 'N/A'}
+- Video URL: ${d.videoUrl}
+- Violation date: ${d.violationDate}
+
+VIOLATION TYPE(S): ${vNames.join(', ')}
+
+VIDEO CONTENT: ${CONTENT_OPTS.filter(o=>d.content.includes(o.id)).map(o=>o.label).join(', ')}
+
+CLAIMS/LANGUAGE USED: ${claimNames.join(', ')||'General cosmetic language only'}
+
+EVIDENCE AVAILABLE: ${evNames.join(', ')||'None specified'}
+
+CREATOR EXPLANATION: "${d.explanation}"
+
+PRODUCT FACTS:
+- BeBodywise Hair Growth Density Roll-On is a COSMETIC topical product (not a drug or medical device)
+- Key ingredients: Redensyl (follicle stem cell activation), Anagain (pea sprout, hair cycle support), Caffeine (scalp stimulant), Biotin (keratin/strength)
+- Sold on TikTok Shop as an approved product
+
+REFRAMING RULES (apply these automatically):
+- "Regrows hair" → "supports the appearance of fuller-looking hair through cosmetic nourishment"
+- "Stops hair loss" → "formulated with ingredients known to support healthy hair maintenance"
+- "Clinically proven" → "contains ingredients studied in published research for cosmetic hair care benefits"
+- "Before and after" → "personal experience timeline showing results of consistent use — not guaranteed outcomes"
+- "Treats alopecia" → "designed as a cosmetic to support hair density appearance — not intended to diagnose or treat any medical condition"
+
+POLICY CITATIONS TO INCLUDE:
+- TikTok Community Guidelines — Integrity and Authenticity
+- TikTok Shop Seller/Creator Policies — Prohibited and Restricted Products
+- TikTok Advertising Policies — Health and Beauty Claims
+- FTC guidelines on cosmetic vs. drug claims
+
+The appeal must NEVER admit fault or agree the violation was correct — only reframe and clarify. Output only the appeal letter text, no preamble.`;
+}
+
+// ===== APPEAL OUTPUT ACTIONS =====
+function copyAppeal() {
+  const text = document.getElementById('appeal-body').textContent;
+  navigator.clipboard.writeText(text).then(() => showToast('Copied to clipboard!', 'success'));
+}
+
+function downloadTxt() {
+  const text = document.getElementById('appeal-body').textContent;
+  const handle = document.getElementById('handle').value || 'creator';
+  const blob = new Blob([text], {type:'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `tiktok-appeal-${handle.replace('@','')}-${new Date().toISOString().split('T')[0]}.txt`;
+  a.click();
+}
+
+function printAppeal() {
+  document.querySelector('.appeal-body').style.display = 'block';
+  document.querySelector('.appeal-edit').style.display = 'none';
+  window.print();
+}
+
+function toggleEdit() {
+  editMode = !editMode;
+  const body = document.getElementById('appeal-body');
+  const edit = document.getElementById('appeal-edit');
+  if (editMode) {
+    edit.value = body.textContent;
+    body.style.display = 'none';
+    edit.style.display = 'block';
+    edit.focus();
+  } else {
+    body.textContent = edit.value;
+    body.style.display = 'block';
+    edit.style.display = 'none';
+    document.getElementById('appeal-char-count').textContent = edit.value.length + ' characters';
+  }
+}
+
+function syncEdit() {
+  document.getElementById('appeal-char-count').textContent = document.getElementById('appeal-edit').value.length + ' characters';
+}
+
+// ===== CHECKLIST =====
+function renderChecklist() {
+  document.getElementById('checklist-items').innerHTML = CHECKLIST_ITEMS.map((item,i) => `
+    <div class="cl-item">
+      <div class="cl-box" id="cl_${i}" onclick="toggleCheck(${i})">✓</div>
+      <div class="cl-label">${item}</div>
+    </div>
+  `).join('');
+}
+
+function toggleCheck(i) {
+  document.getElementById('cl_'+i).classList.toggle('done');
+}
+
+// ===== SAVE TO HISTORY =====
+function saveToHistory() {
+  const handle = document.getElementById('handle').value || '@unknown';
+  const vtypes = getSelectedVtypes();
+  const vName = vtypes.length ? (() => {
+    for (const cat of VTYPES) { const item = cat.items.find(i=>i.id===vtypes[0]); if(item) return item.name; }
+    return vtypes[0];
+  })() : 'Unknown violation';
+  const letter = editMode ? document.getElementById('appeal-edit').value : document.getElementById('appeal-body').textContent;
+  const history = JSON.parse(localStorage.getItem('bb_history') || '[]');
+  history.unshift({
+    id: Date.now(),
+    handle, vName, vtypes,
+    videoUrl: document.getElementById('video-url').value,
+    violationDate: document.getElementById('violation-date').value,
+    createdAt: new Date().toISOString(),
+    status: 'pending',
+    letter,
+  });
+  localStorage.setItem('bb_history', JSON.stringify(history));
+  showToast('Saved to history!', 'success');
+  renderHistory();
+}
+
+// ===== HISTORY =====
+function renderHistory() {
+  const history = JSON.parse(localStorage.getItem('bb_history') || '[]');
+  const area = document.getElementById('history-area');
+  const insightArea = document.getElementById('insight-area');
+
+  if (!area) return;
+
+  // Insight: check for repeated violation type
+  const counts = {};
+  history.forEach(h => (h.vtypes||[]).forEach(v => counts[v] = (counts[v]||0)+1));
+  const repeated = Object.entries(counts).filter(([,n])=>n>=3).map(([id,n])=>{
+    for (const cat of VTYPES) { const item = cat.items.find(i=>i.id===id); if(item) return {name:item.name, n}; }
+    return null;
+  }).filter(Boolean);
+
+  if (insightArea) {
+    insightArea.innerHTML = repeated.map(r => `
+      <div class="insight-box">
+        <span>💡</span>
+        <span>You've been flagged <strong>${r.n} times</strong> for <strong>${r.name}</strong>. Consider reviewing your standard script language and reframing with cosmetic-only terminology before your next post.</span>
+      </div>
+    `).join('');
+  }
+
+  if (!history.length) {
+    area.innerHTML = `<div class="history-empty"><div class="history-empty-icon">📋</div><div style="font-size:16px;font-weight:700;color:var(--text2)">No saved appeals yet</div><div style="font-size:13px;margin-top:6px">After generating an appeal, click "Save to History" to track outcomes here.</div></div>`;
+    return;
+  }
+
+  area.innerHTML = `<div class="history-list">${history.map(h => `
+    <div class="hcard" id="hcard_${h.id}">
+      <div class="hcard-icon ${h.status==='won'?'won':h.status==='lost'?'lost':'pending'}">
+        ${h.status==='won'?'✅':h.status==='lost'?'❌':'⏳'}
+      </div>
+      <div class="hcard-info">
+        <div class="hcard-title">${h.vName} — ${h.handle}</div>
+        <div class="hcard-meta">
+          <span>${new Date(h.createdAt).toLocaleDateString()}</span>
+          ${h.violationDate?`<span>Violation: ${h.violationDate}</span>`:''}
+          <span style="text-transform:capitalize;font-weight:600;color:${h.status==='won'?'var(--green)':h.status==='lost'?'var(--red)':'var(--yellow)'}">${h.status}</span>
+        </div>
+      </div>
+      <div class="hcard-actions">
+        <select class="btn btn-secondary btn-sm" style="padding:5px 8px" onchange="updateHistoryStatus(${h.id},this.value)">
+          <option value="pending" ${h.status==='pending'?'selected':''}>⏳ Pending</option>
+          <option value="won" ${h.status==='won'?'selected':''}>✅ Won</option>
+          <option value="lost" ${h.status==='lost'?'selected':''}>❌ Lost</option>
+        </select>
+        <button class="btn btn-secondary btn-sm" onclick="viewHistoryLetter(${h.id})">View</button>
+        <button class="btn btn-sm" style="background:#FEE2E2;color:#DC2626" onclick="deleteHistory(${h.id})">×</button>
+      </div>
+    </div>
+  `).join('')}</div>`;
+}
+
+function updateHistoryStatus(id, status) {
+  const history = JSON.parse(localStorage.getItem('bb_history') || '[]');
+  const item = history.find(h=>h.id===id);
+  if (item) { item.status = status; localStorage.setItem('bb_history', JSON.stringify(history)); renderHistory(); }
+}
+
+function viewHistoryLetter(id) {
+  const history = JSON.parse(localStorage.getItem('bb_history') || '[]');
+  const item = history.find(h=>h.id===id);
+  if (!item) return;
+  const win = window.open('','_blank');
+  win.document.write(`<html><body style="font-family:Georgia,serif;max-width:700px;margin:40px auto;padding:20px;line-height:1.8;white-space:pre-wrap">${item.letter}</body></html>`);
+  win.document.close();
+}
+
+function deleteHistory(id) {
+  const history = JSON.parse(localStorage.getItem('bb_history') || '[]');
+  localStorage.setItem('bb_history', JSON.stringify(history.filter(h=>h.id!==id)));
+  renderHistory();
+}
+
+function clearHistory() {
+  if (confirm('Clear all saved history? This cannot be undone.')) {
+    localStorage.removeItem('bb_history');
+    renderHistory();
+  }
+}
+
+// ===== SCRIPT CHECKER =====
+function checkScript() {
+  const script = document.getElementById('script-input').value.trim();
+  if (!script) { showToast('Paste a script first', 'error'); return; }
+
+  const resultArea = document.getElementById('script-result-area');
+  let highlighted = script;
+  const flags = [];
+  let redCount = 0, yellowCount = 0;
+
+  // Process flags (longest match first to avoid double-marking)
+  SCRIPT_FLAGS.forEach(f => {
+    if (!f.level) return; // skip positive patterns
+    const matches = [];
+    let m;
+    const re = new RegExp(f.pattern.source, 'gi');
+    while ((m = re.exec(script)) !== null) {
+      matches.push(m[0]);
+    }
+    if (matches.length) {
+      if (f.level === 'r') redCount += matches.length;
+      else if (f.level === 'y') yellowCount += matches.length;
+      flags.push({ ...f, matches });
+    }
+  });
+
+  // Build highlighted HTML
+  let hlHtml = script;
+  SCRIPT_FLAGS.forEach(f => {
+    if (!f.level) return;
+    const cls = f.level === 'r' ? 'hl-r' : 'hl-y';
+    const title = f.alt;
+    hlHtml = hlHtml.replace(new RegExp(f.pattern.source, 'gi'), match =>
+      `<span class="${cls}" title="${title}">${match}</span>`
+    );
+  });
+
+  const riskLevel = redCount > 0 ? 'HIGH RISK' : yellowCount > 0 ? 'MODERATE RISK' : 'LOOKS SAFE';
+  const riskClass = redCount > 0 ? 'rpill-r' : yellowCount > 0 ? 'rpill-y' : 'rpill-g';
+
+  resultArea.innerHTML = `
+    <div class="script-result">
+      <div class="script-result-header">
+        Script Analysis
+        <div class="risk-pills">
+          <span class="rpill ${riskClass}">${riskLevel}</span>
+          ${redCount ? `<span class="rpill rpill-r">${redCount} high-risk phrase${redCount>1?'s':''}</span>` : ''}
+          ${yellowCount ? `<span class="rpill rpill-y">${yellowCount} caution phrase${yellowCount>1?'s':''}</span>` : ''}
+        </div>
+      </div>
+      <div class="script-highlighted">${hlHtml}</div>
+      ${flags.length ? `<div class="flag-list">
+        ${flags.map(f => `
+          <div class="flag-item ${f.level==='r'?'flag-r':'flag-y'}">
+            <div class="flag-icon">${f.level==='r'?'🚫':'⚠️'}</div>
+            <div>
+              <div class="flag-phrase">"${f.matches[0]}"</div>
+              <div class="flag-alt">→ ${f.alt}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>` : '<div style="padding:16px;font-size:13px;color:var(--green);font-weight:600">✅ No risky phrases detected — script looks compliant!</div>'}
+    </div>
+  `;
+}
+
+function clearScript() {
+  document.getElementById('script-input').value = '';
+  document.getElementById('script-result-area').innerHTML = '';
+}
+
+// ===== SETTINGS =====
+function openSettings() {
+  document.getElementById('api-key-input').value = localStorage.getItem('bb_api_key') || '';
+  document.getElementById('settings-modal').classList.add('open');
+}
+function closeSettings() { document.getElementById('settings-modal').classList.remove('open'); }
+function saveSettings() {
+  const key = document.getElementById('api-key-input').value.trim();
+  if (key) localStorage.setItem('bb_api_key', key);
+  else localStorage.removeItem('bb_api_key');
+  closeSettings();
+  checkApiHint();
+  showToast('Settings saved!', 'success');
+}
+function checkApiHint() {
+  const hint = document.getElementById('api-hint');
+  if (hint) hint.style.display = localStorage.getItem('bb_api_key') ? 'flex' : 'none';
+}
+
+// ===== TOAST =====
+function showToast(msg, type='') {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.className = 'toast ' + type;
+  void toast.offsetWidth;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+</script>
+</body>
+</html>
